@@ -7,7 +7,6 @@ The full search, including the candidates we cut, is in [the candidate list](../
 
 <!-- TODO(team): replace BOARD_LINK below with the view-only Miro/Figma board URL once it exists, and add frame names per ALT-nn. -->
 
-
 ## Properties
 
 We fixed these seven properties before evaluating any product.
