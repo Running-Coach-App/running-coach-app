@@ -4,8 +4,6 @@ The wide search behind [the alternatives](../../docs/research/alternatives.md), 
 Searched on 2026-09-29 through review sites, "alternatives to" pages, app help centers, and GitHub.
 Problem space: see the top of [the alternatives](../../docs/research/alternatives.md).
 
-<!-- TODO(team): add the candidates the two people outside the team suggested (guide: "ask two people outside your team"), with who asked (by role, not name). -->
-
 | # | Candidate | Kind | URL | Why it might be relevant | Decision |
 | --- | --- | --- | --- | --- | --- |
 | 1 | Runna | Direct competitor | <https://www.runna.com/> | Subscription app with adaptive plans that react to skipped runs and speed sessions. | **Kept as ALT-01.** The product a phone-only runner would pick today. |
