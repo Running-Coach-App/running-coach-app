@@ -1,0 +1,38 @@
+name: Task
+description: One unit of work. One pull request closes exactly this issue.
+title: ""
+labels:
+  - task
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What the work is, in a sentence or two. A short imperative title works for the branch too.
+    validations:
+      required: true
+
+  - type: textarea
+    id: story
+    attributes:
+      label: Story
+      description: >-
+        Optional. One bullet per story issue this task works toward, optionally followed by the story's
+        AC-nn in parentheses. Leave empty for work that is not on a story - a workflow, a report, the
+        issue forms themselves.
+      value: "- #"
+    validations:
+      required: false
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance criteria
+      description: >-
+        At least one, observable and pass/fail, each with its own AC-nn numbered within this task.
+        The reviewer ticks each box before approving the pull request.
+      value: |-
+        - [ ] AC-01:
+        - [ ] AC-02:
+    validations:
+      required: true

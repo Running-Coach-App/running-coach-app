@@ -2,13 +2,13 @@
 
 ## Context
 
-The 2 October kickoff changed the direction we took into the room. The customer asked for a voice coach during the run, for a beginner to intermediate runner, phone first. That is [VP-01](../../docs/research/value-proposition.md#vp-01-a-voice-coach-during-the-run). [VP-02](../../docs/research/value-proposition.md#vp-02-two-preset-sessions-after-the-voice-coach) is two preset sessions after that. The record is the [meeting report](meeting-report.md).
+The 2 October kickoff changed the direction we took into the room. The customer asked for a voice coach during the run, for a beginner to intermediate runner, phone first. That is [VP-01](../../docs/research/value-proposition.md#vp-01). [VP-02](../../docs/research/value-proposition.md#vp-02) is two preset sessions after that. The record is the [meeting report](meeting-report.md).
 
 The questions below are the script we took in, and they are unchanged.
 
 Our problem-space sentence going in: a recreational runner training for a 5K to half-marathon race, often without a sports watch, needs a training plan that changes when their real runs differ from the plan and tells them why it changed, so they can trust it enough to keep following it.
 
-We believed the strongest gap was that no alternative tells the runner why the plan changed ([GAP-01](../../docs/research/gap-analysis.md#gap-01-the-runner-is-not-told-why-the-plan-changed)), and that phone-only and walk/run runners get no adaptation from how their runs went ([GAP-02](../../docs/research/gap-analysis.md#gap-02-no-adaptation-from-how-a-phone-recorded-run-actually-went)).
+We believed the strongest gap was that no alternative tells the runner why the plan changed ([GAP-01](../../docs/research/gap-analysis.md#gap-01)), and that phone-only and walk/run runners get no adaptation from how their runs went ([GAP-02](../../docs/research/gap-analysis.md#gap-02)).
 We went in expecting a plan that explains its changes, then phone-only adaptation, from a rule-based engine. The kickoff did not confirm the first.
 
 Before the meeting we had not checked the target runner, whether phone-only was acceptable, or whether a rule-based engine was. The kickoff settled the first two. The engine question was not asked.
@@ -54,9 +54,7 @@ Ezekiel-Gadzama interviews, Sirjaey takes notes, Obetech1 observes and records w
 
 **"Would you use an app that explains why your plan changed?" -> "The last time an app or a plan changed a workout on you, what did you do: follow it, ignore it, or change it back? Why?" (question 7)**
 
-
 **"Is adaptation important to you?" -> "When a run went worse than planned, what did you do with the next session, and who decided?" (question 6)**
-
 
 **"Do you want the app to work without a watch?" -> "Think of a runner you know who would use this. What do they run, how often, and what do they record it with?" (question 3)**
 
@@ -97,4 +95,4 @@ directly — the divergence recorded in the [meeting report](meeting-report.md) 
 he volunteered.
 
 Carry the three missed starred questions (3, 7, 10) and question 11 into the next
-meeting, and present [VP-01](../../docs/research/value-proposition.md#vp-01-a-voice-coach-during-the-run) before asking anything.
+meeting, and present [VP-01](../../docs/research/value-proposition.md#vp-01) before asking anything.

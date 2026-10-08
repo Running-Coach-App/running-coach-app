@@ -1,0 +1,101 @@
+name: User story
+description: One thing a user needs, with its value proposition, its origins, and criteria someone else can run.
+title: "US-"
+labels:
+  - user-story
+body:
+  - type: textarea
+    id: story
+    attributes:
+      label: Story
+      description: >-
+        As a <user>, I want <need>, so that <outcome>. A need, not a solution:
+        no screen, button, component, or library in this line.
+      placeholder: >-
+        As a runner with the phone in my pocket, I want to start and stop a session without taking the phone
+        out, so that I am not holding or reading a screen while I run.
+    validations:
+      required: true
+
+  - type: input
+    id: value-proposition
+    attributes:
+      label: Value proposition
+      description: >-
+        Exactly one VP-nn this story supports. URL pattern:
+        https://github.com/Running-Coach-App/running-coach-app/blob/main/docs/research/value-proposition.md#vp-01
+      placeholder: VP-01
+    validations:
+      required: true
+
+  - type: textarea
+    id: traces-to
+    attributes:
+      label: Traces to
+      description: >-
+        Optional. One origin per line: a GAP-nn the story's VP-nn closes, a DEC-nnn, or an action point
+        cited by its report's path and #action-points anchor with the action quoted. Not for assumptions -
+        those go in Rests on.
+      placeholder: |-
+        GAP-02
+        DEC-002
+    validations:
+      required: false
+
+  - type: textarea
+    id: rests-on
+    attributes:
+      label: Rests on
+      description: >-
+        Optional. One ASM-nn per line, each the assumption this story would be wrong about if it turned
+        out false. URL pattern:
+        https://github.com/Running-Coach-App/running-coach-app/blob/main/docs/assumptions.md#asm-02
+      placeholder: |-
+        ASM-02
+        ASM-04
+    validations:
+      required: false
+
+  - type: input
+    id: priority-reason
+    attributes:
+      label: Priority reason
+      description: >-
+        Why this priority and not the one above or below it, citing the CON-nn that drives it where one
+        does. Restating the definition of the label is not a reason.
+      placeholder: >-
+        Must Have: without it there is no run at all, so nothing else in the candidate can be exercised.
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance criteria
+      description: >-
+        Optional. At least two for anything that is not Won't Have, each observable and pass/fail, each
+        starting with its own AC-nn. Somebody other than you runs it and gets the same answer.
+      value: |-
+        1. AC-01:
+        2. AC-02:
+    validations:
+      required: false
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Optional. Anything a contributor needs to know without leaving the issue.
+    validations:
+      required: false
+
+  - type: textarea
+    id: tasks
+    attributes:
+      label: Tasks
+      description: >-
+        Optional. One task issue per line, as - #12, so GitHub renders each task's title and state.
+        Closing the last task does not close this story.
+      placeholder: "- #12"
+    validations:
+      required: false

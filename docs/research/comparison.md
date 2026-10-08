@@ -1,7 +1,7 @@
 # Comparison
 
 Rows are the properties fixed in [the alternatives](alternatives.md#properties) before any product was evaluated.
-Columns are [ALT-01 Runna](alternatives.md#alt-01-runna), [ALT-02 Garmin Coach](alternatives.md#alt-02-garmin-coach-run-coach-and-expert-running-plans), [ALT-03 Hal Higdon](alternatives.md#alt-03-hal-higdon-plans-free-static-plans-and-the-run-with-hal-app), and [ALT-04 GoldenCheetah](alternatives.md#alt-04-goldencheetah).
+Columns are [ALT-01 Runna](alternatives.md#alt-01), [ALT-02 Garmin Coach](alternatives.md#alt-02), [ALT-03 Hal Higdon](alternatives.md#alt-03), and [ALT-04 GoldenCheetah](alternatives.md#alt-04).
 
 Each cell is written as **Observed:** what the source says, followed by **Reading:** what we conclude from it for the runner in our problem-space sentence.
 The reading is ours and can be disputed; the observation can be checked in the cited `ALT-nn` section.
@@ -25,13 +25,13 @@ Each one is either a gap in [the gap analysis](gap-analysis.md) or a rejected ca
 
 1. **C1. Explaining a change is rare.**
    Row P2: only ALT-01 documents it, and only for speed-session pace changes.
-   Became [GAP-01](gap-analysis.md#gap-01-the-runner-is-not-told-why-the-plan-changed).
+   Became [GAP-01](gap-analysis.md#gap-01).
 2. **C2. Adaptation is tied either to specific hardware or to attendance only.**
    Rows P1 and P3: ALT-02 adapts from rich signals but needs a Garmin watch; ALT-01 and ALT-03 adapt to skipped runs, not to how a completed run went; ALT-01 excludes walk/run from pace adaptation.
-   Became [GAP-02](gap-analysis.md#gap-02-no-adaptation-from-how-a-phone-recorded-run-actually-went).
+   Became [GAP-02](gap-analysis.md#gap-02).
 3. **C3. Where load is measured, it does not visibly change the plan.**
    Row P7: ALT-02 and ALT-04 both compute an acute/chronic load model, and neither documents it changing the plan.
-   Became [GAP-03](gap-analysis.md#gap-03-training-load-is-measured-but-not-connected-to-the-plan).
+   Became [GAP-03](gap-analysis.md#gap-03).
 4. **C4. The closed coaching apps are the least portable.**
    Row P6: ALT-01 has no documented export; ALT-04 is fully portable.
    Rejected, see [gaps we chose not to pursue](gap-analysis.md#gaps-we-chose-not-to-pursue).

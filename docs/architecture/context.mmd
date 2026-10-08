@@ -1,0 +1,15 @@
+flowchart LR
+    subgraph boundary["Boundary of the product"]
+        product["Running Coach<br/>runs on the Android phone"]
+    end
+
+    runner(("Runner"))
+    headphones["Headphones"]
+    sensors["Phone sensors<br/>GPS, accelerometer, microphone"]
+    wearable["Wearable watch<br/>optional"]
+
+    runner -->|"starts, stops, and chooses a session"| product
+    sensors -->|"pace, distance, elapsed time"| product
+    wearable -->|"heart rate, only when connected"| product
+    product -->|"spoken encouragement, intensity cue, and stats"| headphones
+    headphones -->|"audio"| runner

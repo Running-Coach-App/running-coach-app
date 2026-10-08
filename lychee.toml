@@ -1,0 +1,4 @@
+# Link-check configuration.
+
+# The ITPD course materials, a submodule that the course repository checks.
+exclude_path = ['^(\./)?\.claude/skills/itpd/']

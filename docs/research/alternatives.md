@@ -14,24 +14,26 @@ A view-only board with two screenshots per alternative is not linked. The observ
 We fixed these seven properties before evaluating any product.
 Each is written as a question a runner in the problem space would ask.
 
-| ID  | Property          | The question behind it                                                                                         |
-| --- | ----------------- | -------------------------------------------------------------------------------------------------------------- |
-| P1  | Plan adaptation   | When my run goes differently from the plan (missed, shorter, slower, faster), does the plan change, and what triggers it? |
-| P2  | Explainability    | When the plan changes, am I told why, in terms I can check?                                                    |
-| P3  | Input requirements | What must I own or record for the product to work: a specific watch, heart rate, phone GPS, or manual entry?   |
-| P4  | Onboarding        | What do I have to answer and do before my first planned workout?                                               |
-| P5  | Cost model        | What is free, what is paid, and what do I lose if I stop paying?                                               |
-| P6  | Data portability  | Can I take my runs and my plan somewhere else (FIT, GPX, CSV, API)?                                            |
-| P7  | Load and recovery | Does the product measure training load or fatigue, and does that measurement change the plan?                  |
+| ID | Property           | The question behind it                                                                                                    |
+| -- | ------------------ | ------------------------------------------------------------------------------------------------------------------------- |
+| P1 | Plan adaptation    | When my run goes differently from the plan (missed, shorter, slower, faster), does the plan change, and what triggers it? |
+| P2 | Explainability     | When the plan changes, am I told why, in terms I can check?                                                               |
+| P3 | Input requirements | What must I own or record for the product to work: a specific watch, heart rate, phone GPS, or manual entry?              |
+| P4 | Onboarding         | What do I have to answer and do before my first planned workout?                                                          |
+| P5 | Cost model         | What is free, what is paid, and what do I lose if I stop paying?                                                          |
+| P6 | Data portability   | Can I take my runs and my plan somewhere else (FIT, GPX, CSV, API)?                                                       |
+| P7 | Load and recovery  | Does the product measure training load or fatigue, and does that measurement change the plan?                             |
 
-## ALT-01: Runna
+## ALT-01
 
-**Kind:** direct competitor.
-**Link:** <https://www.runna.com/>
-**Version looked at:** help-center articles and pricing page as published on 2026-09-29.
-**Depth of evaluation:** read the official help center (plan creation, skipping, realignment, Pace Insights, recovery, subscription, account deletion) and the pricing page. Did not use the app hands-on in this pass.
+Runna
 
-**Problem it solves:** gives a runner a structured, subscription-based plan toward a race or distance goal, which adjusts when sessions are skipped and suggests new paces from speed sessions.
+- **Status:** Active
+- **Kind:** direct competitor.
+- **Link:** <https://www.runna.com/>
+- **Version looked at:** help-center articles and pricing page as published on 2026-09-29.
+- **Depth of evaluation:** read the official help center (plan creation, skipping, realignment, Pace Insights, recovery, subscription, account deletion) and the pricing page. Did not use the app hands-on in this pass.
+- **Problem it solves:** gives a runner a structured, subscription-based plan toward a race or distance goal, which adjusts when sessions are skipped and suggests new paces from speed sessions.
 
 **Observations by property**
 
@@ -59,14 +61,16 @@ Each is written as a question a runner in the problem space would ask.
 
 **Could not find out:** the logic behind skip-driven recalibration, and how long onboarding takes.
 
-## ALT-02: Garmin Coach (Run Coach and Expert Running Plans)
+## ALT-02
 
-**Kind:** direct competitor, bound to Garmin hardware.
-**Link:** <https://support.garmin.com/en-US/?faq=IkvWNeIoSd48GIYCjkhlo7>
-**Version looked at:** Garmin support FAQs at the content versions shown on 2026-09-29 (Garmin Coach FAQ v122.0, missed workouts FAQ v63.0, load FAQ v72.0), and the Garmin blog post of 28 April 2025.
-**Depth of evaluation:** read the official support FAQs, the product blog, and the Connect+ pricing FAQ. Did not use a Garmin device in this pass.
+Garmin Coach (Run Coach and Expert Running Plans)
 
-**Problem it solves:** gives a Garmin watch owner a free adaptive plan that changes daily from the watch's own performance and health measurements.
+- **Status:** Active
+- **Kind:** direct competitor, bound to Garmin hardware.
+- **Link:** <https://support.garmin.com/en-US/?faq=IkvWNeIoSd48GIYCjkhlo7>
+- **Version looked at:** Garmin support FAQs at the content versions shown on 2026-09-29 (Garmin Coach FAQ v122.0, missed workouts FAQ v63.0, load FAQ v72.0), and the Garmin blog post of 28 April 2025.
+- **Depth of evaluation:** read the official support FAQs, the product blog, and the Connect+ pricing FAQ. Did not use a Garmin device in this pass.
+- **Problem it solves:** gives a Garmin watch owner a free adaptive plan that changes daily from the watch's own performance and health measurements.
 
 **Observations by property**
 
@@ -94,14 +98,16 @@ Each is written as a question a runner in the problem space would ask.
 
 **Could not find out:** whether and how changes are explained in the app, the adaptation logic, and plan export.
 
-## ALT-03: Hal Higdon plans (free static plans and the Run With Hal app)
+## ALT-03
 
-**Kind:** adjacent substitute, a static printable schedule, with an optional paid app.
-**Link:** <https://www.halhigdon.com/training-programs/half-marathon-training/novice-1-half-marathon/>
-**Version looked at:** Novice 1 Half Marathon page and printable PDF, and Run With Hal help-center articles (updated between 2019 and 24 February 2026), on 2026-09-29.
-**Depth of evaluation:** read the free plan and its printable PDF, and the app help center. Did not use the app hands-on in this pass.
+Hal Higdon plans (free static plans and the Run With Hal app)
 
-**Problem it solves:** gives a runner a well-known, free, fixed schedule toward a race, which many runners print and follow on their own.
+- **Status:** Active
+- **Kind:** adjacent substitute, a static printable schedule, with an optional paid app.
+- **Link:** <https://www.halhigdon.com/training-programs/half-marathon-training/novice-1-half-marathon/>
+- **Version looked at:** Novice 1 Half Marathon page and printable PDF, and Run With Hal help-center articles (updated between 2019 and 24 February 2026), on 2026-09-29.
+- **Depth of evaluation:** read the free plan and its printable PDF, and the app help center. Did not use the app hands-on in this pass.
+- **Problem it solves:** gives a runner a well-known, free, fixed schedule toward a race, which many runners print and follow on their own.
 
 **Observations by property**
 
@@ -129,14 +135,16 @@ Each is written as a question a runner in the problem space would ask.
 
 **Could not find out:** app onboarding, whether the app explains changes, and export.
 
-## ALT-04: GoldenCheetah
+## ALT-04
 
-**Kind:** open-source, self-hosted desktop software (GPL-2.0).
-**Link:** <https://github.com/GoldenCheetah/GoldenCheetah>
-**Version looked at:** v3.8, released 2026-09-20 ([release notes](https://github.com/GoldenCheetah/GoldenCheetah/releases/tag/v3.8)), and the project wiki, on 2026-09-29.
-**Depth of evaluation:** read the v3.8 release notes, the Plan chart wiki page, the running FAQ, and the first-steps guide. Did not install it in this pass.
+GoldenCheetah
 
-**Problem it solves:** gives a technical athlete full local control of their training data, with load analysis (CTL, ATL, TSB) and, since v3.8, a manual training calendar.
+- **Status:** Active
+- **Kind:** open-source, self-hosted desktop software (GPL-2.0).
+- **Link:** <https://github.com/GoldenCheetah/GoldenCheetah>
+- **Version looked at:** v3.8, released 2026-09-20 ([release notes](https://github.com/GoldenCheetah/GoldenCheetah/releases/tag/v3.8)), and the project wiki, on 2026-09-29.
+- **Depth of evaluation:** read the v3.8 release notes, the Plan chart wiki page, the running FAQ, and the first-steps guide. Did not install it in this pass.
+- **Problem it solves:** gives a technical athlete full local control of their training data, with load analysis (CTL, ATL, TSB) and, since v3.8, a manual training calendar.
 
 **Observations by property**
 

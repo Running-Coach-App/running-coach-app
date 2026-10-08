@@ -1,0 +1,20 @@
+{
+  // The check that runs in CI and locally. The course materials are excluded
+  // because they are the course repository's own files, which that repository
+  // checks; see requirements/repository-requirements.md, The Course Materials
+  // As An Agent Skill.
+  "config": {
+    "default": true,
+    // One sentence per line, and table rows of four alternatives, are long by design.
+    "MD013": false,
+    // A meeting script numbers its questions across its agenda groups, so the
+    // numbering restarts rather than continuing in sequence.
+    "MD029": false,
+    // The research requirements ask for a bold label on its own line before a
+    // table or a list inside an identifier's section, such as `**Strengths**`
+    // before the list of them. This rule reads a bold line as a mistyped heading.
+    "MD036": false
+  },
+  "gitignore": true,
+  "ignores": [".claude/skills/itpd/**"]
+}

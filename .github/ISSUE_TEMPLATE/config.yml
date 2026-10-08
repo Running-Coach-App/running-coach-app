@@ -1,0 +1,4 @@
+# Every issue is opened from a form, so the form applies its label and the
+# team never has to set the story marker by hand.
+# See requirements/repository-requirements.md, Issue Tracking, rule 1.
+blank_issues_enabled: false

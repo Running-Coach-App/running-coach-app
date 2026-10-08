@@ -6,7 +6,7 @@ Running Coach App, team 4.
 
 The comparison used this problem-space sentence: a recreational runner training for a 5K to half-marathon race, often without a sports watch, needs a training plan that changes when their real runs differ from the plan and tells them why it changed, so they can trust it enough to keep following it.
 
-The 2 October kickoff changed the product. The customer asked for a voice coach during the run. That is [VP-01](../../docs/research/value-proposition.md#vp-01-a-voice-coach-during-the-run). Re-scoring the gap analysis against that coach is still action point A1 in [the meeting report](meeting-report.md#action-points), due Monday 5 October 2026.
+The 2 October kickoff changed the product. The customer asked for a voice coach during the run. That is [VP-01](../../docs/research/value-proposition.md#vp-01). Re-scoring the gap analysis against that coach is still action point A1 in [the meeting report](meeting-report.md#action-points), due Monday 5 October 2026.
 
 ## What we did
 
