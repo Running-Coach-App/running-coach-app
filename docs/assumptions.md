@@ -52,12 +52,22 @@ The first release is Android and English.
 
 The base product is the in-run voice coach, and a preset session comes only after it.
 
-- **Status:** Open
+- **Status:** Confirmed
 - **How to check:** ask the `Customer` at the Week 2 validation meeting whether an adaptive training plan is wanted at all, per action point A2 in [the kickoff meeting](../reports/week-01/meeting-report.md#action-points).
+- **Outcome:** no adaptive plan is wanted: the in-run coach is the whole product, per [`DEC-007`](decisions.md#dec-007) and [`DEC-008`](decisions.md#dec-008), in [the Week 2 validation exchange](../reports/week-02/meeting-report.md#decisions).
+- **Still open:** whether the two presets still follow the coach, which awaits the candidate verdict in [the Week 2 report](../reports/week-02/README.md#minimum-usable-product-candidate).
 
 ## ASM-08
 
 Fixed spoken cues are acceptable for the first release, and a conversational coach is not required to ship.
 
-- **Status:** Open
+- **Status:** Refuted
 - **How to check:** ask the `Customer` directly at the Week 2 validation meeting, per action point A4 in [the kickoff meeting](../reports/week-01/meeting-report.md#action-points).
+- **Outcome:** fixed cues alone are not enough: the first release must also answer simple verbal stats queries, per [`DEC-008`](decisions.md#dec-008), in [the Week 2 validation exchange](../reports/week-02/meeting-report.md#decisions).
+
+## ASM-09
+
+A small on-device model (Gemma, as the `Customer` suggested) can answer simple spoken stats queries within the ten weeks.
+
+- **Status:** Open
+- **How to check:** complete the on-device text-to-speech and small-model feasibility spike in Week 3, per [the Week 2 action points](../reports/week-02/meeting-report.md#action-points).

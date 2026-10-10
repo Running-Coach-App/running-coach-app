@@ -8,7 +8,9 @@ Gaps are sorted by strength of evidence.
 
 The runner is not told why the plan changed
 
-- **Status:** Active
+- **Status:** Dropped
+- **Changed:**
+  - Dropped on 2026-10-09: the `Customer` judged this gap not important in [the Week 2 validation exchange](../../reports/week-02/meeting-report.md#decisions), per [`DEC-007`](../decisions.md#dec-007).
 - **Who needs it and what they cannot do:** a recreational runner whose plan changes after a missed or difficult week.
   Today they either get a changed plan with no reason, or no change at all, so they cannot judge whether to trust the new workout or override it.
 - **Evidence:** row P2 of [the comparison](comparison.md#table), candidate C1.
@@ -42,7 +44,9 @@ No adaptation from how a phone-recorded run actually went
 
 Training load is measured but not connected to the plan
 
-- **Status:** Active
+- **Status:** Dropped
+- **Changed:**
+  - Dropped on 2026-10-09: the `Customer` judged this gap not important in [the Week 2 validation exchange](../../reports/week-02/meeting-report.md#decisions), per [`DEC-007`](../decisions.md#dec-007).
 - **Who needs it and what they cannot do:** a runner increasing volume toward a half marathon, who wants the plan to hold them back when they ramp up too fast.
   Where load is computed (ALT-02 load ratio, ALT-04 CTL/ATL/TSB), it is shown as a chart and is not documented as changing the plan; where there is a plan (ALT-01, ALT-03), recovery is scheduled by fixed rules, not measured.
 - **Evidence:** row P7 of [the comparison](comparison.md#table), candidate C3.

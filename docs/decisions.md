@@ -59,3 +59,23 @@ Ship the first release on Android, in English.
 - **Made by:** Customer
 - **Source:** [the kickoff meeting](../reports/week-01/meeting-report.md#decisions)
 - **Why:** he has no iOS device and cannot test one, and English is the language the team and he are both comfortable in.
+
+## DEC-007
+
+Drop GAP-01 and GAP-03.
+
+- **Status:** Active
+- **Date:** 2026-10-09
+- **Made by:** Customer
+- **Source:** [the Week 2 validation exchange](../reports/week-02/meeting-report.md#decisions)
+- **Why:** he judged both gaps not important, and with no adaptive plan wanted there is nothing to explain and no load measure to connect.
+
+## DEC-008
+
+Scope the first release to reading stats aloud and answering simple verbal stats queries, with Gemma as the candidate engine.
+
+- **Status:** Active
+- **Date:** 2026-10-09
+- **Made by:** Customer
+- **Source:** [the Week 2 validation exchange](../reports/week-02/meeting-report.md#decisions)
+- **Why:** for the scope of the project it is enough to read available stats to the user and to respond to simple verbal queries, with no fixed command list, and he suggested Google's open source small model Gemma to handle those queries and generate the responses.
