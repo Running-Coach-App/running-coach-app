@@ -22,9 +22,9 @@ What is still open is whether the two presets still follow the coach, whether pr
 | System context diagram | [docs/architecture/context.svg](../../docs/architecture/context.svg), [docs/architecture/context.mmd](../../docs/architecture/context.mmd), embedded in [docs/product-vision.md#context](../../docs/product-vision.md#context) |
 | Assumptions | [docs/assumptions.md](../../docs/assumptions.md) |
 | Decisions | [docs/decisions.md](../../docs/decisions.md) |
-| Story issues | Not opened. See Deviations. |
+| Story issues | [Story issues](https://github.com/Running-Coach-App/running-coach-app/issues?q=label%3Auser-story) |
 | Issue forms | [.github/ISSUE_TEMPLATE/user-story.yml](../../.github/ISSUE_TEMPLATE/user-story.yml), [.github/ISSUE_TEMPLATE/task.yml](../../.github/ISSUE_TEMPLATE/task.yml), [.github/ISSUE_TEMPLATE/config.yml](../../.github/ISSUE_TEMPLATE/config.yml) |
-| Labels | [Repository labels](https://github.com/Running-Coach-App/running-coach-app/labels). `task` exists. `user-story` and `moscow:*` do not. See Deviations. |
+| Labels | [Repository labels](https://github.com/Running-Coach-App/running-coach-app/labels): `user-story`, `task`, `moscow:must`, `moscow:should`, `moscow:could`, `moscow:won't` |
 | Pull request template | [.github/pull_request_template.md](../../.github/pull_request_template.md) |
 | Prototypes | [reports/week-02/prototypes.md](prototypes.md) |
 | Meeting script | [reports/week-02/meeting-script.md](meeting-script.md) |
@@ -35,9 +35,9 @@ What is still open is whether the two presets still follow the coach, whether pr
 
 Core task: the runner puts the phone in a pocket, starts a session, and hears what to do and how the run is going until they stop.
 
-The proposal taken to the `Customer` was [VP-01](../../docs/research/value-proposition.md#vp-01), the in-run voice coach, then [VP-02](../../docs/research/value-proposition.md#vp-02), two preset sessions.
+The `Must Have` stories that complete that task are [US-01](https://github.com/Running-Coach-App/running-coach-app/issues/37), [US-02](https://github.com/Running-Coach-App/running-coach-app/issues/38), [US-03](https://github.com/Running-Coach-App/running-coach-app/issues/39), and [US-04](https://github.com/Running-Coach-App/running-coach-app/issues/40). [US-06](https://github.com/Running-Coach-App/running-coach-app/issues/42), the two presets in [VP-02](../../docs/research/value-proposition.md#vp-02), is `Should Have` and is not in the candidate.
 
-Customer's verdict: not given. The presets were not addressed, so confirmation waits for Week 3, per [the meeting report](meeting-report.md#open-questions).
+Customer's verdict: not given. The presets were not addressed, so confirmation waits for a written reply, per [the meeting report](meeting-report.md#open-questions).
 
 ## What changed
 
@@ -50,7 +50,7 @@ The spoken-cue prototype was wrong about fixed cues: [ASM-08](../../docs/assumpt
 | @sirjaey | [#25](https://github.com/Running-Coach-App/running-coach-app/pull/25) context diagram, [#27](https://github.com/Running-Coach-App/running-coach-app/pull/27) AI usage (closed [#26](https://github.com/Running-Coach-App/running-coach-app/issues/26)), [#29](https://github.com/Running-Coach-App/running-coach-app/pull/29) validation outcome (closed [#28](https://github.com/Running-Coach-App/running-coach-app/issues/28)), [#33](https://github.com/Running-Coach-App/running-coach-app/pull/33) transcript (closed [#32](https://github.com/Running-Coach-App/running-coach-app/issues/32)); approved [#30](https://github.com/Running-Coach-App/running-coach-app/pull/30) |
 | @JustACommonMan-OSDD | [#30](https://github.com/Running-Coach-App/running-coach-app/pull/30) prototype record, [#35](https://github.com/Running-Coach-App/running-coach-app/pull/35) meeting script; approved [#25](https://github.com/Running-Coach-App/running-coach-app/pull/25), [#27](https://github.com/Running-Coach-App/running-coach-app/pull/27), [#29](https://github.com/Running-Coach-App/running-coach-app/pull/29), [#31](https://github.com/Running-Coach-App/running-coach-app/pull/31) |
 | @ObeTech1 | [#31](https://github.com/Running-Coach-App/running-coach-app/pull/31) meeting report; approved [#33](https://github.com/Running-Coach-App/running-coach-app/pull/33) |
-| @Ezekiel-Gadzama | approved [#35](https://github.com/Running-Coach-App/running-coach-app/pull/35) |
+| @Ezekiel-Gadzama | approved [#35](https://github.com/Running-Coach-App/running-coach-app/pull/35); opened [US-01](https://github.com/Running-Coach-App/running-coach-app/issues/37) through [US-09](https://github.com/Running-Coach-App/running-coach-app/issues/45) |
 
 ## Repository evidence
 
@@ -65,11 +65,13 @@ The links excluded in [`.lycheeignore`](../../.lycheeignore) are the five Week 1
 ## Deviations
 
 1. **The validation meeting was held in writing.**
-   The `Customer` agreed to skip the live meeting. The message and the reply on 9 October 2026 are [the transcript](meeting-transcript.md). There is no recording.
-2. **There are no story issues.**
-   `.github/ISSUE_TEMPLATE/user-story.yml` is in the repository, and no `US-nn` issue has been opened. The labels page has `task` and does not have `user-story` or any `moscow:*` label. The candidate above is named as [VP-01](../../docs/research/value-proposition.md#vp-01) and [VP-02](../../docs/research/value-proposition.md#vp-02), which is what the message asked about, and the `Customer` has not given a verdict on it.
-3. **[CON-06](../../docs/product-vision.md#con-06) says two of the four have not committed.**
-   The history on `main` has commits from @Ezekiel-Gadzama, @ObeTech1, @sirjaey, and @JustACommonMan-OSDD.
+   The `Customer` agreed to skip the live meeting. The message and the reply are [the transcript](meeting-transcript.md). There is no recording.
+2. **The meeting script reached `main` after the exchange.**
+   The exchange was on 9 October 2026. [Pull request #35](https://github.com/Running-Coach-App/running-coach-app/pull/35) merged the script on 10 October 2026. The script is the plan that was sent, and it is not rewritten after the meeting.
+3. **The three permission questions were not asked separately.**
+   The message said a text reply or a voice note would stand as the meeting note. It did not ask, one by one, to record, to publish a sanitized transcript, and to share it privately if publication was refused. The transcript was published. The meeting report's "not refused" is not an answer to each question.
+4. **Merged branch names are not task numbers.**
+   The rule is `<task-number>-<short-description>`. Pull requests #25 to #36 use personal branch names and `*-patch-N`. A merged pull request cannot be renamed. The next branch will use a task number.
 
 ## Privacy
 
