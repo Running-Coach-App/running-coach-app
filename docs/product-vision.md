@@ -71,12 +71,11 @@ No uploads of health or medical documents, and no typed health data.
 
 ### CON-06
 
-Built by a team of four inside eleven weeks of the course.
+Built by a team of four inside ten weeks of the course.
 
 - **Status:** Active
 - **Source:** Team-given
 - **What it costs:** nothing may need a second expert to maintain, and every week's work has to be reviewable in one pull request.
-- **Note:** two of the four have not committed to the project so far; see [Deviations](../reports/week-02/README.md#deviations).
 
 ### CON-07
 
@@ -102,8 +101,7 @@ Give a training plan that adapts when a run goes differently from it.
 
 - **Status:** Active
 - **Handled by:** Runna (ALT-01) and Garmin Coach (ALT-02)
-- **Why:** the `Customer` did not mention a plan in twenty-nine minutes and wants the in-run coach first, per action point A2 in [the kickoff report](../reports/week-01/meeting-report.md#action-points).
-  [`ASM-07`](assumptions.md#asm-07) still rests on this being settled.
+- **Why:** the `Customer` did not want an adaptive plan. [`GAP-01`](research/gap-analysis.md#gap-01) and [`GAP-03`](research/gap-analysis.md#gap-03) are `Dropped` in [`DEC-007`](decisions.md#dec-007), and [`ASM-07`](assumptions.md#asm-07) confirms the in-run coach is the product.
 
 ### BND-02
 
@@ -111,7 +109,7 @@ Explain to the runner why a workout changed.
 
 - **Status:** Active
 - **Handled by:** Nobody
-- **Why:** there is nothing to explain while [`BND-01`](#bnd-01) holds; [`GAP-01`](research/gap-analysis.md#gap-01) stays in the research unaddressed rather than being closed by us.
+- **Why:** there is nothing to explain while [`BND-01`](#bnd-01) holds. [`GAP-01`](research/gap-analysis.md#gap-01) is `Dropped` in [`DEC-007`](decisions.md#dec-007).
 
 ### BND-03
 
@@ -143,8 +141,7 @@ Coach through a conversational exchange while the runner is moving.
 
 - **Status:** Active
 - **Handled by:** Nobody
-- **Why:** [`CON-03`](#con-03) keeps the model on the phone, so the first release speaks fixed cues.
-  [`ASM-08`](assumptions.md#asm-08) is still `Open`; this item moves out of the boundary if the `Customer` settles it the other way.
+- **Why:** [`CON-03`](#con-03) keeps the work on the phone. [`ASM-08`](assumptions.md#asm-08) is `Refuted`: [`DEC-008`](decisions.md#dec-008) puts simple spoken questions about the current run's stats inside the product. A general conversation stays outside.
 
 ## Context
 

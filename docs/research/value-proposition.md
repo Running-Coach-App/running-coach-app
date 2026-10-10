@@ -30,7 +30,7 @@ Two preset sessions, after the voice coach
 - **Problem:** he does not want to design each interval himself, and he has not seen a goal-setting screen he trusts. He asked for a small number of programmes the app proposes, after the talking coach is in place.
 - **What we do that the alternatives do not:** offer two preset sessions the coach speaks, for example a steady run and a hard/easy interval, and he picks one. This release does not build a weekly plan that rewrites itself.
 - **Measured by:** the runner can start either preset and hear that session's cues without looking at the phone.
-- **Closes:** [GAP-02](gap-analysis.md#gap-02), as a fixed spoken session rather than a post-run rewrite. [GAP-01](gap-analysis.md#gap-01) and [GAP-03](gap-analysis.md#gap-03) stay open until the next meeting.
+- **Closes:** [GAP-02](gap-analysis.md#gap-02), as a fixed spoken session rather than a post-run rewrite. [GAP-01](gap-analysis.md#gap-01) and [GAP-03](gap-analysis.md#gap-03) are `Dropped` in [DEC-007](../decisions.md#dec-007).
 - **Rests on:** [ASM-01](../assumptions.md#asm-01), [ASM-02](../assumptions.md#asm-02), [ASM-07](../assumptions.md#asm-07), [ASM-08](../assumptions.md#asm-08).
 - **What it costs:** two presets cannot serve a runner who wants a race plan. We give up granular goal setting, meal advice, and automatic plan edits.
 - **How a competitor would respond:** Runna (ALT-01) and Hal Higdon (ALT-03) already ship full plans. They do not need to answer two spoken presets. Copying their plans is not this proposition.

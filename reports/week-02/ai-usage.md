@@ -15,7 +15,8 @@ report and `meeting-notes.md`.
 
 Drafting the product vision, the context diagram source, the Week 2 meeting script, and the story and task issue
 bodies. Running the Markdown check and an internal link check locally, and rendering the diagram and the
-prototype screenshot.
+prototype screenshot. Those story bodies were not opened as issues in that pass. `US-01` to `US-09` were
+opened afterwards, and the statements and criteria were checked against the issue form before filing.
 
 ## What we did with the output
 
