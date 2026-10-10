@@ -71,7 +71,7 @@ The links excluded in [`.lycheeignore`](../../.lycheeignore) are the five Week 1
 3. **The three permission questions were not asked separately.**
    The message said a text reply or a voice note would stand as the meeting note. It did not ask, one by one, to record, to publish a sanitized transcript, and to share it privately if publication was refused. The transcript was published. The meeting report's "not refused" is not an answer to each question.
 4. **Merged branch names are not task numbers.**
-   The rule is `<task-number>-<short-description>`. Pull requests #25 to #36 use personal branch names and `*-patch-N`. A merged pull request cannot be renamed. The next branch will use a task number.
+   The rule is `<task-number>-<short-description>`. Pull requests #25 to #36 use personal branch names and `*-patch-N`.
 
 ## Privacy
 
