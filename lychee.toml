@@ -2,3 +2,7 @@
 
 # The ITPD course materials, a submodule that the course repository checks.
 exclude_path = ['^(\./)?\.claude/skills/itpd/']
+
+# The Pages site is created by .github/workflows/pages.yml when that workflow runs on main.
+# Until that first run, the URL does not resolve, so the pull request that adds the link cannot check it.
+exclude = ['^https://running-coach-app\.github\.io/running-coach-app/?$']

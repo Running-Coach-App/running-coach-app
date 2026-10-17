@@ -6,7 +6,7 @@ A clean checkout of this repository builds the pocket coach: start a session, he
 
 - JDK 17.
 - Android SDK 35, from Android Studio or the command-line tools.
-- Gradle 8.11.1. The version is the one in [`gradle/wrapper/gradle-wrapper.properties`](../gradle/wrapper/gradle-wrapper.properties). The wrapper jar is not in the repository, so use a local Gradle of that version.
+- Gradle 8.11.1. The version is the one in [`gradle/wrapper/gradle-wrapper.properties`](https://github.com/Running-Coach-App/running-coach-app/blob/main/gradle/wrapper/gradle-wrapper.properties). The wrapper jar is not in the repository, so use a local Gradle of that version.
 - A phone or emulator on API 26 or newer, with an English text-to-speech voice. The app's `minSdk` is 26 and `compileSdk` is 35.
 
 ## Install
@@ -20,7 +20,7 @@ cd running-coach-app
 
 ## Configuration
 
-App configuration is [`.env.example`](../.env.example). This build has no required keys. Copy it to `.env` only when you add a local override. `.env` is ignored.
+App configuration is [`.env.example`](https://github.com/Running-Coach-App/running-coach-app/blob/main/.env.example). This build has no required keys. Copy it to `.env` only when you add a local override. `.env` is ignored.
 
 The Android SDK path is not an environment variable. Create `local.properties` in the repository root, untracked, with one line:
 

@@ -10,7 +10,7 @@ The runner is not told why the plan changed
 
 - **Status:** Dropped
 - **Changed:**
-  - Dropped on 2026-10-09: the `Customer` judged this gap not important in [the Week 2 validation exchange](../../reports/week-02/meeting-report.md#decisions), per [`DEC-007`](../decisions.md#dec-007).
+  - Dropped on 2026-10-09: the `Customer` judged this gap not important in [the Week 2 validation exchange](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-02/meeting-report.md#decisions), per [`DEC-007`](../decisions.md#dec-007).
 - **Who needs it and what they cannot do:** a recreational runner whose plan changes after a missed or difficult week.
   Today they either get a changed plan with no reason, or no change at all, so they cannot judge whether to trust the new workout or override it.
 - **Evidence:** row P2 of [the comparison](comparison.md#table), candidate C1.
@@ -38,7 +38,7 @@ No adaptation from how a phone-recorded run actually went
   The Garmin hardware requirement and the Runna walk/run exclusion are both stated in official help articles.
 - **Rests on:** [ASM-02](../assumptions.md#asm-02).
 - **Changed:**
-  - Dropped the perceived-effort rating as a first-release input: the `Customer` ruled out typed health data, per [`DEC-003`](../decisions.md#dec-003), so the closing test above is to be restated when action point A1 in [the kickoff report](../../reports/week-01/meeting-report.md#action-points) re-scores this file against the in-run voice coach.
+  - Dropped the perceived-effort rating as a first-release input: the `Customer` ruled out typed health data, per [`DEC-003`](../decisions.md#dec-003), so the closing test above is to be restated when action point A1 in [the kickoff report](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-01/meeting-report.md#action-points) re-scores this file against the in-run voice coach.
 
 ## GAP-03
 
@@ -46,7 +46,7 @@ Training load is measured but not connected to the plan
 
 - **Status:** Dropped
 - **Changed:**
-  - Dropped on 2026-10-09: the `Customer` judged this gap not important in [the Week 2 validation exchange](../../reports/week-02/meeting-report.md#decisions), per [`DEC-007`](../decisions.md#dec-007).
+  - Dropped on 2026-10-09: the `Customer` judged this gap not important in [the Week 2 validation exchange](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-02/meeting-report.md#decisions), per [`DEC-007`](../decisions.md#dec-007).
 - **Who needs it and what they cannot do:** a runner increasing volume toward a half marathon, who wants the plan to hold them back when they ramp up too fast.
   Where load is computed (ALT-02 load ratio, ALT-04 CTL/ATL/TSB), it is shown as a chart and is not documented as changing the plan; where there is a plan (ALT-01, ALT-03), recovery is scheduled by fixed rules, not measured.
 - **Evidence:** row P7 of [the comparison](comparison.md#table), candidate C3.
