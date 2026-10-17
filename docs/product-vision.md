@@ -156,4 +156,4 @@ Nothing else exchanges anything with the product: there is no server, because [`
 ## Where The Detail Lives
 
 - [User stories](https://github.com/Running-Coach-App/running-coach-app/issues?q=label%3Auser-story)
-- [Week 2 report](../reports/week-02/README.md)
+- [Week 2 report](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-02/README.md)

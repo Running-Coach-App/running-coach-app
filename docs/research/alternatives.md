@@ -2,10 +2,10 @@
 
 **Problem space used for this evaluation:** a recreational runner training for a 5K to half-marathon race, often without a sports watch, needs a training plan that changes when their real runs differ from the plan and tells them why it changed, so they can trust it enough to keep following it.
 
-That sentence was fixed before any product was opened. The 2 October kickoff changed what we will build: a voice coach during the run. That decision is in [the value proposition](value-proposition.md) and [the meeting report](../../reports/week-01/meeting-report.md). This file stays the record of the four products we compared.
+That sentence was fixed before any product was opened. The 2 October kickoff changed what we will build: a voice coach during the run. That decision is in [the value proposition](value-proposition.md) and [the meeting report](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-01/meeting-report.md). This file stays the record of the four products we compared.
 
 Sources were read on 2026-09-29 unless a section says otherwise.
-The full search, including the candidates we cut, is in [the candidate list](../../reports/week-01/candidate-list.md).
+The full search, including the candidates we cut, is in [the candidate list](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-01/candidate-list.md).
 
 A view-only board with two screenshots per alternative is not linked. The observations below are from the pages cited in each row.
 

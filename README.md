@@ -18,6 +18,10 @@ A running coach for recreational runners training for 5K to half-marathon races,
   - [Gap analysis](docs/research/gap-analysis.md)
   - [Value proposition](docs/research/value-proposition.md)
 
+## Documentation site
+
+[https://running-coach-app.github.io/running-coach-app/](https://running-coach-app.github.io/running-coach-app/)
+
 ## Licence
 
 [MIT](LICENSE)
