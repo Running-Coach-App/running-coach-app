@@ -47,3 +47,13 @@ obj/
 *.so
 *.dylib
 node_modules/
+
+# ==========================================
+# 5. Android
+# ==========================================
+.gradle/
+local.properties
+captures/
+*.apk
+*.aab
+.cxx/

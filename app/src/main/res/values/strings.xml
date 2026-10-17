@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Running Coach</string>
+    <string name="pocket_note">Headphones on. Volume down starts an interval session, volume up starts a steady one, and the headset button starts or stops. The screen does not have to stay visible.</string>
+    <string name="start_interval">Start interval</string>
+    <string name="start_steady">Start steady</string>
+    <string name="stop_session">Stop</string>
+    <string name="notification_title">Running coach</string>
+    <string name="notification_text">The session is speaking. The screen can stay covered.</string>
+</resources>
