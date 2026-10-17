@@ -70,4 +70,4 @@ Fixed spoken cues are acceptable for the first release, and a conversational coa
 A small on-device model (Gemma, as the `Customer` suggested) can answer simple spoken stats queries within the ten weeks.
 
 - **Status:** Open
-- **How to check:** complete the on-device text-to-speech and small-model feasibility spike in Week 3, per [the Week 2 action points](../reports/week-02/meeting-report.md#action-points).
+- **How to check:** complete the on-device text-to-speech and small-model feasibility spike in Week 3, per [the Week 2 action points](../reports/week-02/meeting-report.md#action-points), and record its findings in the [on-device feasibility assessment](research/on-device-feasibility.md).
