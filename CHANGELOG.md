@@ -10,4 +10,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - A pocket session on Android that speaks a start and a stop, the run's time, pace, and distance, an effort word when the effort changes, and an answer to a spoken question about those three stats.
+- Setup and run instructions in `docs/setup.md`.
 - The Week 3 AI usage report.
