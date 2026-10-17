@@ -5,6 +5,12 @@ enum class SessionKind {
     STEADY,
 }
 
+enum class Effort {
+    JOG,
+    HARD,
+    EASIER,
+}
+
 /**
  * The spoken coach, with no Android types, so the acceptance criteria can be
  * checked from a unit test.
@@ -22,6 +28,7 @@ class SessionEngine {
     var distanceMeters: Double? = null
         private set
 
+    private var lastSpokenEffort: Effort? = null
     private var nextStatsAtMillis: Long = FIRST_STATS_AT_MILLIS
 
     fun start(kind: SessionKind): String {
@@ -29,6 +36,7 @@ class SessionEngine {
         this.kind = kind
         elapsedMillis = 0
         distanceMeters = null
+        lastSpokenEffort = null
         nextStatsAtMillis = FIRST_STATS_AT_MILLIS
         return "Session started."
     }
@@ -45,6 +53,13 @@ class SessionEngine {
         this.elapsedMillis = elapsedMillis
         this.distanceMeters = distanceMeters
         val lines = mutableListOf<String>()
+        if (kind == SessionKind.INTERVAL) {
+            val effort = effortAt(elapsedMillis)
+            if (effort != lastSpokenEffort) {
+                lines += effortPhrase(effort)
+                lastSpokenEffort = effort
+            }
+        }
         if (elapsedMillis >= nextStatsAtMillis) {
             lines += statsPhrase()
             nextStatsAtMillis += STATS_EVERY_MILLIS
@@ -59,6 +74,25 @@ class SessionEngine {
     companion object {
         const val FIRST_STATS_AT_MILLIS: Long = 15_000
         const val STATS_EVERY_MILLIS: Long = 60_000
+        private const val BLOCK_MILLIS: Long = 60_000
+        private const val CYCLE_MILLIS: Long = 180_000
+
+        fun effortAt(elapsedMillis: Long): Effort {
+            val withinCycle = elapsedMillis % CYCLE_MILLIS
+            return when {
+                withinCycle < BLOCK_MILLIS -> Effort.JOG
+                withinCycle < BLOCK_MILLIS * 2 -> Effort.HARD
+                else -> Effort.EASIER
+            }
+        }
+
+        fun effortPhrase(effort: Effort): String {
+            return when (effort) {
+                Effort.JOG -> "Jog."
+                Effort.HARD -> "Hard."
+                Effort.EASIER -> "Easier."
+            }
+        }
 
         fun speakTime(elapsedMillis: Long): String {
             val totalSeconds = elapsedMillis / 1000
