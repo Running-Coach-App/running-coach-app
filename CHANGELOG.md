@@ -13,3 +13,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Setup and run instructions in `docs/setup.md`.
 - A GitHub Pages site for `docs/`.
 - The Week 3 AI usage report.
+- The Android stack decision, DEC-009, and Gradle updates in Dependabot.

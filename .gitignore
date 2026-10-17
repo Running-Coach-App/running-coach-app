@@ -51,10 +51,14 @@ node_modules/
 
 # ==========================================
 # 5. Android
+# Local SDK path and build output for the stack in DEC-009.
 # ==========================================
 .gradle/
 local.properties
 captures/
 *.apk
 *.aab
+*.ap_
+*.dex
 .cxx/
+.externalNativeBuild/
