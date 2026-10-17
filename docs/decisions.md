@@ -159,4 +159,3 @@ Prefer an on-device model for spoken intent; keywords are the backup.
 - **Made by:** Customer
 - **Source:** [the Week 3 validation meeting](../reports/week-03/meeting-report.md#decisions)
 - **Why:** there are too many ways to ask for the same stats for a brittle keyword list alone; try a small on-device model first, and fall back to keywords if that path does not fit.
-
