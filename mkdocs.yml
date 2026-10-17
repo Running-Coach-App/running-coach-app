@@ -1,0 +1,22 @@
+site_name: Running Coach App
+site_url: https://running-coach-app.github.io/running-coach-app/
+repo_url: https://github.com/Running-Coach-App/running-coach-app
+docs_dir: docs
+site_dir: site
+
+nav:
+  - Home: index.md
+  - Product vision: product-vision.md
+  - Decisions: decisions.md
+  - Assumptions: assumptions.md
+  - Research:
+      - Value proposition: research/value-proposition.md
+      - Gap analysis: research/gap-analysis.md
+      - Comparison: research/comparison.md
+      - Alternatives: research/alternatives.md
+      - On-device feasibility: research/on-device-feasibility.md
+  - Plan:
+      - Project plan: project-plan.md
+      - Risks: risks.md
+      - Threshold of success: threshold-of-success.md
+      - Definition of done: definition-of-done.md
