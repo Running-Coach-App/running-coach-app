@@ -89,3 +89,74 @@ Build the minimum usable product as a Kotlin Android app, and speak with the pla
 - **Made by:** Team
 - **Source:** [DEC-006](#dec-006) and [the on-device feasibility verdict](research/on-device-feasibility.md#verdict)
 - **Why:** [DEC-006](#dec-006) already ships the first release on Android, because the `Customer` has no iOS device to test. The slice on `main` is Kotlin 2.0.21 with Android Gradle Plugin 8.7.3, Gradle 8.11.1, `minSdk` 26, and `compileSdk` 35. Platform text-to-speech fits the spoken cues and the short stat answers. Gemma stays a candidate until a phone spike measures it, so this release does not depend on it.
+
+## DEC-010
+
+Keep navigation outside the remaining course weeks.
+
+- **Status:** Active
+- **Date:** 2026-10-17
+- **Made by:** Customer
+- **Source:** [the Week 3 validation meeting](../reports/week-03/meeting-report.md#decisions)
+- **Why:** changing course mid-run is navigation, and the remaining weeks are too short; the helper should report what already happened.
+
+## DEC-011
+
+Speak a missing stat once, then omit it until it is available again.
+
+- **Status:** Active
+- **Date:** 2026-10-17
+- **Made by:** Customer
+- **Source:** [the Week 3 validation meeting](../reports/week-03/meeting-report.md#decisions)
+- **Why:** repeating "not available" every three minutes is annoying; say it once, then only report what the phone has until the missing value returns.
+
+## DEC-012
+
+Answer off-topic questions with a polite focus-on-running reply.
+
+- **Status:** Active
+- **Date:** 2026-10-17
+- **Made by:** Customer
+- **Source:** [the Week 3 validation meeting](../reports/week-03/meeting-report.md#decisions)
+- **Why:** the coach must stay on running stats; a short "focus on running, we will talk later" style reply is better than inventing an answer or going silent without guidance.
+
+## DEC-013
+
+Keep a three-minute spoken stats cadence for the MUP.
+
+- **Status:** Active
+- **Date:** 2026-10-17
+- **Made by:** Customer
+- **Source:** [the Week 3 validation meeting](../reports/week-03/meeting-report.md#decisions)
+- **Why:** three minutes matches the repository screenshot and is enough for the simple product; a configurable cadence can wait.
+
+## DEC-014
+
+Affirm interval effort cues and silence on steady.
+
+- **Status:** Active
+- **Date:** 2026-10-17
+- **Made by:** Customer
+- **Source:** [the Week 3 validation meeting](../reports/week-03/meeting-report.md#decisions)
+- **Why:** with the phone in a pocket he wants spoken jog / harder / easier when effort changes, and no unnecessary effort prompts when effort stays the same; stats may still speak during a steady run.
+
+## DEC-015
+
+Affirm pocket start and stop without motion detection.
+
+- **Status:** Active
+- **Date:** 2026-10-17
+- **Made by:** Customer
+- **Source:** [the Week 3 validation meeting](../reports/week-03/meeting-report.md#decisions)
+- **Why:** volume keys for interval and steady are acceptable; motion detection on phones is unreliable. A spoken "start the session" remains welcome later.
+
+## DEC-016
+
+Prefer an on-device model for spoken intent; keywords are the backup.
+
+- **Status:** Active
+- **Date:** 2026-10-17
+- **Made by:** Customer
+- **Source:** [the Week 3 validation meeting](../reports/week-03/meeting-report.md#decisions)
+- **Why:** there are too many ways to ask for the same stats for a brittle keyword list alone; try a small on-device model first, and fall back to keywords if that path does not fit.
+
