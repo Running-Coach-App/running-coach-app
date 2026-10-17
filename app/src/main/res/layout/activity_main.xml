@@ -28,4 +28,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/stop_session" />
+
+    <EditText
+        android:id="@+id/question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/question_hint"
+        android:inputType="text" />
+
+    <Button
+        android:id="@+id/ask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/ask" />
 </LinearLayout>

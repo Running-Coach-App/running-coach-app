@@ -5,6 +5,8 @@
     <string name="start_interval">Start interval</string>
     <string name="start_steady">Start steady</string>
     <string name="stop_session">Stop</string>
+    <string name="question_hint">Or type a question if this device has no microphone</string>
+    <string name="ask">Ask</string>
     <string name="notification_title">Running coach</string>
     <string name="notification_text">The session is speaking. The screen can stay covered.</string>
 </resources>

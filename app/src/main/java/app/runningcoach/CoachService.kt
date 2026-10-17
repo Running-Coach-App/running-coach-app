@@ -13,9 +13,13 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Build
+import android.os.Bundle
 import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
+import android.speech.RecognitionListener
+import android.speech.RecognizerIntent
+import android.speech.SpeechRecognizer
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
 import androidx.core.app.NotificationCompat
@@ -30,6 +34,7 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
     private val handler = Handler(Looper.getMainLooper())
     private var tts: TextToSpeech? = null
     private var ttsReady = false
+    private var recognizer: SpeechRecognizer? = null
     private var mediaSession: MediaSessionCompat? = null
     private var lastLocation: Location? = null
     private var distanceMeters = 0.0
@@ -78,6 +83,7 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
             ACTION_START_STEADY -> startSession(SessionKind.STEADY)
             ACTION_STOP -> stopSession()
             ACTION_MEDIA -> if (engine.running) stopSession() else startSession(SessionKind.INTERVAL)
+            ACTION_ASK -> intent.getStringExtra(EXTRA_QUESTION)?.let { ask(it) }
             Intent.ACTION_MEDIA_BUTTON -> MediaButtonReceiver.handleIntent(mediaSession, intent)
         }
         return START_STICKY
@@ -116,6 +122,7 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
 
     override fun onDestroy() {
         handler.removeCallbacks(tick)
+        recognizer?.destroy()
         mediaSession?.release()
         tts?.shutdown()
         super.onDestroy()
@@ -130,6 +137,7 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
         startedAt = System.currentTimeMillis()
         speak(engine.start(kind))
         listenForLocation()
+        listenForSpeech()
         handler.post(tick)
         refreshPlaybackState()
     }
@@ -139,9 +147,27 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
             return
         }
         handler.removeCallbacks(tick)
+        recognizer?.stopListening()
         getSystemService(LocationManager::class.java).removeUpdates(this)
         speak(engine.stop())
         refreshPlaybackState()
+    }
+
+    private fun ask(question: String) {
+        val text = question.lowercase()
+        if (!engine.running && (text.contains("steady") || text.contains("easy"))) {
+            startSession(SessionKind.STEADY)
+            return
+        }
+        if (!engine.running && text.contains("start")) {
+            startSession(SessionKind.INTERVAL)
+            return
+        }
+        if (engine.running && text.contains("stop")) {
+            stopSession()
+            return
+        }
+        speak(engine.answer(question))
     }
 
     private fun speak(line: String) {
@@ -171,6 +197,51 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
         }
         val provider = LocationManager.GPS_PROVIDER
         manager.requestLocationUpdates(provider, TICK_MILLIS, 0f, this, Looper.getMainLooper())
+    }
+
+    private fun listenForSpeech() {
+        if (!SpeechRecognizer.isRecognitionAvailable(this)) {
+            return
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            return
+        }
+        if (recognizer == null) {
+            recognizer = SpeechRecognizer.createSpeechRecognizer(this).also { it.setRecognitionListener(listener) }
+        }
+        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+            putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, false)
+        }
+        recognizer?.startListening(intent)
+    }
+
+    private val listener = object : RecognitionListener {
+        override fun onResults(results: Bundle?) {
+            val said = results
+                ?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
+                ?.firstOrNull()
+            if (said != null) {
+                ask(said)
+            }
+            if (engine.running) {
+                listenForSpeech()
+            }
+        }
+
+        override fun onError(error: Int) {
+            if (engine.running) {
+                handler.postDelayed({ listenForSpeech() }, TICK_MILLIS)
+            }
+        }
+
+        override fun onReadyForSpeech(params: Bundle?) {}
+        override fun onBeginningOfSpeech() {}
+        override fun onRmsChanged(rmsdB: Float) {}
+        override fun onBufferReceived(buffer: ByteArray?) {}
+        override fun onEndOfSpeech() {}
+        override fun onPartialResults(partialResults: Bundle?) {}
+        override fun onEvent(eventType: Int, params: Bundle?) {}
     }
 
     private fun refreshPlaybackState() {
@@ -223,6 +294,8 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
         const val ACTION_START_STEADY = "app.runningcoach.START_STEADY"
         const val ACTION_STOP = "app.runningcoach.STOP"
         const val ACTION_MEDIA = "app.runningcoach.MEDIA"
+        const val ACTION_ASK = "app.runningcoach.ASK"
+        const val EXTRA_QUESTION = "question"
         private const val CHANNEL_ID = "coach"
         private const val NOTIFICATION_ID = 1
         private const val TICK_MILLIS = 1_000L

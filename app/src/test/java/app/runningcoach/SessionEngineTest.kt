@@ -56,4 +56,15 @@ class SessionEngineTest {
         val lines = steady.onTick(0, null) + steady.onTick(60_000, null) + steady.onTick(120_000, null)
         assertTrue(lines.none { it == "Hard." || it == "Easier." || it == "Jog." })
     }
+
+    @Test
+    fun aSpokenTimeQuestionReturnsElapsedTimeAndNothingElseIsInvented() {
+        val session = SessionEngine()
+        session.start(SessionKind.INTERVAL)
+        session.onTick(90_000, 500.0)
+        assertEquals("Time 1 minute 30 seconds.", session.answer("How long have I been running?"))
+        assertEquals("That is not a stat of this run.", session.answer("What is my heart rate?"))
+        session.stop()
+        assertEquals("There is no session.", session.answer("How long have I been running?"))
+    }
 }
