@@ -73,6 +73,6 @@ The product on main is the one the team will pitch.
 
 ## Progress Monitoring
 
-- Review: the team's weekly review, Thursdays at 18:00 WAT, before the soft deadline. It reads [the threshold of success](threshold-of-success.md) and [the risk register](risks.md).
+- Review: the team's weekly review, Thursdays at 18:00 WAT, before the soft deadline. It reads [the threshold of success](threshold-of-success.md) and tracks [risk register issue #49](https://github.com/Running-Coach-App/running-coach-app/issues/49).
 - Checked by: the accountable member of each scheduled issue reports its state, and the team walks that sprint's GitHub milestone against the sprint's goal.
 - Visible at: the public GitHub project's table view, grouped by milestone, and the seven SPRINT-nn GitHub milestones. Both are created with the plan; this line gains their links once GitHub has assigned the numbers.
