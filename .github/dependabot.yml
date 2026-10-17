@@ -6,3 +6,9 @@ updates:
     directory: /
     schedule:
       interval: weekly
+
+  # Kotlin and Android Gradle dependencies. See DEC-009.
+  - package-ecosystem: gradle
+    directory: /
+    schedule:
+      interval: weekly

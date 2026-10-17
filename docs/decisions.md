@@ -79,3 +79,13 @@ Scope the first release to reading stats aloud and answering simple verbal stats
 - **Made by:** Customer
 - **Source:** [the Week 2 validation exchange](../reports/week-02/meeting-report.md#decisions)
 - **Why:** for the scope of the project it is enough to read available stats to the user and to respond to simple verbal queries, with no fixed command list, and he suggested Google's open source small model Gemma to handle those queries and generate the responses.
+
+## DEC-009
+
+Build the minimum usable product as a Kotlin Android app, and speak with the platform voice.
+
+- **Status:** Active
+- **Date:** 2026-10-17
+- **Made by:** Team
+- **Source:** [DEC-006](#dec-006) and [the on-device feasibility verdict](research/on-device-feasibility.md#verdict)
+- **Why:** [DEC-006](#dec-006) already ships the first release on Android, because the `Customer` has no iOS device to test. The slice on `main` is Kotlin 2.0.21 with Android Gradle Plugin 8.7.3, Gradle 8.11.1, `minSdk` 26, and `compileSdk` 35. Platform text-to-speech fits the spoken cues and the short stat answers. Gemma stays a candidate until a phone spike measures it, so this release does not depend on it.
