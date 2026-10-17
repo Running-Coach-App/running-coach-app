@@ -6,10 +6,11 @@ A running coach for recreational runners training for 5K to half-marathon races,
 
 > [!NOTE]
 > This project is a work in progress for the ITPD course.
-> Week 1 is a research week, so there is no code yet.
+> How to build and run the Android app is in [the setup page](docs/setup.md).
 
 ## Where to start
 
+- Setup and run: [docs/setup.md](docs/setup.md)
 - Current week's report: [reports/week-01/README.md](reports/week-01/README.md)
 - Maintained documentation: [docs/](docs/)
   - [Alternatives](docs/research/alternatives.md)

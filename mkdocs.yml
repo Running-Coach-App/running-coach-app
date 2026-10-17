@@ -6,6 +6,7 @@ site_dir: site
 
 nav:
   - Home: index.md
+  - Setup: setup.md
   - Product vision: product-vision.md
   - Decisions: decisions.md
   - Assumptions: assumptions.md

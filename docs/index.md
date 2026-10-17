@@ -6,6 +6,7 @@ Team 4, ITPD course, Innopolis University, autumn 2026.
 
 ## Documentation
 
+- [Setup and run](setup.md)
 - [Product vision](product-vision.md)
 - [Decisions](decisions.md)
 - [Assumptions](assumptions.md)
