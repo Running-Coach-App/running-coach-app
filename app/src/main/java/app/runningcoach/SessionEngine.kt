@@ -67,6 +67,30 @@ class SessionEngine {
         return lines
     }
 
+    fun answer(question: String): String {
+        if (!running) {
+            return "There is no session."
+        }
+        val text = question.lowercase()
+        val aboutTime = text.contains("time") || text.contains("long")
+        val aboutPace = text.contains("pace") || text.contains("fast")
+        val aboutDistance = text.contains("distance") || text.contains("far")
+        if (!aboutTime && !aboutPace && !aboutDistance) {
+            return "That is not a stat of this run."
+        }
+        val parts = mutableListOf<String>()
+        if (aboutTime) {
+            parts += speakTime(elapsedMillis)
+        }
+        if (aboutPace) {
+            parts += speakPace(elapsedMillis, distanceMeters)
+        }
+        if (aboutDistance) {
+            parts += speakDistance(distanceMeters)
+        }
+        return parts.joinToString(" ")
+    }
+
     fun statsPhrase(): String {
         return speakTime(elapsedMillis) + " " + speakPace(elapsedMillis, distanceMeters) + " " + speakDistance(distanceMeters)
     }

@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -31,6 +32,10 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.stopSession).setOnClickListener {
             send(CoachService.ACTION_STOP)
         }
+        findViewById<Button>(R.id.ask).setOnClickListener {
+            val question = findViewById<EditText>(R.id.question).text.toString()
+            send(CoachService.ACTION_ASK, question)
+        }
         findViewById<TextView>(R.id.pocketNote).text = getString(R.string.pocket_note)
     }
 
@@ -54,6 +59,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun askForPermissions() {
         val required = mutableListOf(
+            Manifest.permission.RECORD_AUDIO,
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION,
         )
@@ -68,8 +74,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun send(action: String) {
+    private fun send(action: String, question: String? = null) {
         val intent = Intent(this, CoachService::class.java).setAction(action)
+        if (question != null) {
+            intent.putExtra(CoachService.EXTRA_QUESTION, question)
+        }
         ContextCompat.startForegroundService(this, intent)
     }
 }
