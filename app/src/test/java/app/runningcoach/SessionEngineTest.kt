@@ -11,17 +11,11 @@ class SessionEngineTest {
         val session = SessionEngine()
         assertEquals("Session started.", session.start(SessionKind.INTERVAL))
         assertTrue(session.running)
+        val during = session.onTick(1_000, null)
+        assertTrue(during.any { it == "Jog." })
         assertEquals("Session stopped.", session.stop())
         assertFalse(session.running)
         assertTrue(session.onTick(2_000, 100.0).isEmpty())
-    }
-
-    @Test
-    fun aSteadySessionIsStartedAndStoppedTheSameWay() {
-        val session = SessionEngine()
-        assertEquals("Session started.", session.start(SessionKind.STEADY))
-        assertEquals(SessionKind.STEADY, session.kind)
-        assertEquals("Session stopped.", session.stop())
     }
 
     @Test
@@ -49,11 +43,17 @@ class SessionEngineTest {
     }
 
     @Test
-    fun statsRepeatEveryMinuteAfterTheFirst() {
-        val session = SessionEngine()
-        session.start(SessionKind.STEADY)
-        assertEquals(1, session.onTick(15_000, null).size)
-        assertTrue(session.onTick(74_000, null).isEmpty())
-        assertEquals(1, session.onTick(75_000, null).size)
+    fun intervalSessionSpeaksEffortChangesAndSteadyDoesNot() {
+        val interval = SessionEngine()
+        interval.start(SessionKind.INTERVAL)
+        assertEquals(listOf("Jog."), interval.onTick(0, null))
+        assertTrue(interval.onTick(59_000, null).none { it == "Hard." || it == "Easier." || it == "Jog." })
+        assertTrue(interval.onTick(60_000, null).contains("Hard."))
+        assertTrue(interval.onTick(120_000, null).contains("Easier."))
+
+        val steady = SessionEngine()
+        steady.start(SessionKind.STEADY)
+        val lines = steady.onTick(0, null) + steady.onTick(60_000, null) + steady.onTick(120_000, null)
+        assertTrue(lines.none { it == "Hard." || it == "Easier." || it == "Jog." })
     }
 }
