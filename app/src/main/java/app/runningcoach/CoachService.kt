@@ -1,12 +1,17 @@
 package app.runningcoach
 
+import android.Manifest
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.pm.ServiceInfo
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.os.Build
 import android.os.Handler
 import android.os.IBinder
@@ -14,19 +19,35 @@ import android.os.Looper
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
 import androidx.media.session.MediaButtonReceiver
 import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
 import java.util.Locale
 
-class CoachService : Service(), TextToSpeech.OnInitListener {
+class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
     private val engine = SessionEngine()
     private val handler = Handler(Looper.getMainLooper())
     private var tts: TextToSpeech? = null
     private var ttsReady = false
     private var mediaSession: MediaSessionCompat? = null
+    private var lastLocation: Location? = null
+    private var distanceMeters = 0.0
+    private var startedAt = 0L
     private val pending = ArrayDeque<String>()
     private var speaking = false
+
+    private val tick = object : Runnable {
+        override fun run() {
+            if (!engine.running) {
+                return
+            }
+            val elapsed = System.currentTimeMillis() - startedAt
+            val distance = if (lastLocation == null) null else distanceMeters
+            engine.onTick(elapsed, distance).forEach { speak(it) }
+            handler.postDelayed(this, TICK_MILLIS)
+        }
+    }
 
     override fun onCreate() {
         super.onCreate()
@@ -85,7 +106,16 @@ class CoachService : Service(), TextToSpeech.OnInitListener {
         speakNext()
     }
 
+    override fun onLocationChanged(location: Location) {
+        val previous = lastLocation
+        if (previous != null) {
+            distanceMeters += previous.distanceTo(location)
+        }
+        lastLocation = location
+    }
+
     override fun onDestroy() {
+        handler.removeCallbacks(tick)
         mediaSession?.release()
         tts?.shutdown()
         super.onDestroy()
@@ -95,7 +125,12 @@ class CoachService : Service(), TextToSpeech.OnInitListener {
         if (engine.running) {
             return
         }
+        distanceMeters = 0.0
+        lastLocation = null
+        startedAt = System.currentTimeMillis()
         speak(engine.start(kind))
+        listenForLocation()
+        handler.post(tick)
         refreshPlaybackState()
     }
 
@@ -103,6 +138,8 @@ class CoachService : Service(), TextToSpeech.OnInitListener {
         if (!engine.running) {
             return
         }
+        handler.removeCallbacks(tick)
+        getSystemService(LocationManager::class.java).removeUpdates(this)
         speak(engine.stop())
         refreshPlaybackState()
     }
@@ -124,6 +161,18 @@ class CoachService : Service(), TextToSpeech.OnInitListener {
         tts?.speak(line, TextToSpeech.QUEUE_ADD, null, line)
     }
 
+    private fun listenForLocation() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return
+        }
+        val manager = getSystemService(LocationManager::class.java)
+        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            return
+        }
+        val provider = LocationManager.GPS_PROVIDER
+        manager.requestLocationUpdates(provider, TICK_MILLIS, 0f, this, Looper.getMainLooper())
+    }
+
     private fun refreshPlaybackState() {
         val state = if (engine.running) PlaybackStateCompat.STATE_PLAYING else PlaybackStateCompat.STATE_STOPPED
         val actions = PlaybackStateCompat.ACTION_PLAY or
@@ -141,7 +190,7 @@ class CoachService : Service(), TextToSpeech.OnInitListener {
             startForeground(
                 NOTIFICATION_ID,
                 notice,
-                ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK,
+                ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION or ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK,
             )
         } else {
             startForeground(NOTIFICATION_ID, notice)
@@ -176,5 +225,6 @@ class CoachService : Service(), TextToSpeech.OnInitListener {
         const val ACTION_MEDIA = "app.runningcoach.MEDIA"
         private const val CHANNEL_ID = "coach"
         private const val NOTIFICATION_ID = 1
+        private const val TICK_MILLIS = 1_000L
     }
 }
