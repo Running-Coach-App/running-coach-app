@@ -6,8 +6,9 @@ Running Coach App, team 4.
 
 By the end of Week 3 the customer has given a yes or a no on each story in the Week 2 candidate.
 
-- **Status:** Open
+- **Status:** Met
 - **Measure:** one `DEC-nnn` per candidate story, [US-01](https://github.com/Running-Coach-App/running-coach-app/issues/37) through [US-04](https://github.com/Running-Coach-App/running-coach-app/issues/40), in the Week 3 meeting report, by 2026-10-17.
+- **Outcome:** Affirmed from description (no working binary shown) with refinements in [DEC-010](decisions.md#dec-010) through [DEC-016](decisions.md#dec-016); see [the Week 3 meeting report](../reports/week-03/meeting-report.md#decisions).
 
 ## TOS-02
 

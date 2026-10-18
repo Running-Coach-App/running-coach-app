@@ -71,3 +71,4 @@ A small on-device model (Gemma, as the `Customer` suggested) can answer simple s
 
 - **Status:** Open
 - **How to check:** complete the on-device text-to-speech and small-model feasibility spike in Week 3, per [the Week 2 action points](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-02/meeting-report.md#action-points), and record its findings in the [on-device feasibility assessment](research/on-device-feasibility.md).
+- **Note:** Week 3 preferred trying an on-device model first with keywords as backup ([DEC-016](decisions.md#dec-016)); feasibility on a device is still unproven.

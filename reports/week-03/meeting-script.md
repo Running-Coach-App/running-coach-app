@@ -45,25 +45,25 @@ Questions marked ★ are the ones that would change the project most.
 
 ### Permission
 
-1. _(open)_ May we record this meeting?
-2. _(open)_ May we publish a sanitized transcript in the repository?
-3. _(open)_ If you refuse publication, may we share that transcript privately with the instructors?
+1. _(closed)_ May we record this meeting? — Not asked as scripted; the `Customer` offered the Zoom transcript and recording himself ([meeting report](meeting-report.md#deviations) deviation).
+2. _(closed)_ May we publish a sanitized transcript in the repository? — Taken as yes from that offer; see [meeting-transcript.md](meeting-transcript.md).
+3. _(closed)_ If you refuse publication, may we share that transcript privately with the instructors? — Not needed once publication was offered.
 
 ### US-01
 
-4. _(open)_ ★ Does the start and the stop do what you need: a spoken confirmation each time, and silence after the stop, with the phone face covered?
+4. _(closed)_ ★ Does the start and the stop do what you need: a spoken confirmation each time, and silence after the stop, with the phone face covered? — Affirmed from description: volume keys for pocket start/stop are acceptable; motion detection is out; a spoken "start the session" is welcome later ([DEC-015](../../docs/decisions.md#dec-015)). No working binary was shown.
 
 ### US-02
 
-5. _(open)_ ★ Are the spoken time, pace, and distance enough, including the case where distance is missing and we do not invent one?
+5. _(closed)_ ★ Are the spoken time, pace, and distance enough, including the case where distance is missing and we do not invent one? — Affirmed: three-minute cadence is fine for the MUP ([DEC-013](../../docs/decisions.md#dec-013)); say a missing stat once, then omit it until it returns ([DEC-011](../../docs/decisions.md#dec-011)).
 
 ### US-03
 
-6. _(open)_ ★ Is hearing hard, easier, or jog at a change, and hearing nothing when the effort does not change, the cue you wanted?
+6. _(closed)_ ★ Is hearing hard, easier, or jog at a change, and hearing nothing when the effort does not change, the cue you wanted? — Affirmed; stats may still speak during a steady run ([DEC-014](../../docs/decisions.md#dec-014)).
 
 ### US-04
 
-7. _(open)_ ★ When you ask how long the run has been going, is the spoken elapsed time the answer you wanted, and is it right that any other question gets no invented stat?
+7. _(closed)_ ★ When you ask how long the run has been going, is the spoken elapsed time the answer you wanted, and is it right that any other question gets no invented stat? — Affirmed in spirit: stay on running stats; off-topic gets a polite focus-on-running reply ([DEC-012](../../docs/decisions.md#dec-012)); prefer an on-device model for intent, keywords as backup ([DEC-016](../../docs/decisions.md#dec-016)). Navigation stays out ([DEC-010](../../docs/decisions.md#dec-010)).
 
 ### Not in this build
 
@@ -71,7 +71,7 @@ Questions marked ★ are the ones that would change the project most.
 
 ### Still open from Week 2
 
-9. _(open)_ ★ The last time an app or a plan changed a workout on you, what did you do: follow it, ignore it, or change it back? Why?
+9. _(closed)_ ★ The last time an app or a plan changed a workout on you, what did you do: follow it, ignore it, or change it back? Why? — Asked; for this small app he judged unexpected plan changes out of scope while programmes stay simple and user-picked ([meeting report](meeting-report.md#summary)).
 10. _(open)_ Are professional runners in scope later?
 11. _(open)_ What does a wearable add for you, and should we spend any of the remaining weeks on one?
 12. _(open)_ The old question, kept so it is actually asked: if only one of these had shipped, which would you have kept, the explanation of why a plan changed, or adaptation from phone-only runs? Both are already outside the product. We are asking whether that still stands.
