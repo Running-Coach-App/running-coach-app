@@ -5,4 +5,8 @@ exclude_path = ['^(\./)?\.claude/skills/itpd/']
 
 # The Pages site is created by .github/workflows/pages.yml when that workflow runs on main.
 # Until that first run, the URL does not resolve, so the pull request that adds the link cannot check it.
-exclude = ['^https://running-coach-app\.github\.io/running-coach-app/?$']
+exclude = [
+  '^https://running-coach-app\.github\.io/running-coach-app/?$',
+  # Org project pages return 404 to the link checker (and to anonymous requests) even when the team can open them signed in.
+  '^https://github\.com/orgs/Running-Coach-App/projects/3(/views/\d+)?/?$',
+]
