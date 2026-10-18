@@ -11,7 +11,7 @@ A running coach for recreational runners training for 5K to half-marathon races,
 ## Where to start
 
 - Setup and run: [docs/setup.md](docs/setup.md)
-- Current week's report: [reports/week-01/README.md](reports/week-01/README.md)
+- Current week's report: [reports/week-03/README.md](reports/week-03/README.md)
 - Maintained documentation: [docs/](docs/)
   - [Alternatives](docs/research/alternatives.md)
   - [Comparison](docs/research/comparison.md)
