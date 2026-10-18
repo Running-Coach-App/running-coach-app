@@ -23,6 +23,10 @@ A clean checkout of main speaks a start, the run's time, pace, and distance, an 
 
 #### REL-03
 
+- **Tag:** [`v0.1.0`](https://github.com/Running-Coach-App/running-coach-app/releases/tag/v0.1.0)
+- **Date:** 2026-10-18
+- **Ships:** the Week 3 pocket-session slice on `main` (start/stop, spoken time/pace/distance, effort cue, spoken stat answer), plus the Week 3 docs and validation record.
+
 ### SPRINT-04
 
 The same slice has a repeatable build, tests, and an architecture the next increment can extend.

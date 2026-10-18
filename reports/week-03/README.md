@@ -10,7 +10,7 @@ Our problem-space sentence: a beginner to intermediate runner with only a phone 
 
 The Week 3 validation meeting was held live on Zoom on 2026-10-17. No working binary was shown. From description, the `Customer` affirmed the intended pocket-coach behaviours for [US-01](https://github.com/Running-Coach-App/running-coach-app/issues/37), [US-02](https://github.com/Running-Coach-App/running-coach-app/issues/38), [US-03](https://github.com/Running-Coach-App/running-coach-app/issues/39), and [US-04](https://github.com/Running-Coach-App/running-coach-app/issues/40), with refinements in [DEC-010](../../docs/decisions.md#dec-010) through [DEC-016](../../docs/decisions.md#dec-016). No candidate story moved out. [TOS-01](../../docs/threshold-of-success.md#tos-01) is `Met`.
 
-`REL-03` is not cut. There is no release tag. The plan's [REL-03](../../docs/project-plan.md#rel-03) section is still empty, and [CHANGELOG.md](../../CHANGELOG.md) still holds the week's entries under `[Unreleased]`.
+`REL-03` is cut as [`v0.1.0`](https://github.com/Running-Coach-App/running-coach-app/releases/tag/v0.1.0) on 2026-10-18. See [REL-03](../../docs/project-plan.md#rel-03) and [CHANGELOG.md](../../CHANGELOG.md).
 
 Still open from the meeting: professional runners, wearable value, and whether the two presets still follow the coach. Those are in [the meeting report](meeting-report.md#open-questions).
 
@@ -44,7 +44,7 @@ Nothing moved out of the candidate.
 | Sprint milestones and issue fields | [SPRINT-03 milestone](https://github.com/Running-Coach-App/running-coach-app/milestone/1); `Responsible` and `Accountable` are project fields defined in [CONTRIBUTING.md](../../CONTRIBUTING.md); assignees visible on that milestone's issues include @sirjaey, @ObeTech1, and @Ezekiel-Gadzama |
 | GitHub project | Not linked from this repository. The public org projects page lists none without sign-in. Field rules are in [CONTRIBUTING.md](../../CONTRIBUTING.md) |
 | Minimum usable product | Candidate [US-01](https://github.com/Running-Coach-App/running-coach-app/issues/37) through [US-04](https://github.com/Running-Coach-App/running-coach-app/issues/40); pocket-session code on `main` via [#64](https://github.com/Running-Coach-App/running-coach-app/pull/64), [#66](https://github.com/Running-Coach-App/running-coach-app/pull/66), and [#67](https://github.com/Running-Coach-App/running-coach-app/pull/67); not demonstrated at the meeting |
-| Changelog and first release | [CHANGELOG.md](../../CHANGELOG.md); `REL-03` not cut (no tag) |
+| Changelog and first release | [CHANGELOG.md](../../CHANGELOG.md); `REL-03` cut as [`v0.1.0`](https://github.com/Running-Coach-App/running-coach-app/releases/tag/v0.1.0) |
 | Documentation site | [https://running-coach-app.github.io/running-coach-app/](https://running-coach-app.github.io/running-coach-app/) |
 | Setup and run instructions | [docs/setup.md](../../docs/setup.md) |
 | Week 2 action points | [reports/week-03/meeting-report.md#previous-action-points](meeting-report.md#previous-action-points) |
@@ -88,8 +88,8 @@ The Pages URL is excluded in [`lychee.toml`](../../lychee.toml) until the site r
    The `Customer` offered the transcript and the recording himself, so publication was taken as permitted. That shortcut is recorded here and in [the meeting report](meeting-report.md#deviations).
 3. **Professional runners, wearable value, and the two-presets order were not asked.**
    They remain open for the next validation.
-4. **`REL-03` is not cut.**
-   There is no release tag. The changelog stays under `[Unreleased]`, and the plan's `REL-03` section is empty.
+4. **`REL-03` was cut after the validation meeting.**
+   The meeting itself did not demonstrate an install. The tag [`v0.1.0`](https://github.com/Running-Coach-App/running-coach-app/releases/tag/v0.1.0) was cut on 2026-10-18 once the pocket-session slice and Week 3 report were on `main`. Soft deadline for the Moodle submission was shifted to 2026-10-18 23:59 Moscow time.
 5. **The GitHub project table view is not linked here.**
    No project URL is stored in this repository, and the public org projects page lists none without sign-in. This report points at [CONTRIBUTING.md](../../CONTRIBUTING.md) for the project field rules instead of inventing a URL.
 6. **`Responsible` and `Accountable` values are not copied into this table.**
