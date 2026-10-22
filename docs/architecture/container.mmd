@@ -1,0 +1,14 @@
+flowchart LR
+    subgraph boundary["Boundary of the product"]
+        app["coach app<br/>Android, Kotlin"]
+    end
+
+    tts["Platform text-to-speech<br/>Android"]
+    asr["Platform speech recognition<br/>Android"]
+    gnss["Location provider<br/>Android, phone receiver"]
+
+    app -->|"lines to speak"| tts
+    tts -->|"spoken line finished"| app
+    app -->|"request to listen"| asr
+    asr -->|"transcribed question"| app
+    gnss -->|"location fixes"| app
