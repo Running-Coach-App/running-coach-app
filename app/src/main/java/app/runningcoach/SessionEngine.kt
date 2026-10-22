@@ -30,6 +30,8 @@ class SessionEngine {
 
     private var lastSpokenEffort: Effort? = null
     private var nextStatsAtMillis: Long = FIRST_STATS_AT_MILLIS
+    private var paceMissingAnnounced = false
+    private var distanceMissingAnnounced = false
 
     fun start(kind: SessionKind): String {
         running = true
@@ -38,6 +40,8 @@ class SessionEngine {
         distanceMeters = null
         lastSpokenEffort = null
         nextStatsAtMillis = FIRST_STATS_AT_MILLIS
+        paceMissingAnnounced = false
+        distanceMissingAnnounced = false
         return "Session started."
     }
 
@@ -76,7 +80,7 @@ class SessionEngine {
         val aboutPace = text.contains("pace") || text.contains("fast")
         val aboutDistance = text.contains("distance") || text.contains("far")
         if (!aboutTime && !aboutPace && !aboutDistance) {
-            return "That is not a stat of this run."
+            return OFF_TOPIC_REPLY
         }
         val parts = mutableListOf<String>()
         if (aboutTime) {
@@ -91,13 +95,36 @@ class SessionEngine {
         return parts.joinToString(" ")
     }
 
+    /**
+     * The scheduled stats line. A stat that is missing is named once, then left
+     * out until it is available again, per DEC-011.
+     */
     fun statsPhrase(): String {
-        return speakTime(elapsedMillis) + " " + speakPace(elapsedMillis, distanceMeters) + " " + speakDistance(distanceMeters)
+        val distance = distanceMeters
+        val haveDistance = distance != null && distance > 0.0
+        val havePace = haveDistance && elapsedMillis > 0
+
+        val parts = mutableListOf(speakTime(elapsedMillis))
+        if (havePace || !paceMissingAnnounced) {
+            parts += speakPace(elapsedMillis, distanceMeters)
+        }
+        paceMissingAnnounced = !havePace
+        if (haveDistance || !distanceMissingAnnounced) {
+            parts += speakDistance(distanceMeters)
+        }
+        distanceMissingAnnounced = !haveDistance
+        return parts.joinToString(" ")
     }
 
     companion object {
-        const val FIRST_STATS_AT_MILLIS: Long = 15_000
-        const val STATS_EVERY_MILLIS: Long = 60_000
+        /** The spoken stats cadence the customer fixed in DEC-013. */
+        const val FIRST_STATS_AT_MILLIS: Long = 180_000
+        const val STATS_EVERY_MILLIS: Long = 180_000
+
+        /** Said to an off-topic question, per DEC-012: turn the runner back to the run, invent nothing. */
+        const val OFF_TOPIC_REPLY: String =
+            "Let us keep the focus on the run. Ask me about your time, your pace, or your distance."
+
         private const val BLOCK_MILLIS: Long = 60_000
         private const val CYCLE_MILLIS: Long = 180_000
 
