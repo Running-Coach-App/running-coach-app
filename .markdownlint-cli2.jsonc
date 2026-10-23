@@ -13,7 +13,11 @@
     // The research requirements ask for a bold label on its own line before a
     // table or a list inside an identifier's section, such as `**Strengths**`
     // before the list of them. This rule reads a bold line as a mistyped heading.
-    "MD036": false
+    "MD036": false,
+    // Keep a Changelog repeats `### Added` and `### Changed` under every version
+    // heading, and requirements/releases-requirements.md requires that format.
+    // Sibling scope still catches a real duplicate inside one version's section.
+    "MD024": { "siblings_only": true }
   },
   "gitignore": true,
   "ignores": [".claude/skills/itpd/**"]
