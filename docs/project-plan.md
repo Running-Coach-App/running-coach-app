@@ -32,6 +32,7 @@ A clean checkout of main speaks a start, the run's time, pace, and distance, an 
 The same slice has a repeatable build, tests, and an architecture the next increment can extend.
 
 - Due: 2026-10-24
+- Sprint Backlog: [the issues scheduled into SPRINT-04](https://github.com/Running-Coach-App/running-coach-app/milestone/2)
 
 #### REL-04
 
