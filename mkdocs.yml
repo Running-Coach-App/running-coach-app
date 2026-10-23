@@ -21,3 +21,8 @@ nav:
       - Risks: risks.md
       - Threshold of success: threshold-of-success.md
       - Definition of done: definition-of-done.md
+  - Requirements:
+      - Quality requirements: quality-requirements/README.md
+      - Functional requirements: functional-requirements/README.md
+  - Architecture: architecture/README.md
+  - Glossary: glossary.md

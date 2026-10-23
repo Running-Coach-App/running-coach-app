@@ -155,5 +155,6 @@ Nothing else exchanges anything with the product: there is no server, because [`
 
 ## Where The Detail Lives
 
+- [Architecture](architecture/README.md), which records what the product is made of and the decisions behind it
 - [User stories](https://github.com/Running-Coach-App/running-coach-app/issues?q=label%3Auser-story)
 - [Week 2 report](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-02/README.md)
