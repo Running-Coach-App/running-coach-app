@@ -31,7 +31,7 @@ A clean checkout of main speaks a start, the run's time, pace, and distance, an 
 
 The same slice has a repeatable build, tests, and an architecture the next increment can extend.
 
-- Due: 2026-10-23
+- Due: 2026-10-24
 - Sprint Backlog: [the issues scheduled into SPRINT-04](https://github.com/Running-Coach-App/running-coach-app/milestone/2)
 
 #### REL-04
@@ -40,7 +40,7 @@ The same slice has a repeatable build, tests, and an architecture the next incre
 
 A person outside the team can run the core task from the published setup, and the checks run on every pull request.
 
-- Due: 2026-10-30
+- Due: 2026-10-31
 
 #### REL-05
 
@@ -48,7 +48,7 @@ A person outside the team can run the core task from the published setup, and th
 
 The team can tell, from the product itself, whether a runner heard the coach during a session.
 
-- Due: 2026-11-06
+- Due: 2026-11-07
 
 #### REL-06
 
@@ -56,7 +56,7 @@ The team can tell, from the product itself, whether a runner heard the coach dur
 
 A runner who is not on the team can be asked to use the coach, and the team has a written way to watch that use.
 
-- Due: 2026-11-13
+- Due: 2026-11-14
 
 #### REL-07
 
@@ -64,7 +64,7 @@ A runner who is not on the team can be asked to use the coach, and the team has 
 
 The repository's configuration is the one the team will keep through the end of the course.
 
-- Due: 2026-11-20
+- Due: 2026-11-21
 
 #### REL-08
 
@@ -72,7 +72,7 @@ The repository's configuration is the one the team will keep through the end of 
 
 The product on main is the one the team will pitch.
 
-- Due: 2026-11-27
+- Due: 2026-11-28
 
 #### REL-09
 
