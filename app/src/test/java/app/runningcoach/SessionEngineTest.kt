@@ -105,17 +105,55 @@ class SessionEngineTest {
     }
 
     @Test
-    fun anOffTopicQuestionGetsTheFocusOnRunningReplyAndNoInventedStat() {
+    fun anOffTopicQuestionOnAKnownThemeGetsThatThemesReply() {
         val session = SessionEngine()
         session.start(SessionKind.INTERVAL)
         session.onTick(90_000, 500.0)
 
-        val reply = session.answer("What is my heart rate?")
-        assertEquals(SessionEngine.OFF_TOPIC_REPLY, reply)
-        assertFalse(reply.contains("Time"))
-        assertFalse(reply.contains("Pace"))
-        assertFalse(reply.contains("Distance"))
+        assertEquals(
+            "Can we not think about food now and focus on the run?",
+            session.answer("Have I eaten today?"),
+        )
+        assertEquals(
+            "The weather can wait. You are the one moving, not the sky.",
+            session.answer("Is it going to rain?"),
+        )
+        assertEquals(
+            "You can rest later. Right now, one more step.",
+            session.answer("Why am I so tired?"),
+        )
+    }
 
+    @Test
+    fun anUnrecognisedOffTopicQuestionTakesTheRepliesInTurnAndRepeatsNothing() {
+        val session = SessionEngine()
+        session.start(SessionKind.INTERVAL)
+        session.onTick(90_000, 500.0)
+
+        val replies = listOf(
+            session.answer("What is my heart rate?"),
+            session.answer("Who won the match?"),
+            session.answer("Where are we?"),
+        )
+        assertEquals(SessionEngine.OFF_TOPIC_REPLIES, replies)
+        assertEquals(replies.toSet().size, replies.size)
+
+        assertEquals(SessionEngine.OFF_TOPIC_REPLIES.first(), session.answer("Who won the match?"))
+    }
+
+    @Test
+    fun anOffTopicReplyInventsNoStatAndTheRunKeepsAnswering() {
+        val session = SessionEngine()
+        session.start(SessionKind.INTERVAL)
+        session.onTick(90_000, 500.0)
+
+        val everyReply = SessionEngine.OFF_TOPIC_THEMES.map { it.second } + SessionEngine.OFF_TOPIC_REPLIES
+        for (reply in everyReply) {
+            assertFalse(reply.any { it.isDigit() })
+            assertFalse(reply.contains("kilometre"))
+        }
+
+        session.answer("Have I eaten today?")
         assertEquals("Time 1 minute 30 seconds.", session.answer("How long have I been running?"))
     }
 }

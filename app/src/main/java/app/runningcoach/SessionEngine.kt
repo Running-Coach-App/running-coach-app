@@ -32,6 +32,7 @@ class SessionEngine {
     private var nextStatsAtMillis: Long = FIRST_STATS_AT_MILLIS
     private var paceMissingAnnounced = false
     private var distanceMissingAnnounced = false
+    private var offTopicRepliesGiven = 0
 
     fun start(kind: SessionKind): String {
         running = true
@@ -42,6 +43,7 @@ class SessionEngine {
         nextStatsAtMillis = FIRST_STATS_AT_MILLIS
         paceMissingAnnounced = false
         distanceMissingAnnounced = false
+        offTopicRepliesGiven = 0
         return "Session started."
     }
 
@@ -80,7 +82,7 @@ class SessionEngine {
         val aboutPace = text.contains("pace") || text.contains("fast")
         val aboutDistance = text.contains("distance") || text.contains("far")
         if (!aboutTime && !aboutPace && !aboutDistance) {
-            return OFF_TOPIC_REPLY
+            return offTopicReply(text)
         }
         val parts = mutableListOf<String>()
         if (aboutTime) {
@@ -93,6 +95,22 @@ class SessionEngine {
             parts += speakDistance(distanceMeters)
         }
         return parts.joinToString(" ")
+    }
+
+    /**
+     * The answer to a question that is not about this run. A question on a theme the
+     * coach recognises gets that theme's line; anything else gets the next of the
+     * general replies, so asking twice does not get the same words twice.
+     */
+    private fun offTopicReply(question: String): String {
+        val words = question.split(NOT_A_LETTER).filter { it.isNotEmpty() }
+        val themed = OFF_TOPIC_THEMES.firstOrNull { (keywords, _) -> keywords.any { it in words } }
+        if (themed != null) {
+            return themed.second
+        }
+        val reply = OFF_TOPIC_REPLIES[offTopicRepliesGiven % OFF_TOPIC_REPLIES.size]
+        offTopicRepliesGiven++
+        return reply
     }
 
     /**
@@ -121,9 +139,32 @@ class SessionEngine {
         const val FIRST_STATS_AT_MILLIS: Long = 180_000
         const val STATS_EVERY_MILLIS: Long = 180_000
 
-        /** Said to an off-topic question, per DEC-012: turn the runner back to the run, invent nothing. */
-        const val OFF_TOPIC_REPLY: String =
-            "Let us keep the focus on the run. Ask me about your time, your pace, or your distance."
+        private val NOT_A_LETTER = Regex("[^a-z]+")
+
+        /**
+         * Said to an off-topic question the coach recognises a theme in. Each line turns the
+         * runner back to the run and states nothing about the theme itself, per DEC-012 and
+         * the customer's ask for a reply with some character in it.
+         */
+        val OFF_TOPIC_THEMES: List<Pair<List<String>, String>> = listOf(
+            listOf("eat", "ate", "eaten", "eating", "food", "hungry", "breakfast", "lunch", "dinner", "snack") to
+                "Can we not think about food now and focus on the run?",
+            listOf("weather", "rain", "raining", "sun", "sunny", "cold", "hot", "wind", "windy") to
+                "The weather can wait. You are the one moving, not the sky.",
+            listOf("work", "email", "emails", "meeting", "boss", "office", "deadline") to
+                "Work will still be there at the cool down. Keep your legs going.",
+            listOf("music", "song", "songs", "playlist", "radio") to
+                "I only talk running. Your playlist is your own business.",
+            listOf("sleep", "sleepy", "tired", "bed", "nap", "rest") to
+                "You can rest later. Right now, one more step.",
+        )
+
+        /** Said to any other off-topic question, taken in turn so the coach does not repeat itself. */
+        val OFF_TOPIC_REPLIES: List<String> = listOf(
+            "That one is for after the run. Keep moving.",
+            "I only know this run. Ask me about your time, your pace, or your distance.",
+            "Not my department. Save it for the finish line.",
+        )
 
         private const val BLOCK_MILLIS: Long = 60_000
         private const val CYCLE_MILLIS: Long = 180_000

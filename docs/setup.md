@@ -42,7 +42,7 @@ Install `app/build/outputs/apk/debug/app-debug.apk` on the phone or emulator. Op
 
 Start an interval session or a steady session from the buttons. The coach says "Session started." Three minutes later it says the elapsed time, the pace, and the distance, and it repeats that line every three minutes. Until there is a GPS fix, the pace and the distance are spoken as not available yet once, and are then left out of the following lines until a fix arrives. An interval session also says "Jog.", then "Hard.", then "Easier.", one minute each. A steady session does not say those words.
 
-Ask "How long have I been running?" aloud, or type that question and press Ask. A question that is not about time, pace, or distance gets "Let us keep the focus on the run. Ask me about your time, your pace, or your distance." Stop the session. The coach says "Session stopped." and does not keep speaking cues.
+Ask "How long have I been running?" aloud, or type that question and press Ask. A question that is not about time, pace, or distance gets a reply that turns you back to the run and states nothing about what you asked: ask "Have I eaten today?" and the coach says "Can we not think about food now and focus on the run?" Food, weather, work, music, and sleep each have their own line; anything else takes the general replies in turn, so asking twice does not get the same words twice. Stop the session. The coach says "Session stopped." and does not keep speaking cues.
 
 The volume keys and the headset button are handled while this screen is in front. They are not a covered-screen control yet.
 
