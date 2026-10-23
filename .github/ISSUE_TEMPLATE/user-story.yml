@@ -56,6 +56,22 @@ body:
     validations:
       required: false
 
+  - type: textarea
+    id: specified-by
+    attributes:
+      label: Specified by
+      description: >-
+        Optional. One FR-nnn or ADR-nnn per line, each the record that specifies this story's behaviour.
+        Every story other than a Won't Have carries at least one. URL patterns:
+        https://github.com/Running-Coach-App/running-coach-app/blob/main/docs/functional-requirements/fr/FR-001.md
+        and
+        https://github.com/Running-Coach-App/running-coach-app/blob/main/docs/architecture/adr/ADR-001.md
+      placeholder: |-
+        FR-001
+        ADR-001
+    validations:
+      required: false
+
   - type: input
     id: priority-reason
     attributes:
@@ -76,8 +92,8 @@ body:
         Optional. At least two for anything that is not Won't Have, each observable and pass/fail, each
         starting with its own AC-nn. Somebody other than you runs it and gets the same answer.
       value: |-
-        1. AC-01:
-        2. AC-02:
+        - [ ] AC-01:
+        - [ ] AC-02:
     validations:
       required: false
 

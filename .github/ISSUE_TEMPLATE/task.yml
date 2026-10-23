@@ -1,6 +1,5 @@
 name: Task
 description: One unit of work. One pull request closes exactly this issue.
-title: ""
 labels:
   - task
 body:
@@ -23,6 +22,23 @@ body:
       value: "- #"
     validations:
       required: false
+
+  - type: textarea
+    id: requirements
+    attributes:
+      label: Requirements
+      description: >-
+        One item per line, each a link to an FR-nnn or an ADR-nnn on main, naming what this task works on.
+        This is not the Story field: the story is the need, the requirement is the specification. A task
+        that serves no requirement says so in one line, such as "None: repository upkeep". URL patterns:
+        https://github.com/Running-Coach-App/running-coach-app/blob/main/docs/functional-requirements/fr/FR-001.md
+        and
+        https://github.com/Running-Coach-App/running-coach-app/blob/main/docs/architecture/adr/ADR-001.md
+      placeholder: |-
+        - FR-001
+        - ADR-001
+    validations:
+      required: true
 
   - type: textarea
     id: acceptance-criteria
