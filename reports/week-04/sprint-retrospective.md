@@ -20,7 +20,7 @@ The first retrospective of the project. It covers `SPRINT-04`, 18 to 24 October 
 | --- | --- |
 | Three customer decisions describe behaviour the build does not have: the three-minute cadence of `DEC-013`, the focus-on-running reply of `DEC-012`, and the announce-once rule of `DEC-011`. | A decision was recorded in `docs/decisions.md` without a task issue being opened against the code in the same change, so nothing connected the decision to the work, and the divergence only surfaced when the functional requirements were written a week later. |
 | The six sprint milestone due dates were each a day early, and `docs/project-plan.md` disagreed with GitHub for four days. | The dates were entered by hand in two places with no check that compared them, and GitHub shifts a due date entered at midnight back by a day, which nobody had noticed. |
-| The link check has been failing on `main` on a dead third-party URL, and it blocks every pull request regardless of what that pull request changed. At the same time it passed a report that linked three files which do not exist on `main`. | The research cites live vendor pages with no archived copy, so the checks depend on third parties keeping their URLs; and the check never verified relative file links at all, so it was loud about the thing we could not control and silent about the thing we could. |
+| The link check has been failing on `main` on a dead third-party URL, and it blocks every pull request regardless of what that pull request changed. | The research cites live vendor pages with no archived copy, so the repository's checks depend on third parties keeping their URLs, and nobody owned the check when it went red for a reason outside the change that triggered it. |
 
 ## Actions
 
@@ -28,8 +28,7 @@ The first retrospective of the project. It covers `SPRINT-04`, 18 to 24 October 
 | --- | --- | --- | --- | --- |
 | Open a task issue in the same change that records a customer decision affecting the code, and link it from the decision | Ezekiel-Gadzama | High | Answers the root cause of the three decisions that never reached the build | Yes |
 | Add a check that compares each sprint's `Due:` field in `docs/project-plan.md` against its GitHub milestone, and run it in the Markdown workflow | sirjaey | Medium | Answers the hand-entered dates that disagreed for four days | Yes |
-| Cite an archived copy beside every external vendor URL in the research, starting with the dead Garmin page | ObeTech1 | Medium | Answers the link check failing for a reason outside the change that triggered it | Yes |
-| Make the link check verify relative file links, so a report cannot link a file that is not on `main` | sirjaey | Medium | Answers the half of the same root cause the check was silent about | Yes |
+| Cite an archived copy beside every external vendor URL in the research, and read the failing job's own log before explaining why a check is red | ObeTech1 | Medium | Answers the link check failing for a reason outside the change that triggered it, and the twice this sprint that a red check was explained from a different pull request's log | Yes |
 | Add a workflow that runs `gradle :app:testDebugUnitTest` and `gradle :app:assembleDebug` on pull requests and on `main` | sirjaey | High | No check covers the product code, so a Kotlin regression reaches `main` unseen | Yes |
 
 ## Carried Actions

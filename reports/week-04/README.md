@@ -78,8 +78,8 @@ The link check on `main` is currently **red**, and not because of anything this 
    The release is cut on the state after the meeting, so both wait on it.
 3. **The repository has no workflow that builds or tests the product code.**
    `gradle :app:testDebugUnitTest` and `gradle :app:assembleDebug` are run by hand. A Kotlin regression would not be caught by any check on a pull request.
-4. **The link check does not verify relative file links.**
-   It reported one dead external URL while a report in this repository linked three files that do not exist on `main`. The gap was found by a local script, not by the check.
+4. **Three pull requests have to merge in order, and their link checks are red until they do.**
+   `reports/week-04/meeting-script.md` and this report link the requirements and architecture pages, which arrive in an earlier pull request. The link check correctly reports those links as missing until that one merges, so the order is the documentation set, then the meeting script, then this report.
 
 ## Privacy
 
