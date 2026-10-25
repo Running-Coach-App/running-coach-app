@@ -14,7 +14,7 @@ Three of the `Customer`'s Week 3 decisions had never reached the code. `DEC-013`
 
 `v0.1.0` was built from a clean checkout and installed on a team phone on 2026-10-23, and the core task was run end to end outdoors: start, spoken stats, effort cues, a spoken question answered from the pocket with the screen off, and stop.
 
-The validation meeting was held on 2026-10-23 and all four candidate stories were affirmed. `REL-04` is not cut.
+The validation meeting was held on 2026-10-23 and all four candidate stories were affirmed. `REL-04` is cut as [`v0.2.0`](https://github.com/Running-Coach-App/running-coach-app/releases/tag/v0.2.0).
 
 ## Customer meeting
 
@@ -46,12 +46,12 @@ The meeting did not reach the quality requirements, the architecture, or script 
 | Glossary | [docs/glossary.md](../../docs/glossary.md) |
 | Team `AGENTS.md` | [AGENTS.md](../../AGENTS.md) |
 | Issue fields in the project view | `Responsible`, `Accountable`, `MoSCoW`, `Story Points`, and `Priority` all exist on [the project](https://github.com/orgs/Running-Coach-App/projects/3). No story carries a `MoSCoW` or `Story Points` value yet |
-| Documentation site | **Not published.** `mkdocs.yml` holds the navigation and it lists the quality requirements, functional requirements, architecture, and glossary pages, but the site does not resolve; see the deviations |
+| Documentation site | [https://running-coach-app.github.io/running-coach-app/](https://running-coach-app.github.io/running-coach-app/), whose navigation lists the quality requirements, functional requirements, architecture, and glossary pages |
 | Week 3 action points | [`## Previous action points`](meeting-report.md#previous-action-points) in the meeting report |
 | Week 3 open questions | [`## Previous open questions`](meeting-report.md#previous-open-questions) in the same report |
 | Meeting script | [reports/week-04/meeting-script.md](meeting-script.md) |
 | Customer validation | [reports/week-04/meeting-report.md](meeting-report.md) and [meeting-transcript.md](meeting-transcript.md), with a verdict on each of the four candidate stories, each citing its `DEC-nnn` |
-| `REL-04` | Not cut. [CHANGELOG.md](../../CHANGELOG.md) holds the sprint's entries under `[Unreleased]`, and the plan's `REL-04` section is empty |
+| `REL-04` | [`v0.2.0`](https://github.com/Running-Coach-App/running-coach-app/releases/tag/v0.2.0), cut on 2026-10-25 from `bb6b5b4` on `main`, with its [changelog section](../../CHANGELOG.md) and the plan's [`REL-04`](../../docs/project-plan.md#rel-04) line |
 | Sprint retrospective | [reports/week-04/sprint-retrospective.md](sprint-retrospective.md) |
 | AI usage | [reports/week-04/ai-usage.md](ai-usage.md) |
 
@@ -89,12 +89,12 @@ The dead Garmin citation that had been turning the link check red was repointed 
 
 1. **This week was submitted after its deadline.**
    The hard deadline was 2026-10-24 at 23:59. The customer meeting was held on 2026-10-23, and the work that followed it — the report, the release, and the documentation site — ran past the deadline.
-2. **The documentation site is not published.**
-   `mkdocs build --strict` aborted on fourteen warnings: files under `docs/` linked meeting reports by a relative path that leaves `docs/`, which `mkdocs` cannot resolve. GitHub Pages was also set to deploy from a branch rather than from the workflow. Both are fixed, but the site had not deployed when this report was written, so the deliverable is declared not met rather than linked.
+2. **The documentation site went live late in the week.**
+   `mkdocs build --strict` had been aborting on fourteen warnings: files under `docs/` linked meeting reports by a relative path that leaves `docs/`, which `mkdocs` cannot resolve. GitHub Pages was also set to deploy from a branch rather than from the workflow. Both are fixed and the site now resolves, but it was not published for most of the sprint, and the Week 3 report had listed it as a satisfied deliverable while it returned 404.
 3. **No story carries a `MoSCoW` or `Story Points` value.**
    The three fields now exist on the project, and every issue carries its type, but the values are unset. The sprint therefore has no planned or actual velocity, the product backlog is unrefined, and the `user-story`, `task`, and four `moscow:*` labels cannot retire, because they are still the only record of each story's priority.
-4. **`REL-04` is not cut.**
-   The release is cut on the state after the meeting and any rework. The rework from the meeting — showing the stats on screen, per [`DEC-018`](../../docs/decisions.md#dec-018) and [`DEC-022`](../../docs/decisions.md#dec-022) — is Week 5 work, so the changelog still holds this sprint's entries under `[Unreleased]` and the plan's `REL-04` section is empty.
+4. **Four dependency bumps broke the build, and were reverted.**
+   Merging the Android Gradle plugin to 9.4.1 while the Kotlin plugin stayed at 2.0.21 made every build fail at plugin-apply time, and `androidx.core:core-ktx:1.19.1` turned out to require that same major. All four went back to the versions that build, the Kotlin bump was closed rather than merged, and moving to AGP 9 is left as its own piece of work rather than attempted against this deadline.
 5. **The meeting covered the working software but not the architecture.**
    Script questions 9 to 16 were not reached, so the quality requirements and the architecture were not put to the `Customer` against the drivers, and the three Week 3 open questions are still open. They are carried into the next meeting.
 6. **The product was demonstrated over screen share, not on the `Customer`'s phone.**
