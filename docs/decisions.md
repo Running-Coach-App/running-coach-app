@@ -97,7 +97,7 @@ Keep navigation outside the remaining course weeks.
 - **Status:** Active
 - **Date:** 2026-10-17
 - **Made by:** Customer
-- **Source:** [the Week 3 validation meeting](../reports/week-03/meeting-report.md#decisions)
+- **Source:** [the Week 3 validation meeting](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-03/meeting-report.md#decisions)
 - **Why:** changing course mid-run is navigation, and the remaining weeks are too short; the helper should report what already happened.
 
 ## DEC-011
@@ -107,7 +107,7 @@ Speak a missing stat once, then omit it until it is available again.
 - **Status:** Active
 - **Date:** 2026-10-17
 - **Made by:** Customer
-- **Source:** [the Week 3 validation meeting](../reports/week-03/meeting-report.md#decisions)
+- **Source:** [the Week 3 validation meeting](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-03/meeting-report.md#decisions)
 - **Why:** repeating "not available" every three minutes is annoying; say it once, then only report what the phone has until the missing value returns.
 
 ## DEC-012
@@ -117,7 +117,7 @@ Answer off-topic questions with a polite focus-on-running reply.
 - **Status:** Active
 - **Date:** 2026-10-17
 - **Made by:** Customer
-- **Source:** [the Week 3 validation meeting](../reports/week-03/meeting-report.md#decisions)
+- **Source:** [the Week 3 validation meeting](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-03/meeting-report.md#decisions)
 - **Why:** the coach must stay on running stats; a short "focus on running, we will talk later" style reply is better than inventing an answer or going silent without guidance.
 
 ## DEC-013
@@ -127,7 +127,7 @@ Keep a three-minute spoken stats cadence for the MUP.
 - **Status:** Active
 - **Date:** 2026-10-17
 - **Made by:** Customer
-- **Source:** [the Week 3 validation meeting](../reports/week-03/meeting-report.md#decisions)
+- **Source:** [the Week 3 validation meeting](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-03/meeting-report.md#decisions)
 - **Why:** three minutes matches the repository screenshot and is enough for the simple product; a configurable cadence can wait.
 
 ## DEC-014
@@ -137,7 +137,7 @@ Affirm interval effort cues and silence on steady.
 - **Status:** Active
 - **Date:** 2026-10-17
 - **Made by:** Customer
-- **Source:** [the Week 3 validation meeting](../reports/week-03/meeting-report.md#decisions)
+- **Source:** [the Week 3 validation meeting](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-03/meeting-report.md#decisions)
 - **Why:** with the phone in a pocket he wants spoken jog / harder / easier when effort changes, and no unnecessary effort prompts when effort stays the same; stats may still speak during a steady run.
 
 ## DEC-015
@@ -147,7 +147,7 @@ Affirm pocket start and stop without motion detection.
 - **Status:** Active
 - **Date:** 2026-10-17
 - **Made by:** Customer
-- **Source:** [the Week 3 validation meeting](../reports/week-03/meeting-report.md#decisions)
+- **Source:** [the Week 3 validation meeting](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-03/meeting-report.md#decisions)
 - **Why:** volume keys for interval and steady are acceptable; motion detection on phones is unreliable. A spoken "start the session" remains welcome later.
 
 ## DEC-016
@@ -157,7 +157,7 @@ Prefer an on-device model for spoken intent; keywords are the backup.
 - **Status:** Active
 - **Date:** 2026-10-17
 - **Made by:** Customer
-- **Source:** [the Week 3 validation meeting](../reports/week-03/meeting-report.md#decisions)
+- **Source:** [the Week 3 validation meeting](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-03/meeting-report.md#decisions)
 - **Why:** there are too many ways to ask for the same stats for a brittle keyword list alone; try a small on-device model first, and fall back to keywords if that path does not fit.
 
 ## DEC-017
@@ -167,7 +167,7 @@ Affirm [US-01](https://github.com/Running-Coach-App/running-coach-app/issues/37)
 - **Status:** Active
 - **Date:** 2026-10-23
 - **Made by:** Customer
-- **Source:** [the Week 4 validation meeting](../reports/week-04/meeting-report.md#story-verdicts)
+- **Source:** [the Week 4 validation meeting](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-04/meeting-report.md#story-verdicts)
 - **Why:** he heard a session start, interval effort cues, and a stop in the shared demo and said the audio part was good; pocket volume-key start and stop were not exercised with him on his own phone in this meeting.
 
 ## DEC-018
@@ -177,7 +177,7 @@ Affirm [US-02](https://github.com/Running-Coach-App/running-coach-app/issues/38)
 - **Status:** Active
 - **Date:** 2026-10-23
 - **Made by:** Customer
-- **Source:** [the Week 4 validation meeting](../reports/week-04/meeting-report.md#story-verdicts)
+- **Source:** [the Week 4 validation meeting](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-04/meeting-report.md#story-verdicts)
 - **Why:** the spoken time and missing-distance handling in the demo sounded fine for a first usable product, and he wants what the coach says also shown on the phone while he asks and while it answers.
 
 ## DEC-019
@@ -187,7 +187,7 @@ Affirm [US-03](https://github.com/Running-Coach-App/running-coach-app/issues/39)
 - **Status:** Active
 - **Date:** 2026-10-23
 - **Made by:** Customer
-- **Source:** [the Week 4 validation meeting](../reports/week-04/meeting-report.md#story-verdicts)
+- **Source:** [the Week 4 validation meeting](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-04/meeting-report.md#story-verdicts)
 - **Why:** he heard "Jog." and "Hard." in the demo and treated the coaching audio as acceptable for the first cut.
 
 ## DEC-020
@@ -197,7 +197,7 @@ Affirm [US-04](https://github.com/Running-Coach-App/running-coach-app/issues/40)
 - **Status:** Active
 - **Date:** 2026-10-23
 - **Made by:** Customer
-- **Source:** [the Week 4 validation meeting](../reports/week-04/meeting-report.md#story-verdicts)
+- **Source:** [the Week 4 validation meeting](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-04/meeting-report.md#story-verdicts)
 - **Why:** stat questions and off-topic replies in the demo were good enough to keep using the app; he would like more varied wording when the same stat question is asked twice, but called that a nice-to-have rather than a blocker.
 
 ## DEC-021
@@ -207,7 +207,7 @@ Install only from a build the `Customer` makes from the repository.
 - **Status:** Active
 - **Date:** 2026-10-23
 - **Made by:** Customer
-- **Source:** [the Week 4 validation meeting](../reports/week-04/meeting-report.md#decisions)
+- **Source:** [the Week 4 validation meeting](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-04/meeting-report.md#decisions)
 - **Why:** he will not install an APK received outside the repository, for example over Telegram, and will clone the repository and build the APK himself so he knows what is on his phone.
 
 ## DEC-022
@@ -217,5 +217,5 @@ Proceed with on-screen run stats in the next increment.
 - **Status:** Active
 - **Date:** 2026-10-23
 - **Made by:** Customer
-- **Source:** [the Week 4 validation meeting](../reports/week-04/meeting-report.md#decisions)
+- **Source:** [the Week 4 validation meeting](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-04/meeting-report.md#decisions)
 - **Why:** after the demo he told the team to go ahead and show on the phone the data he hears, and rated seeing the stats on screen as more important than polishing phrasing for the first usable product.
