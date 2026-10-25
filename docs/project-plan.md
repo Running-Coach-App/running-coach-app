@@ -36,6 +36,10 @@ The same slice has a repeatable build, tests, and an architecture the next incre
 
 #### REL-04
 
+- **Tag:** [`v0.2.0`](https://github.com/Running-Coach-App/running-coach-app/releases/tag/v0.2.0)
+- **Date:** 2026-10-25
+- **Ships:** the spoken coach brought in line with `DEC-011`, `DEC-012`, and `DEC-013`, the quality and functional requirements, the container view and the architectural decision records, the glossary and the team's `AGENTS.md`, and a workflow that builds and tests the product code.
+
 ### SPRINT-05
 
 A person outside the team can run the core task from the published setup, and the checks run on every pull request.
