@@ -21,8 +21,7 @@ Run these from the repository root before you push. Gradle 8.11.1 and JDK 17 are
 - `npx markdownlint-cli2 "**/*.md"` is the Markdown check. `.github/workflows/markdown.yml` runs it on pull requests and on `main`.
 - `lychee .` is the link check, and it needs the network because it fetches external links. `.github/workflows/lychee.yml` runs it on pull requests and on `main`, and `.lycheeignore` and `lychee.toml` hold the exclusions.
 - `.github/workflows/pages.yml` publishes `docs/` as the documentation site; `mkdocs.yml` holds its navigation, so a new page under `docs/` is added there too.
-
-There is no workflow that builds or tests the product code yet. Run the two Gradle commands yourself; CI will not catch a Kotlin failure for you.
+- `.github/workflows/android.yml` runs `gradle :app:testDebugUnitTest` and `gradle :app:assembleDebug` on pull requests and on `main`, with JDK 17 and the Gradle version in `gradle/wrapper/gradle-wrapper.properties`.
 
 ## Conventions
 

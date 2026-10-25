@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- A GitHub Actions workflow that runs the Android unit tests and assembles the debug APK on pull requests and on `main`.
 - Quality requirements with their priority matrix, functional requirements with their index, a container view, and four architectural decision records, all under `docs/`.
 - A project glossary and a root `AGENTS.md` describing the repository's layout, checks, conventions, and off-limits files.
 
