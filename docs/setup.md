@@ -66,4 +66,4 @@ Links, with [Lychee](https://lychee.cli.rs/) installed:
 lychee .
 ```
 
-The same Markdown check and link check run on pull requests and on `main`.
+The same Markdown check, link check, and Android unit-test and debug-build run on pull requests and on `main`.
