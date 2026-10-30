@@ -41,6 +41,11 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
     private var startedAt = 0L
     private val pending = ArrayDeque<String>()
     private var speaking = false
+    private var previousLineIsQuestion = false
+    private var listening = false
+    private var spokenVisible = ""
+    private var revealGeneration = 0
+    private lateinit var history: SessionHistory
 
     private val tick = object : Runnable {
         override fun run() {
@@ -50,12 +55,14 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
             val elapsed = System.currentTimeMillis() - startedAt
             val distance = if (lastLocation == null) null else distanceMeters
             engine.onTick(elapsed, distance).forEach { speak(it) }
+            publishSessionState()
             handler.postDelayed(this, TICK_MILLIS)
         }
     }
 
     override fun onCreate() {
         super.onCreate()
+        history = SessionHistory(this)
         createChannel()
         tts = TextToSpeech(this, this)
         mediaSession = MediaSessionCompat(this, "RunningCoach").apply {
@@ -96,6 +103,7 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
             return
         }
         tts?.language = Locale.ENGLISH
+        tts?.setSpeechRate(history.speechRate)
         tts?.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
             override fun onStart(utteranceId: String?) {}
 
@@ -122,6 +130,9 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
 
     override fun onDestroy() {
         handler.removeCallbacks(tick)
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            getSystemService(LocationManager::class.java).removeUpdates(this)
+        }
         recognizer?.destroy()
         mediaSession?.release()
         tts?.shutdown()
@@ -135,6 +146,8 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
         distanceMeters = 0.0
         lastLocation = null
         startedAt = System.currentTimeMillis()
+        tts?.setSpeechRate(history.speechRate)
+        spokenVisible = ""
         speak(engine.start(kind))
         listenForLocation()
         listenForSpeech()
@@ -148,8 +161,22 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
         }
         handler.removeCallbacks(tick)
         recognizer?.stopListening()
+        listening = false
         getSystemService(LocationManager::class.java).removeUpdates(this)
+        val summary = engine.summaryPhrase()
+        val keep = engine.shouldKeepRecord()
+        val record = RunRecord(
+            atMillis = System.currentTimeMillis(),
+            kind = engine.kind,
+            elapsedMillis = engine.elapsedMillis,
+            distanceMeters = engine.distanceMeters,
+            summary = summary,
+        )
         speak(engine.stop())
+        speak(summary)
+        if (keep) {
+            history.add(record)
+        }
         refreshPlaybackState()
     }
 
@@ -167,11 +194,16 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
             stopSession()
             return
         }
+        previousLineIsQuestion = true
+        engine.remember(question)
         speak(engine.answer(question))
     }
 
     private fun speak(line: String) {
+        engine.remember(line)
         pending.add(line)
+        publishSessionState()
+        previousLineIsQuestion = false
         if (ttsReady && !speaking) {
             speakNext()
         }
@@ -180,11 +212,43 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
     private fun speakNext() {
         val line = pending.removeFirstOrNull()
         if (line == null) {
+            revealGeneration++
             speaking = false
+            if (engine.running) {
+                listening = true
+            }
+            publishSessionState()
             return
         }
         speaking = true
+        listening = false
+        startReveal(line)
         tts?.speak(line, TextToSpeech.QUEUE_ADD, null, line)
+    }
+
+    private fun startReveal(line: String) {
+        revealGeneration++
+        val generation = revealGeneration
+        val words = line.trim().split(WORD_BREAK).filter { it.isNotEmpty() }
+        if (words.isEmpty()) {
+            spokenVisible = line
+            publishSessionState()
+            return
+        }
+        spokenVisible = words.first()
+        publishSessionState()
+        words.forEachIndexed { index, _ ->
+            if (index == 0) {
+                return@forEachIndexed
+            }
+            handler.postDelayed({
+                if (generation != revealGeneration) {
+                    return@postDelayed
+                }
+                spokenVisible = words.take(index + 1).joinToString(" ")
+                publishSessionState()
+            }, index * WORD_MILLIS)
+        }
     }
 
     private fun listenForLocation() {
@@ -214,6 +278,10 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
             putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, false)
         }
         recognizer?.startListening(intent)
+        if (engine.running && !speaking) {
+            listening = true
+            publishSessionState()
+        }
     }
 
     private val listener = object : RecognitionListener {
@@ -235,8 +303,19 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
             }
         }
 
-        override fun onReadyForSpeech(params: Bundle?) {}
-        override fun onBeginningOfSpeech() {}
+        override fun onReadyForSpeech(params: Bundle?) {
+            if (engine.running && !speaking) {
+                listening = true
+                publishSessionState()
+            }
+        }
+
+        override fun onBeginningOfSpeech() {
+            if (engine.running && !speaking) {
+                listening = true
+                publishSessionState()
+            }
+        }
         override fun onRmsChanged(rmsdB: Float) {}
         override fun onBufferReceived(buffer: ByteArray?) {}
         override fun onEndOfSpeech() {}
@@ -273,7 +352,37 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
         getSystemService(NotificationManager::class.java).createNotificationChannel(channel)
     }
 
-    private fun notification(): Notification {
+    private fun publishSessionState() {
+        val intent = Intent(ACTION_SESSION_STATE).setPackage(packageName)
+        intent.putExtra(EXTRA_RUNNING, engine.running)
+        intent.putExtra(EXTRA_KIND, engine.kind.name)
+        val stats = engine.statsForDisplay()
+        intent.putExtra(EXTRA_STAT_TIME, stats[0])
+        intent.putExtra(EXTRA_STAT_PACE, stats[1])
+        intent.putExtra(EXTRA_STAT_DISTANCE, stats[2])
+        val spoken = engine.lastLines
+        intent.putExtra(EXTRA_LINE_CURRENT, spoken.lastOrNull() ?: "")
+        intent.putExtra(EXTRA_LINE_PREVIOUS, spoken.getOrNull(spoken.size - 2) ?: "")
+        intent.putExtra(EXTRA_LINE_IS_QUESTION, previousLineIsQuestion)
+        intent.putExtra(EXTRA_LINE_VISIBLE, spokenVisible)
+        intent.putExtra(
+            EXTRA_PHASE,
+            when {
+                speaking || pending.isNotEmpty() -> PHASE_SPEAK
+                listening -> PHASE_LISTEN
+                else -> PHASE_IDLE
+            },
+        )
+        sendBroadcast(intent, SESSION_STATE_PERMISSION)
+        val notice = if (engine.running) {
+            notification(lines = stats)
+        } else {
+            notification()
+        }
+        getSystemService(NotificationManager::class.java).notify(NOTIFICATION_ID, notice)
+    }
+
+    private fun notification(lines: List<String>? = null): Notification {
         val open = PendingIntent.getActivity(
             this,
             0,
@@ -282,8 +391,15 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
         )
         return NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle(getString(R.string.notification_title))
-            .setContentText(getString(R.string.notification_text))
-            .setSmallIcon(android.R.drawable.ic_media_play)
+            .setContentText(
+                if (lines == null) {
+                    getString(R.string.notification_text)
+                } else {
+                    lines.joinToString(" ")
+                },
+            )
+            .setSmallIcon(R.drawable.ic_notification)
+            .setColor(ContextCompat.getColor(this, R.color.accent_default))
             .setContentIntent(open)
             .setOngoing(true)
             .build()
@@ -295,9 +411,26 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
         const val ACTION_STOP = "app.runningcoach.STOP"
         const val ACTION_MEDIA = "app.runningcoach.MEDIA"
         const val ACTION_ASK = "app.runningcoach.ASK"
+        const val ACTION_SESSION_STATE = "app.runningcoach.SESSION_STATE"
+        const val SESSION_STATE_PERMISSION = "app.runningcoach.SESSION_STATE"
         const val EXTRA_QUESTION = "question"
+        const val EXTRA_RUNNING = "running"
+        const val EXTRA_KIND = "kind"
+        const val EXTRA_STAT_TIME = "stat_time"
+        const val EXTRA_STAT_PACE = "stat_pace"
+        const val EXTRA_STAT_DISTANCE = "stat_distance"
+        const val EXTRA_LINE_CURRENT = "line_current"
+        const val EXTRA_LINE_PREVIOUS = "line_previous"
+        const val EXTRA_LINE_IS_QUESTION = "line_is_question"
+        const val EXTRA_LINE_VISIBLE = "line_visible"
+        const val EXTRA_PHASE = "phase"
+        const val PHASE_IDLE = "idle"
+        const val PHASE_LISTEN = "listen"
+        const val PHASE_SPEAK = "speak"
         private const val CHANNEL_ID = "coach"
         private const val NOTIFICATION_ID = 1
         private const val TICK_MILLIS = 1_000L
+        private const val WORD_MILLIS = 170L
+        private val WORD_BREAK = Regex("\\s+")
     }
 }

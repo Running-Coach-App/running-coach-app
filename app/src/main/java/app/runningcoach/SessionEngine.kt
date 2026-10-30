@@ -33,6 +33,18 @@ class SessionEngine {
     private var paceMissingAnnounced = false
     private var distanceMissingAnnounced = false
     private var offTopicRepliesGiven = 0
+    private val recentLines = ArrayDeque<String>()
+
+    /** The last lines the coach gave, newest last, for the screen (DEC-018). */
+    val lastLines: List<String>
+        get() = recentLines.toList()
+
+    fun remember(line: String) {
+        recentLines.addLast(line)
+        while (recentLines.size > LINES_ON_SCREEN) {
+            recentLines.removeFirst()
+        }
+    }
 
     fun start(kind: SessionKind): String {
         running = true
@@ -44,12 +56,25 @@ class SessionEngine {
         paceMissingAnnounced = false
         distanceMissingAnnounced = false
         offTopicRepliesGiven = 0
+        recentLines.clear()
         return "Session started."
     }
 
     fun stop(): String {
         running = false
         return "Session stopped."
+    }
+
+    fun shouldKeepRecord(): Boolean = elapsedMillis >= RECORD_AFTER_MILLIS
+
+    /** One-line run summary after stop, per FR-007. */
+    fun summaryPhrase(): String {
+        val timePart = speakTime(elapsedMillis)
+        val dist = distanceMeters
+        if (dist == null || dist <= 0.0) {
+            return "You covered no distance. $timePart"
+        }
+        return "${speakDistance(dist)} $timePart"
     }
 
     fun onTick(elapsedMillis: Long, distanceMeters: Double?): List<String> {
@@ -78,6 +103,13 @@ class SessionEngine {
             return "There is no session."
         }
         val text = question.lowercase()
+        if (text.contains("doing")) {
+            return listOf(
+                speakTime(elapsedMillis),
+                speakPace(elapsedMillis, distanceMeters),
+                speakDistance(distanceMeters),
+            ).joinToString(" ")
+        }
         val aboutTime = text.contains("time") || text.contains("long")
         val aboutPace = text.contains("pace") || text.contains("fast")
         val aboutDistance = text.contains("distance") || text.contains("far")
@@ -113,10 +145,6 @@ class SessionEngine {
         return reply
     }
 
-    /**
-     * The scheduled stats line. A stat that is missing is named once, then left
-     * out until it is available again, per DEC-011.
-     */
     fun statsPhrase(): String {
         val distance = distanceMeters
         val haveDistance = distance != null && distance > 0.0
@@ -134,10 +162,46 @@ class SessionEngine {
         return parts.joinToString(" ")
     }
 
+    /** Compact time, pace, and distance for the screen and notification (DEC-018). */
+    fun statsForDisplay(): List<String> {
+        return listOf(
+            displayTime(elapsedMillis),
+            displayPace(elapsedMillis, distanceMeters),
+            displayDistance(distanceMeters),
+        )
+    }
+
     companion object {
         /** The spoken stats cadence the customer fixed in DEC-013. */
         const val FIRST_STATS_AT_MILLIS: Long = 180_000
         const val STATS_EVERY_MILLIS: Long = 180_000
+        const val LINES_ON_SCREEN: Int = 2
+        const val RECORD_AFTER_MILLIS: Long = 60_000
+
+        fun displayTime(elapsedMillis: Long): String {
+            val totalSeconds = elapsedMillis / 1000
+            val minutes = totalSeconds / 60
+            val seconds = totalSeconds % 60
+            return "$minutes:${seconds.toString().padStart(2, '0')}"
+        }
+
+        fun displayPace(elapsedMillis: Long, distanceMeters: Double?): String {
+            if (distanceMeters == null || distanceMeters <= 0.0 || elapsedMillis <= 0) {
+                return "—"
+            }
+            val secondsPerKm = (elapsedMillis / 1000.0) / (distanceMeters / 1000.0)
+            val whole = secondsPerKm.toLong()
+            val minutes = whole / 60
+            val seconds = whole % 60
+            return "$minutes:${seconds.toString().padStart(2, '0')} /km"
+        }
+
+        fun displayDistance(distanceMeters: Double?): String {
+            if (distanceMeters == null || distanceMeters <= 0.0) {
+                return "—"
+            }
+            return "${formatTenths(distanceMeters / 1000.0)} km"
+        }
 
         private val NOT_A_LETTER = Regex("[^a-z]+")
 

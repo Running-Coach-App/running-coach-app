@@ -95,6 +95,96 @@ class SessionEngineTest {
     }
 
     @Test
+    fun afterStopTheCoachSpeaksDistanceAndTimeOnce() {
+        val session = SessionEngine()
+        session.start(SessionKind.STEADY)
+        session.onTick(120_000, 500.0)
+        assertEquals("Session stopped.", session.stop())
+        assertEquals(
+            "Distance 0.5 kilometres. Time 2 minutes 0 seconds.",
+            session.summaryPhrase(),
+        )
+    }
+
+    @Test
+    fun afterStopWithNoDistanceTheSummarySaysSo() {
+        val session = SessionEngine()
+        session.start(SessionKind.STEADY)
+        session.onTick(60_000, null)
+        session.stop()
+        assertEquals(
+            "You covered no distance. Time 1 minute 0 seconds.",
+            session.summaryPhrase(),
+        )
+    }
+
+    @Test
+    fun lastLinesHoldAtMostTwoNewestLastAndStartClearsThem() {
+        val session = SessionEngine()
+        session.start(SessionKind.INTERVAL)
+        assertTrue(session.lastLines.isEmpty())
+        session.remember("Session started.")
+        session.onTick(0, null).forEach { session.remember(it) }
+        assertEquals(listOf("Session started.", "Jog."), session.lastLines)
+        session.remember("Hard.")
+        assertEquals(listOf("Jog.", "Hard."), session.lastLines)
+        session.start(SessionKind.STEADY)
+        assertTrue(session.lastLines.isEmpty())
+    }
+
+    @Test
+    fun afterStopTheScreenLinesAreTheStopAndTheSummary() {
+        val session = SessionEngine()
+        session.start(SessionKind.STEADY)
+        session.onTick(120_000, 500.0)
+        val stopped = session.stop()
+        val summary = session.summaryPhrase()
+        session.remember(stopped)
+        session.remember(summary)
+        assertEquals(listOf(stopped, summary), session.lastLines)
+    }
+
+    @Test
+    fun aRunShorterThanAMinuteIsNotKept() {
+        val session = SessionEngine()
+        session.start(SessionKind.STEADY)
+        session.onTick(59_000, 100.0)
+        assertFalse(session.shouldKeepRecord())
+        session.onTick(60_000, 100.0)
+        assertTrue(session.shouldKeepRecord())
+    }
+
+    @Test
+    fun displayCompanionsCoverIdleAndKnownValues() {
+        assertEquals("0:00", SessionEngine.displayTime(0))
+        assertEquals("—", SessionEngine.displayPace(0, null))
+        assertEquals("—", SessionEngine.displayDistance(null))
+        assertEquals("1:30", SessionEngine.displayTime(90_000))
+        assertEquals("3:00 /km", SessionEngine.displayPace(90_000, 500.0))
+        assertEquals("0.5 km", SessionEngine.displayDistance(500.0))
+    }
+
+    @Test
+    fun statsForDisplayAreCompactClockPaceAndDistance() {
+        val session = SessionEngine()
+        session.start(SessionKind.STEADY)
+        assertEquals(listOf("0:00", "—", "—"), session.statsForDisplay())
+        session.onTick(90_000, 500.0)
+        assertEquals(listOf("1:30", "3:00 /km", "0.5 km"), session.statsForDisplay())
+    }
+
+    @Test
+    fun howAmIDoingReturnsTimePaceAndDistance() {
+        val session = SessionEngine()
+        session.start(SessionKind.STEADY)
+        session.onTick(90_000, 500.0)
+        val reply = session.answer("How am I doing?")
+        assertTrue(reply.contains("Time 1 minute 30 seconds."))
+        assertTrue(reply.contains("Pace"))
+        assertTrue(reply.contains("Distance"))
+    }
+
+    @Test
     fun aSpokenTimeQuestionReturnsElapsedTimeAndNothingElseIsInvented() {
         val session = SessionEngine()
         session.start(SessionKind.INTERVAL)

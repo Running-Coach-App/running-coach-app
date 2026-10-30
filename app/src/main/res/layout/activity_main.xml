@@ -2,43 +2,63 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="24dp">
+    android:background="@color/bg_canvas"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/pocketNote"
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <include
+            android:id="@+id/viewRun"
+            layout="@layout/view_run" />
+
+        <include
+            android:id="@+id/viewHistory"
+            layout="@layout/view_history"
+            android:visibility="gone" />
+
+        <include
+            android:id="@+id/viewReport"
+            layout="@layout/view_report"
+            android:visibility="gone" />
+
+        <include
+            android:id="@+id/viewProfile"
+            layout="@layout/view_profile"
+            android:visibility="gone" />
+    </FrameLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/pocket_note" />
+        android:background="@drawable/bg_tab_bar"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/startInterval"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/start_interval" />
+        <Button
+            android:id="@+id/tabRun"
+            style="@style/Widget.RunningCoach.Button.Tab"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/tab_run" />
 
-    <Button
-        android:id="@+id/startSteady"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/start_steady" />
+        <Button
+            android:id="@+id/tabHistory"
+            style="@style/Widget.RunningCoach.Button.Tab"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/tab_history" />
 
-    <Button
-        android:id="@+id/stopSession"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/stop_session" />
-
-    <EditText
-        android:id="@+id/question"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/question_hint"
-        android:inputType="text" />
-
-    <Button
-        android:id="@+id/ask"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/ask" />
+        <Button
+            android:id="@+id/tabProfile"
+            style="@style/Widget.RunningCoach.Button.Tab"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/tab_profile" />
+    </LinearLayout>
 </LinearLayout>
