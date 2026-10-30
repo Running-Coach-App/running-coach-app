@@ -52,7 +52,7 @@ Questions marked ★ are the ones that would change the project most; ask them e
 ### The screen, now that it exists
 
 8. _(closed)_ Last week you asked for the stats on screen as well as spoken. Is this what you meant?
-9. _(open)_ ★ With the screen there, is there anything you now want spoken *less* often?
+9. _(open)_ ★ With the screen there, is there anything you now want spoken less often?
 10. _(open)_ What is on this screen that you would not miss?
 
 ### What we promise, and what we check
