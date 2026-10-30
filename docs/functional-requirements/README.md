@@ -13,3 +13,4 @@ One row per requirement, in `FR-nnn` order. Each row finds its requirement; the 
 | [FR-007](fr/FR-007.md) | Speak The Run's Summary Once It Has Stopped | `coach app` | Active |
 | [FR-008](fr/FR-008.md) | Offer Two Preset Sessions | `coach app` | Active |
 | [FR-009](fr/FR-009.md) | Speak Heart Rate When A Wearable Is Already Connected | `coach app` | Active |
+| [FR-010](fr/FR-010.md) | Show On Screen What The Coach Says | `coach app` | Active |

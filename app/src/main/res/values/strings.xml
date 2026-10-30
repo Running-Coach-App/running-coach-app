@@ -1,12 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Running Coach</string>
-    <string name="pocket_note">Headphones on. Volume down starts an interval session, volume up starts a steady one, and the headset button starts or stops. The screen does not have to stay visible.</string>
+    <string name="pocket_note">Volume down starts interval. Volume up starts steady.</string>
+    <string name="session_idle">Ready to run</string>
+    <string name="session_interval">Interval</string>
+    <string name="session_steady">Steady</string>
+    <string name="session_finished">Run finished</string>
+    <string name="stat_label_time">Time</string>
+    <string name="stat_label_pace">Pace</string>
+    <string name="stat_label_distance">Distance</string>
+    <string name="stat_idle_time">0:00</string>
+    <string name="stat_idle_pace">—</string>
+    <string name="stat_idle_distance">—</string>
+    <string name="coach_said_label">Coach</string>
+    <string name="coach_speaking">Speaking</string>
+    <string name="coach_listening">Listening</string>
+    <string name="location_warning">Turn on location to get pace and distance.</string>
     <string name="start_interval">Start interval</string>
     <string name="start_steady">Start steady</string>
     <string name="stop_session">Stop</string>
-    <string name="question_hint">Or type a question if this device has no microphone</string>
+    <string name="question_hint">Type a question</string>
     <string name="ask">Ask</string>
+    <string name="tab_run">Run</string>
+    <string name="tab_history">History</string>
+    <string name="tab_profile">Profile</string>
+    <string name="history_empty_title">Your runs will live here</string>
+    <string name="history_empty_body">Finish a session of at least a minute. Time, distance, and what the coach said will show up as a record.</string>
+    <string name="history_empty_action">Start a run</string>
+    <string name="report_summary_label">What the coach said</string>
+    <string name="profile_name_hint">Display name (optional)</string>
+    <string name="profile_save">Save name</string>
+    <string name="profile_voice_label">Voice speed</string>
+    <string name="voice_next_session">Applies the next time you start a session.</string>
+    <string name="voice_slower">Slower</string>
+    <string name="voice_normal">Normal</string>
+    <string name="voice_faster">Faster</string>
+    <string name="profile_totals">%1$d runs · %2$s</string>
+    <string name="kind_interval">Interval</string>
+    <string name="kind_steady">Steady</string>
     <string name="notification_title">Running coach</string>
-    <string name="notification_text">The session is speaking. The screen can stay covered.</string>
+    <string name="notification_text">Ready</string>
 </resources>

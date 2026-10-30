@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- A setup screen with live time, pace, and distance, a green start action, and a location warning when GPS is unavailable.
+- A coach sheet that pulses while listening, animates while speaking, and reveals words as they are said (FR-010).
+- An empty state on History with a prompt and a start action.
+- A launcher mark, splash, history of finished runs, a one-run report, and a profile with an optional name, voice speed, and lifetime totals.
+
+### Changed
+
+- The foreground notification shows the same compact stats while a session runs.
+- After a stop, the coach speaks a one-line summary of distance and elapsed time (FR-007).
+- Questions such as "How am I doing?" return time, pace, and distance; the screen refreshes when you ask.
+
 ## [0.2.0] - 2026-10-25
 
 ### Added

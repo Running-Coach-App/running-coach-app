@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bg_canvas">#FFFAFAF7</color>
+    <color name="bg_surface">#FFFFFFFF</color>
+    <color name="text_primary">#FF1B1B1B</color>
+    <color name="text_secondary">#FF4A4A4A</color>
+    <color name="text_muted">#FF6B6B6B</color>
+    <color name="text_on_accent">#FFFFFFFF</color>
+    <color name="accent_default">#FF0B6E4F</color>
+    <color name="speak_fill">#FFEEF7F3</color>
+    <color name="accent_ripple">#330B6E4F</color>
+    <color name="stroke_subtle">#FFD8D8D3</color>
+    <color name="status_danger">#FFB3261E</color>
+    <color name="danger_ripple">#33B3261E</color>
+</resources>
