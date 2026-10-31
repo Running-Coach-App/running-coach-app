@@ -70,6 +70,13 @@ Somebody outside the team can obtain the product, install it, and finish a pocke
 
 #### REL-05
 
+- **Released:** [v0.3.0](https://github.com/Running-Coach-App/running-coach-app/releases/tag/v0.3.0) on 2026-10-31.
+- **Checked QRs:**
+  - [QR-01](quality-requirements/qr/QR-01.md)
+  - [QR-02](quality-requirements/qr/QR-02.md)
+
+Each test's result, and the sprint of its last check, is in the [Quality Requirement Testing Plan](#quality-requirement-testing-plan).
+
 ### SPRINT-06
 
 The team can tell, from the product itself, whether a runner heard the coach during a session.

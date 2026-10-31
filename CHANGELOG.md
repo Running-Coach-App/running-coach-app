@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0](https://github.com/Running-Coach-App/running-coach-app/releases/tag/v0.3.0) - 2026-10-31
+
 ### Added
 
 - A setup screen with live time, pace, and distance, a green start action, and a location warning when GPS is unavailable.
@@ -20,7 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - After a stop, the coach speaks a one-line summary of distance and elapsed time (FR-007).
 - Questions such as "How am I doing?" return time, pace, and distance; the screen refreshes when you ask.
 
-## [0.2.0] - 2026-10-25
+## [0.2.0](https://github.com/Running-Coach-App/running-coach-app/releases/tag/v0.2.0) - 2026-10-25
 
 ### Added
 
@@ -35,7 +37,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - A stat the coach cannot give is named once and then left out until it is available again, instead of being repeated on every line.
 - The sprint due dates moved to the Saturdays Assignment 4 sets.
 
-## [0.1.0] - 2026-10-18
+## [0.1.0](https://github.com/Running-Coach-App/running-coach-app/releases/tag/v0.1.0) - 2026-10-18
 
 ### Added
 
