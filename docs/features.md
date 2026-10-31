@@ -59,3 +59,10 @@ When you finish, the coach tells you what the run was, so you know how it went w
 - **Stories:** [US-05](https://github.com/Running-Coach-App/running-coach-app/issues/41)
 - **Behavior:** [FR-007](functional-requirements/fr/FR-007.md)
 - **Decisions:** [ADR-002](architecture/adr/ADR-002.md)
+
+## See the runs you have already done
+
+You open the app and find each [session](glossary.md#session) you have already finished, with the day it ran, how far it went, and how long it took, so you can tell how your training is going without keeping notes yourself.
+
+- **Stories:** [US-10](https://github.com/Running-Coach-App/running-coach-app/issues/141)
+- **Behavior:** [FR-011](functional-requirements/fr/FR-011.md)
