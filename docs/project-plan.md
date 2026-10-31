@@ -69,6 +69,7 @@ Somebody outside the team can obtain the product, install it, and finish a pocke
 - Due: 2026-10-31
 - Sprint Backlog: [the issues scheduled into SPRINT-05](https://github.com/Running-Coach-App/running-coach-app/milestone/3)
 - Planned Velocity: 22 points, from the `Story Points` of the five stories scheduled into this sprint: [US-01](https://github.com/Running-Coach-App/running-coach-app/issues/37) 5, [US-03](https://github.com/Running-Coach-App/running-coach-app/issues/39) 3, [US-04](https://github.com/Running-Coach-App/running-coach-app/issues/40) 8, [US-05](https://github.com/Running-Coach-App/running-coach-app/issues/41) 3, and [US-10](https://github.com/Running-Coach-App/running-coach-app/issues/141) 3.
+- Actual Velocity: 3 points, from [US-05](https://github.com/Running-Coach-App/running-coach-app/issues/41) alone. [US-01](https://github.com/Running-Coach-App/running-coach-app/issues/37), [US-03](https://github.com/Running-Coach-App/running-coach-app/issues/39), [US-04](https://github.com/Running-Coach-App/running-coach-app/issues/40), and [US-10](https://github.com/Running-Coach-App/running-coach-app/issues/141) moved to [SPRINT-06](#sprint-06), 19 points in all, because the `Customer` has not installed the product and could not accept them against their criteria. `US-05` was closed on the team's judgement rather than on his acceptance, which [the definition of done](definition-of-done.md) requires.
 
 #### REL-05
 
