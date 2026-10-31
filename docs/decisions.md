@@ -227,7 +227,7 @@ Leave the product name and the logo with the team.
 - **Status:** Active
 - **Date:** 2026-10-31
 - **Made by:** Customer
-- **Source:** [the Week 5 validation meeting](../reports/week-05/meeting-report.md#decisions)
+- **Source:** [the Week 5 validation meeting](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-05/meeting-report.md#decisions)
 - **Why:** he had no name or logo of his own and said the team may name the product anything it wants.
 
 ## DEC-024
@@ -237,7 +237,7 @@ Title the run screen Run, matching the selected tab, and show the session kind s
 - **Status:** Active
 - **Date:** 2026-10-31
 - **Made by:** Customer
-- **Source:** [the Week 5 validation meeting](../reports/week-05/meeting-report.md#decisions)
+- **Source:** [the Week 5 validation meeting](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-05/meeting-report.md#decisions)
 - **Why:** History and Profile keep the same word on the tab and on the heading, and showing Interval as the heading made him unsure where he was.
 
 ## DEC-025
@@ -247,7 +247,7 @@ Label the session actions Interval and Steady, without the word Start.
 - **Status:** Active
 - **Date:** 2026-10-31
 - **Made by:** Customer
-- **Source:** [the Week 5 validation meeting](../reports/week-05/meeting-report.md#decisions)
+- **Source:** [the Week 5 validation meeting](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-05/meeting-report.md#decisions)
 - **Why:** Start interval and Start steady read as if Start were the action, and Stop already pairs with the session kind; Interval, Steady, and Stop are enough.
 
 ## DEC-026
@@ -257,7 +257,7 @@ Show time, pace, and distance without a typed question, and replace Ask with a m
 - **Status:** Active
 - **Date:** 2026-10-31
 - **Made by:** Customer
-- **Source:** [the Week 5 validation meeting](../reports/week-05/meeting-report.md#decisions)
+- **Source:** [the Week 5 validation meeting](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-05/meeting-report.md#decisions)
 - **Why:** stats are the only answer the typed box can produce, so making him ask is a menu with one item; a microphone he can turn off also stops the app listening while he talks to someone.
 
 ## DEC-027
@@ -267,7 +267,7 @@ Take the product's quality bar from Play Store publishing rules that fit the rem
 - **Status:** Active
 - **Date:** 2026-10-31
 - **Made by:** Customer
-- **Source:** [the Week 5 validation meeting](../reports/week-05/meeting-report.md#decisions)
+- **Source:** [the Week 5 validation meeting](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-05/meeting-report.md#decisions)
 - **Why:** he does not want a private quality set invented for the course; Play Store already meters battery, CPU, and background behaviour, and a scanner in the repository is the proof he would run himself before installing.
 
 ## DEC-028
@@ -277,7 +277,7 @@ Keep finished runs on the device; do not add an account or a server; prefer a fi
 - **Status:** Active
 - **Date:** 2026-10-31
 - **Made by:** Customer
-- **Source:** [the Week 5 validation meeting](../reports/week-05/meeting-report.md#decisions)
+- **Source:** [the Week 5 validation meeting](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-05/meeting-report.md#decisions)
 - **Why:** login and a remote store add security and compliance work the remaining weeks cannot take; if he deletes the app without exporting, losing the history is acceptable, and a comma-separated export later is his problem rather than the product's.
 
 ## DEC-029
@@ -287,5 +287,5 @@ Treat the on-screen first iteration as good enough to continue, with the labelli
 - **Status:** Active
 - **Date:** 2026-10-31
 - **Made by:** Customer
-- **Source:** [the Week 5 validation meeting](../reports/week-05/meeting-report.md#story-verdicts)
+- **Source:** [the Week 5 validation meeting](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-05/meeting-report.md#story-verdicts)
 - **Why:** he said the screenshots look pretty good for a first iteration, then named the heading, the session labels, the always-visible stats, and the microphone as the changes to make next.
