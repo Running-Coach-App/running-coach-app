@@ -35,9 +35,9 @@ The meeting did not reach the quality requirements, the architecture, or script 
 
 | Deliverable | Artifact |
 | --- | --- |
-| Sprint plan and estimates | [docs/project-plan.md#sprint-04](../../docs/project-plan.md#sprint-04), with the sprint's goal and its `Sprint Backlog:` link. `**Planned Velocity:**` and `**Actual Velocity:**` are not set: the `Story Points` field now exists but no story carries a value yet |
-| Product backlog refinement | Not done. It needs a `Story Points` value on each story, which is the same gap as the velocities |
-| Issue catch-up | Mostly done. Every issue carries the `User Story` or `Task` type, every story's criteria are checkboxes with a `### Specified by`, and every open task has a `### Requirements`. Outstanding: a `MoSCoW` value on each story, and the six labels that cannot retire until it is set |
+| Sprint plan and estimates | [docs/project-plan.md#sprint-04](../../docs/project-plan.md#sprint-04), with the sprint's goal, its `Sprint Backlog:` link, and both velocities recorded as 0 points: no story was scheduled into the sprint, so none could be planned or earned. Declared under Deviations |
+| Product backlog refinement | Not done. It needs a `Story Points` value on each story, which is also why the sprint's velocities are 0 |
+| Issue catch-up | Mostly done. Every issue carries the `User Story` or `Task` type, every story's criteria are checkboxes with a `### Specified by`, and every open task has a `### Requirements`. Outstanding at the time: a `MoSCoW` value on each story, and the six labels that could not retire until it was set. Both were done in Week 5 |
 | Quality requirements | [docs/quality-requirements/](../../docs/quality-requirements/README.md), with [README.md](../../docs/quality-requirements/README.md) as the priority matrix |
 | Functional requirements | [docs/functional-requirements/](../../docs/functional-requirements/README.md), with `README.md` as the index and `fr/` for the records |
 | Container view | [docs/architecture/README.md#container-view](../../docs/architecture/README.md#container-view), its image and source, and [#container-responsibilities](../../docs/architecture/README.md#container-responsibilities) |
@@ -91,8 +91,8 @@ The dead Garmin citation that had been turning the link check red was repointed 
    The hard deadline was 2026-10-24 at 23:59. The customer meeting was held on 2026-10-23, and the work that followed it — the report, the release, and the documentation site — ran past the deadline.
 2. **The documentation site went live late in the week.**
    `mkdocs build --strict` had been aborting on fourteen warnings: files under `docs/` linked meeting reports by a relative path that leaves `docs/`, which `mkdocs` cannot resolve. GitHub Pages was also set to deploy from a branch rather than from the workflow. Both are fixed and the site now resolves, but it was not published for most of the sprint, and the Week 3 report had listed it as a satisfied deliverable while it returned 404.
-3. **No story carries a `MoSCoW` or `Story Points` value.**
-   The three fields now exist on the project, and every issue carries its type, but the values are unset. The sprint therefore has no planned or actual velocity, the product backlog is unrefined, and the `user-story`, `task`, and four `moscow:*` labels cannot retire, because they are still the only record of each story's priority.
+3. **No story carries a `MoSCoW` or `Story Points` value, and no story was scheduled into a sprint.**
+   The three fields now exist on the project, and every issue carries its type, but the values are unset, and no story was scheduled into `SPRINT-04`'s milestone. `SPRINT-04` therefore records a planned and actual velocity of 0 points rather than a computed figure, and the product backlog is unrefined. The `user-story`, `task`, and four `moscow:*` labels could not retire while they were the only record of each story's priority; the values were set in Week 5 and the labels have since been deleted.
 4. **Four dependency bumps broke the build, and were reverted.**
    Merging the Android Gradle plugin to 9.4.1 while the Kotlin plugin stayed at 2.0.21 made every build fail at plugin-apply time, and `androidx.core:core-ktx:1.19.1` turned out to require that same major. All four went back to the versions that build, the Kotlin bump was closed rather than merged, and moving to AGP 9 is left as its own piece of work rather than attempted against this deadline.
 5. **The meeting covered the working software but not the architecture.**
