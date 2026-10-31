@@ -66,7 +66,7 @@ Somebody outside the team can obtain the product, install it, and finish a pocke
 
 - Due: 2026-10-31
 - Sprint Backlog: [the issues scheduled into SPRINT-05](https://github.com/Running-Coach-App/running-coach-app/milestone/3)
-- Planned Velocity: to be set from the `Story Points` of the stories selected into this sprint
+- Planned Velocity: 22 points, from the `Story Points` of the five stories scheduled into this sprint: [US-01](https://github.com/Running-Coach-App/running-coach-app/issues/37) 5, [US-03](https://github.com/Running-Coach-App/running-coach-app/issues/39) 3, [US-04](https://github.com/Running-Coach-App/running-coach-app/issues/40) 8, [US-05](https://github.com/Running-Coach-App/running-coach-app/issues/41) 3, and [US-10](https://github.com/Running-Coach-App/running-coach-app/issues/141) 3.
 
 #### REL-05
 
