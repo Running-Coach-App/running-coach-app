@@ -13,6 +13,26 @@ Running Coach App, team 4.
 A runner puts the phone in a pocket, starts a session, and hears what to do and how the run is going until they stop.
 That slice is the Week 2 candidate: [US-01](https://github.com/Running-Coach-App/running-coach-app/issues/37), [US-02](https://github.com/Running-Coach-App/running-coach-app/issues/38), [US-03](https://github.com/Running-Coach-App/running-coach-app/issues/39), and [US-04](https://github.com/Running-Coach-App/running-coach-app/issues/40).
 
+### MLS-05
+
+- Due: 2026-10-31
+- Sprints: [SPRINT-05](#sprint-05)
+- Advances: [TOS-02](threshold-of-success.md#tos-02)
+
+Somebody outside the team gets the product onto a phone and finishes one pocket session, without a member of the team present.
+
+The slice stops being a thing we demonstrate and becomes a thing another person can obtain, install, and use. The build is published rather than passed around, the steps to get it are written down, and the checks that say it works run without anyone asking them to.
+
+### MLS-07
+
+- Due: 2026-11-14
+- Sprints: [SPRINT-06](#sprint-06), [SPRINT-07](#sprint-07)
+- Advances: [TOS-02](threshold-of-success.md#tos-02), [TOS-03](threshold-of-success.md#tos-03)
+
+A runner who is not on the team uses the coach on a real run, and the team can say afterwards what that runner heard.
+
+This increment is about evidence rather than features. It needs the product to report enough about a session for the team to tell what happened, and a written way of asking a runner to use it and recording what they say, so the next decisions rest on a stranger's run rather than on ours.
+
 ## Sprints
 
 ### SPRINT-03
@@ -42,9 +62,11 @@ The same slice has a repeatable build, tests, and an architecture the next incre
 
 ### SPRINT-05
 
-A person outside the team can run the core task from the published setup, and the checks run on every pull request.
+Somebody outside the team can obtain the product, install it, and finish a pocket session, and the checks that say it works run without being asked.
 
 - Due: 2026-10-31
+- Sprint Backlog: [the issues scheduled into SPRINT-05](https://github.com/Running-Coach-App/running-coach-app/milestone/3)
+- Planned Velocity: to be set from the `Story Points` of the stories selected into this sprint
 
 #### REL-05
 
