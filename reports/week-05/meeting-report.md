@@ -12,6 +12,16 @@
 - **Transcript:** [meeting-transcript.md](meeting-transcript.md)
 - **Script:** [meeting-script.md](meeting-script.md)
 
+The screenshots sent in the meeting:
+
+![Launcher icon on the home screen](images/launcher.png)
+
+![Run screen after stop, with the spoken summary overlay](images/run-finished-overlay.png)
+
+![Empty History tab](images/history-empty.png)
+
+![Run screen during an interval session](images/run-interval.png)
+
 ## Previous action points
 
 | Action | Outcome | Decision |
