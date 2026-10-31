@@ -4,6 +4,8 @@ The priority matrix for the product's quality requirements. Each row finds its r
 
 The rows are sorted active first, then by business importance from `High` to `Low`, then by technical risk from `High` to `Low`, with `QR-nn` order breaking a tie.
 
+What each test last found is in [the quality requirement testing plan](../project-plan.md#quality-requirement-testing-plan).
+
 | QR | Outcome | Business importance | Technical risk | Characteristic | Sub-characteristic | Status |
 | --- | --- | --- | --- | --- | --- | --- |
 | [QR-01](qr/QR-01.md) | A stats line that falls due during a session starts playing within two seconds of the moment it is due. | High | Medium | Performance Efficiency | Time Behaviour | Active |

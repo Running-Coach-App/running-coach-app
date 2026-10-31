@@ -25,4 +25,5 @@ nav:
       - Quality requirements: quality-requirements/README.md
       - Functional requirements: functional-requirements/README.md
   - Architecture: architecture/README.md
+  - Features: features.md
   - Glossary: glossary.md

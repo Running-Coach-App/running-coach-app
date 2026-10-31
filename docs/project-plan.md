@@ -85,3 +85,12 @@ The product on main is the one the team will pitch.
 - Review: the team's weekly review, Thursdays at 18:00 WAT, before the soft deadline. It reads [the threshold of success](threshold-of-success.md) and tracks [risk register issue #49](https://github.com/Running-Coach-App/running-coach-app/issues/49).
 - Checked by: the accountable member of each scheduled issue reports its state, and the team walks that sprint's GitHub milestone against the sprint's goal.
 - Visible at: the public GitHub project's table view, grouped by milestone, and the seven SPRINT-nn GitHub milestones. Both are created with the plan; this line gains their links once GitHub has assigned the numbers.
+
+## Quality Requirement Testing Plan
+
+One row per quality requirement test, in the order of [the quality requirements index](quality-requirements/README.md), with a test's number breaking a tie inside one requirement. Each row carries the test's result at its last check; the test's own section carries its definition.
+
+| QR | QRT | Status | Checked | Planned for sprint | Evidence |
+| --- | --- | --- | --- | --- | --- |
+| [QR-01](quality-requirements/qr/QR-01.md) | [QR-01 QRT-01](quality-requirements/qr/QR-01.md#qrt-01) | Not verified | None | [SPRINT-05](#sprint-05) | None |
+| [QR-02](quality-requirements/qr/QR-02.md) | [QR-02 QRT-01](quality-requirements/qr/QR-02.md#qrt-01) | Not verified | None | [SPRINT-05](#sprint-05) | None |
