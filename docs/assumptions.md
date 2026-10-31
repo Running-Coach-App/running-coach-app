@@ -72,3 +72,11 @@ A small on-device model (Gemma, as the `Customer` suggested) can answer simple s
 - **Status:** Open
 - **How to check:** complete the on-device text-to-speech and small-model feasibility spike in Week 3, per [the Week 2 action points](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-02/meeting-report.md#action-points), and record its findings in the [on-device feasibility assessment](research/on-device-feasibility.md).
 - **Note:** Week 3 preferred trying an on-device model first with keywords as backup ([DEC-016](decisions.md#dec-016)); feasibility on a device is still unproven.
+
+## ASM-10
+
+Android `SpeechRecognizer.createSpeechRecognizer` may send spoken audio off the device.
+
+- **Status:** Open
+- **How to check:** read whether the platform recogniser used in `CoachService.kt` is on-device or a network service, then ask the `Customer` whether that is acceptable under [`DEC-004`](decisions.md#dec-004).
+- **Note:** [US-04](https://github.com/Running-Coach-App/running-coach-app/issues/40) answers spoken questions through that recogniser. If audio leaves the phone, the "on the phone" constraint is weaker than the story currently assumes. The Week 5 meeting did not ask this.
