@@ -43,9 +43,9 @@ A clean checkout of main speaks a start, the run's time, pace, and distance, an 
 
 #### REL-03
 
-- **Tag:** [v0.1.0](https://github.com/Running-Coach-App/running-coach-app/releases/tag/v0.1.0)
+- **Tag:** [`v0.1.0`](https://github.com/Running-Coach-App/running-coach-app/releases/tag/v0.1.0)
 - **Date:** 2026-10-18
-- **Ships:** the Week 3 pocket-session slice on main (start/stop, spoken time/pace/distance, effort cue, spoken stat answer), plus the Week 3 docs and validation record.
+- **Ships:** the Week 3 pocket-session slice on `main` (start/stop, spoken time/pace/distance, effort cue, spoken stat answer), plus the Week 3 docs and validation record.
 
 ### SPRINT-04
 
@@ -53,14 +53,14 @@ The same slice has a repeatable build, tests, and an architecture the next incre
 
 - Due: 2026-10-24
 - Sprint Backlog: [the issues scheduled into SPRINT-04](https://github.com/Running-Coach-App/running-coach-app/milestone/2)
-- Planned Velocity: 0 points. No story was scheduled into this sprint; all nineteen issues in its milestone were tasks, so there were no Story Points to plan with.
-- Actual Velocity: 0 points. Nothing moved out of the sprint: every issue scheduled into it closed. The stories the work served stayed unscheduled, so no story points were earned, and they remain in the product backlog for SPRINT-05 to select.
+- Planned Velocity: 0 points. No story was scheduled into this sprint; all nineteen issues in its milestone were tasks, so there were no `Story Points` to plan with.
+- Actual Velocity: 0 points. Nothing moved out of the sprint: every issue scheduled into it closed. The stories the work served stayed unscheduled, so no story points were earned, and they remain in the product backlog for `SPRINT-05` to select.
 
 #### REL-04
 
-- **Tag:** [v0.2.0](https://github.com/Running-Coach-App/running-coach-app/releases/tag/v0.2.0)
+- **Tag:** [`v0.2.0`](https://github.com/Running-Coach-App/running-coach-app/releases/tag/v0.2.0)
 - **Date:** 2026-10-25
-- **Ships:** the spoken coach brought in line with DEC-011, DEC-012, and DEC-013, the quality and functional requirements, the container view and the architectural decision records, the glossary and the team's AGENTS.md, and a workflow that builds and tests the product code.
+- **Ships:** the spoken coach brought in line with `DEC-011`, `DEC-012`, and `DEC-013`, the quality and functional requirements, the container view and the architectural decision records, the glossary and the team's `AGENTS.md`, and a workflow that builds and tests the product code.
 
 ### SPRINT-05
 
@@ -68,14 +68,14 @@ Somebody outside the team can obtain the product, install it, and finish a pocke
 
 - Due: 2026-10-31
 - Sprint Backlog: [the issues scheduled into SPRINT-05](https://github.com/Running-Coach-App/running-coach-app/milestone/3)
-- Planned Velocity: 22 points, from the Story Points of the five stories scheduled into this sprint: [US-01](https://github.com/Running-Coach-App/running-coach-app/issues/37) 5, [US-03](https://github.com/Running-Coach-App/running-coach-app/issues/39) 3, [US-04](https://github.com/Running-Coach-App/running-coach-app/issues/40) 8, [US-05](https://github.com/Running-Coach-App/running-coach-app/issues/41) 3, and [US-10](https://github.com/Running-Coach-App/running-coach-app/issues/141) 3.
+- Planned Velocity: 22 points, from the `Story Points` of the five stories scheduled into this sprint: [US-01](https://github.com/Running-Coach-App/running-coach-app/issues/37) 5, [US-03](https://github.com/Running-Coach-App/running-coach-app/issues/39) 3, [US-04](https://github.com/Running-Coach-App/running-coach-app/issues/40) 8, [US-05](https://github.com/Running-Coach-App/running-coach-app/issues/41) 3, and [US-10](https://github.com/Running-Coach-App/running-coach-app/issues/141) 3.
 
 #### REL-05
 
 - **Released:** [v0.3.0](https://github.com/Running-Coach-App/running-coach-app/releases/tag/v0.3.0) on 2026-10-31.
 - **Checked QRs:**
-  - [QR-01](quality-requirements/qr/QR-01.md)
-  - [QR-02](quality-requirements/qr/QR-02.md)
+  - [QR-01](quality-requirements/qr/QR-01.md)
+  - [QR-02](quality-requirements/qr/QR-02.md)
 
 Each test's result, and the sprint of its last check, is in the [Quality Requirement Testing Plan](#quality-requirement-testing-plan).
 
@@ -123,5 +123,5 @@ One row per quality requirement test, in the order of [the quality requirements 
 
 | QR | QRT | Status | Checked | Planned for sprint | Evidence |
 | --- | --- | --- | --- | --- | --- |
-| [QR-01](quality-requirements/qr/QR-01.md) | [QR-01 QRT-01](quality-requirements/qr/QR-01.md#qrt-01) | Passes | SPRINT-05 | [SPRINT-05](#sprint-05) | [Android build #32 on main](https://github.com/Running-Coach-App/running-coach-app/actions/runs/41182999822): test step passed; local run had 18 passed, 0 skipped, and the cadence test took 0.002 s. |
-| [QR-02](quality-requirements/qr/QR-02.md) | [QR-02 QRT-01](quality-requirements/qr/QR-02.md#qrt-01) | Passes | SPRINT-05 | [SPRINT-05](#sprint-05) | [Android build #32 on main](https://github.com/Running-Coach-App/running-coach-app/actions/runs/41182999822): unit tests and debug assembly passed. A temporary change to SessionEngine.start made startAndStopAreSpokenAndTheSessionGoesQuiet fail; restored source and reran all 18 tests successfully. |
+| [QR-01](quality-requirements/qr/QR-01.md) | [QR-01 QRT-01](quality-requirements/qr/QR-01.md#qrt-01) | Passes | SPRINT-05 | [SPRINT-05](#sprint-05) | [Android build #32 on `main`](https://github.com/Running-Coach-App/running-coach-app/actions/runs/41182999822): test step passed; local run had 18 passed, 0 skipped, and the cadence test took 0.002 s. |
+| [QR-02](quality-requirements/qr/QR-02.md) | [QR-02 QRT-01](quality-requirements/qr/QR-02.md#qrt-01) | Passes | SPRINT-05 | [SPRINT-05](#sprint-05) | [Android build #32 on `main`](https://github.com/Running-Coach-App/running-coach-app/actions/runs/41182999822): unit tests and debug assembly passed. A temporary change to `SessionEngine.start` made `startAndStopAreSpokenAndTheSessionGoesQuiet` fail; restored source and reran all 18 tests successfully. |
