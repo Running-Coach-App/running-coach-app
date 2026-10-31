@@ -114,5 +114,5 @@ One row per quality requirement test, in the order of [the quality requirements 
 
 | QR | QRT | Status | Checked | Planned for sprint | Evidence |
 | --- | --- | --- | --- | --- | --- |
-| [QR-01](quality-requirements/qr/QR-01.md) | [QR-01 QRT-01](quality-requirements/qr/QR-01.md#qrt-01) | Not verified | None | [SPRINT-05](#sprint-05) | None |
-| [QR-02](quality-requirements/qr/QR-02.md) | [QR-02 QRT-01](quality-requirements/qr/QR-02.md#qrt-01) | Not verified | None | [SPRINT-05](#sprint-05) | None |
+| [QR-01](quality-requirements/qr/QR-01.md) | [QR-01 QRT-01](quality-requirements/qr/QR-01.md#qrt-01) | Passes | SPRINT-05 | [SPRINT-05](#sprint-05) | [Android build #32 on `main`](https://github.com/Running-Coach-App/running-coach-app/actions/runs/41182999822): test step passed; local run had 18 passed, 0 skipped, and the cadence test took 0.002 s. |
+| [QR-02](quality-requirements/qr/QR-02.md) | [QR-02 QRT-01](quality-requirements/qr/QR-02.md#qrt-01) | Passes | SPRINT-05 | [SPRINT-05](#sprint-05) | [Android build #32 on `main`](https://github.com/Running-Coach-App/running-coach-app/actions/runs/41182999822): unit tests and debug assembly passed. A temporary change to `SessionEngine.start` made `startAndStopAreSpokenAndTheSessionGoesQuiet` fail; restored source and reran all 18 tests successfully. |
