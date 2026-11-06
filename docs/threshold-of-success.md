@@ -14,8 +14,9 @@ By the end of Week 3 the customer has given a yes or a no on each story in the W
 
 By the end of Week 5 a person who is not on the team follows the setup page from a clean checkout and finishes one pocket session: start, hear time, pace, and distance, hear an effort cue, ask one stat aloud, and stop.
 
-- **Status:** Open
+- **Status:** Missed
 - **Measure:** that run is written up in the Week 5 report, naming the commit they checked out and which acceptance criteria they heard, by 2026-10-30.
+- **Outcome:** Missed. The date passed with nobody outside the team having run the core task. The `Customer` had not installed the product by the Week 5 meeting, so [the Week 5 report](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-05/README.md) records no such run, and [US-02](https://github.com/Running-Coach-App/running-coach-app/issues/38) was accepted from screenshots rather than from his own phone. A signed-for-install APK was attached to [v0.3.0](https://github.com/Running-Coach-App/running-coach-app/releases/tag/v0.3.0) after the meeting, which is what the goal needed and did not have.
 
 ## TOS-03
 

@@ -82,9 +82,11 @@ Each test's result, and the sprint of its last check, is in the [Quality Require
 
 ### SPRINT-06
 
-The team can tell, from the product itself, whether a runner heard the coach during a session.
+The product records what it did during a session, so the team can tell how the coach was used and why a run went wrong, without asking the runner.
 
-- Due: 2026-11-07
+- Due: 2026-11-08
+- Sprint Backlog: [the issues scheduled into SPRINT-06](https://github.com/Running-Coach-App/running-coach-app/milestone/4)
+- Planned Velocity: 27 points, from the `Story Points` of the six stories scheduled into this sprint: [US-01](https://github.com/Running-Coach-App/running-coach-app/issues/37) 5, [US-03](https://github.com/Running-Coach-App/running-coach-app/issues/39) 3, [US-04](https://github.com/Running-Coach-App/running-coach-app/issues/40) 8, [US-10](https://github.com/Running-Coach-App/running-coach-app/issues/141) 3, [US-12](https://github.com/Running-Coach-App/running-coach-app/issues/167) 5, and [US-13](https://github.com/Running-Coach-App/running-coach-app/issues/168) 3. Four of them carried from `SPRINT-05` unaccepted.
 
 #### REL-06
 
