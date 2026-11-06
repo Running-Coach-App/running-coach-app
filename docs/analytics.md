@@ -9,10 +9,10 @@ The product runs entirely on the phone and holds no network permission. [`DEC-02
 ### The Metric Tree
 
 - [Weekly completed coached sessions](#weekly-completed-coached-sessions) — the focus metric, expressing [`VP-01`](research/value-proposition.md#vp-01)
-    - **L1 (counter-metric):** [Early-stopped session rate](#early-stopped-session-rate)
-    - **L1:** [Session completion rate](#session-completion-rate)
-        - **L2:** [Spoken line delivery rate](#spoken-line-delivery-rate)
-        - **L2:** [Location fix availability](#location-fix-availability)
+  - **L1 (counter-metric):** [Early-stopped session rate](#early-stopped-session-rate)
+  - **L1:** [Session completion rate](#session-completion-rate)
+    - **L2:** [Spoken line delivery rate](#spoken-line-delivery-rate)
+    - **L2:** [Location fix availability](#location-fix-availability)
 
 ### Why This Focus Metric
 
@@ -68,7 +68,7 @@ SELECT round(100.0 * count(*) FILTER (WHERE duration_s < 180) / nullif(count(*),
 FROM (
   SELECT session_id,
          max(occurred_at) FILTER (WHERE event = 'session_stopped')
-       - min(occurred_at) FILTER (WHERE event = 'session_started') AS duration_s
+   - min(occurred_at) FILTER (WHERE event = 'session_started') AS duration_s
   FROM events
   WHERE source = 'app'
   GROUP BY session_id
