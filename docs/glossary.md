@@ -49,3 +49,21 @@ A stat the coach would have spoken but does not have, announced once and then le
 A way of starting, stopping, or asking that a runner can use with the phone in a pocket and the screen off, without seeing it.
 
 **Defined by:** [`QR-03`](quality-requirements/qr/QR-03.md).
+
+## Analytics
+
+### Focus metric
+
+The one number the product's value is read from. Running Coach App's is [weekly completed coached sessions](analytics.md#weekly-completed-coached-sessions).
+
+### Input metric
+
+A number the team can change directly, which moves the focus metric when it moves. Each one sits below the focus metric in the tree.
+
+### Counter-metric
+
+The number that guards the focus metric against being bought with harm. It is watched alongside the focus metric, not optimised.
+
+### Metric tree
+
+The focus metric with its counter-metric and its input metrics nested beneath it, so a reader can see which number a change is supposed to move.

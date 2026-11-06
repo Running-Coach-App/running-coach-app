@@ -27,4 +27,5 @@ nav:
       - Functional requirements: functional-requirements/README.md
   - Architecture: architecture/README.md
   - Features: features.md
+  - Analytics: analytics.md
   - Glossary: glossary.md

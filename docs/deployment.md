@@ -64,3 +64,7 @@ If any of those fail, roll back. Do not leave production on a commit that failed
 Replace the current APK with `app-debug.apk.previous` in that environment's directory, serve it again, and repeat the verification. If the previous file is missing, check out the last known good tag, assemble it from [`docs/setup.md`](setup.md), and copy that APK up instead.
 
 Record the commit that production finally runs with the release. A run on an earlier commit is not the released state's run.
+
+## Telemetry
+
+The product records its own events on the phone and exports them as a file; nothing is deployed for it. [`docs/analytics.md`](analytics.md) holds the metrics, the event table, and the queries, and says why the pipeline has no backend.
