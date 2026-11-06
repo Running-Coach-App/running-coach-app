@@ -67,4 +67,4 @@ Record the commit that production finally runs with the release. A run on an ear
 
 ## Telemetry
 
-The product records its own events on the phone and exports them as a file; nothing is deployed for it. [`docs/analytics.md`](analytics.md) holds the metrics, the event table, and the queries, and says why the pipeline has no backend.
+The product records its own events on the phone and exports them as a file; nothing is deployed for it. [`docs/analytics.md`](analytics.md) holds the metrics, the event table, and the queries, and [`docs/observability.md`](observability.md) holds the signals and the `SLI`s. Both say why their pipeline has no backend.

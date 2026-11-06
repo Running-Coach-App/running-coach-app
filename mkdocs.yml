@@ -28,4 +28,5 @@ nav:
   - Architecture: architecture/README.md
   - Features: features.md
   - Analytics: analytics.md
+  - Observability: observability.md
   - Glossary: glossary.md

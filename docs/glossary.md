@@ -67,3 +67,25 @@ The number that guards the focus metric against being bought with harm. It is wa
 ### Metric tree
 
 The focus metric with its counter-metric and its input metrics nested beneath it, so a reader can see which number a change is supposed to move.
+
+## Operation
+
+### Signal
+
+What the product reports about its own operation: a metric, a log, or a trace. [`docs/observability.md`](observability.md) says which of the three this product emits.
+
+### Telemetry
+
+The events and signals a product reports about itself, taken together. Running Coach App's telemetry never leaves the phone on its own.
+
+### Observability
+
+Being able to tell what the product did, and why, from what it reported, without reproducing the run.
+
+### Service level indicator
+
+A measured quality signal: what is measured, in which unit, over which window, and by which query. Abbreviated `SLI`.
+
+### SLI
+
+See [service level indicator](#service-level-indicator).
