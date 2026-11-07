@@ -16,4 +16,5 @@ One row per requirement, in `FR-nnn` order. Each row finds its requirement; the 
 | [FR-010](fr/FR-010.md) | Show On Screen What The Coach Says | `coach app` | Active |
 | [FR-011](fr/FR-011.md) | Keep The Finished Runs And Show Them On Request | `coach app` | Active |
 | [FR-012](fr/FR-012.md) | Let The Runner Set How Often The Stats Are Spoken | `coach app` | Active |
+| [FR-013](fr/FR-013.md) | Record Each Step Of The Core Task | `coach app` | Active |
 | [FR-014](fr/FR-014.md) | Report What The Coach Did During A Session | `coach app` | Active |

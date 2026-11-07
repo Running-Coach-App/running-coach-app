@@ -15,7 +15,18 @@ enum class Effort {
  * The spoken coach, with no Android types, so the acceptance criteria can be
  * checked from a unit test.
  */
-class SessionEngine {
+class SessionEngine(
+    private val sink: TelemetrySink = NoTelemetry,
+    private val clock: () -> Long = { 0L },
+    private val newSessionId: () -> String = { java.util.UUID.randomUUID().toString() },
+) {
+    /** What the traffic is, so the team's own runs can be told from a runner's. */
+    var source: Source = Source.APP
+
+    /** Random per session, not derived from the runner, not reversible to them. */
+    var sessionId: String = ""
+        private set
+
     var running: Boolean = false
         private set
 
@@ -57,12 +68,32 @@ class SessionEngine {
         distanceMissingAnnounced = false
         offTopicRepliesGiven = 0
         recentLines.clear()
+        sessionId = newSessionId()
+        record(Events.SESSION_STARTED, mapOf("kind" to kind.name.lowercase()))
         return "Session started."
     }
 
     fun stop(): String {
         running = false
+        record(
+            Events.SESSION_STOPPED,
+            mapOf(
+                "duration_s" to elapsedMillis / 1000,
+                "distance_m" to (distanceMeters ?: 0.0).toInt(),
+                "reason" to "runner",
+            ),
+        )
         return "Session stopped."
+    }
+
+    /** Recorded after the coach has spoken the after-run summary (FR-007). */
+    fun recordSummarySpoken() {
+        val distance = distanceMeters
+        record(Events.SESSION_SUMMARY_SPOKEN, mapOf("had_distance" to (distance != null && distance > 0.0)))
+    }
+
+    private fun record(name: String, fields: Map<String, Any?>) {
+        sink.event(name, clock(), sessionId, source, fields)
     }
 
     fun shouldKeepRecord(): Boolean = elapsedMillis >= RECORD_AFTER_MILLIS
@@ -89,13 +120,25 @@ class SessionEngine {
             if (effort != lastSpokenEffort) {
                 lines += effortPhrase(effort)
                 lastSpokenEffort = effort
+                record(Events.EFFORT_CUE_SPOKEN, mapOf("effort" to if (effort == Effort.HARD) "push" else "ease"))
             }
         }
         if (elapsedMillis >= nextStatsAtMillis) {
             lines += statsPhrase()
             nextStatsAtMillis += STATS_EVERY_MILLIS
+            record(
+                Events.STATS_SPOKEN,
+                mapOf("elapsed_s" to elapsedMillis / 1000, "stats_present" to statsPresent()),
+            )
         }
         return lines
+    }
+
+    /** How many of time, pace, and distance the coach could give on this line. */
+    private fun statsPresent(): Int {
+        val distance = distanceMeters
+        val haveDistance = distance != null && distance > 0.0
+        return 1 + (if (haveDistance && elapsedMillis > 0) 1 else 0) + (if (haveDistance) 1 else 0)
     }
 
     fun answer(question: String): String {
@@ -104,6 +147,8 @@ class SessionEngine {
         }
         val text = question.lowercase()
         if (text.contains("doing")) {
+            record(Events.QUESTION_ASKED, mapOf("topic" to QuestionTopic.TIME.wire))
+            record(Events.QUESTION_ANSWERED, mapOf("topic" to QuestionTopic.TIME.wire, "answered" to true))
             return listOf(
                 speakTime(elapsedMillis),
                 speakPace(elapsedMillis, distanceMeters),
@@ -113,9 +158,18 @@ class SessionEngine {
         val aboutTime = text.contains("time") || text.contains("long")
         val aboutPace = text.contains("pace") || text.contains("fast")
         val aboutDistance = text.contains("distance") || text.contains("far")
-        if (!aboutTime && !aboutPace && !aboutDistance) {
+        val topic = when {
+            aboutTime -> QuestionTopic.TIME
+            aboutPace -> QuestionTopic.PACE
+            aboutDistance -> QuestionTopic.DISTANCE
+            else -> QuestionTopic.OFF_TOPIC
+        }
+        record(Events.QUESTION_ASKED, mapOf("topic" to topic.wire))
+        if (topic == QuestionTopic.OFF_TOPIC) {
+            record(Events.QUESTION_ANSWERED, mapOf("topic" to topic.wire, "answered" to false))
             return offTopicReply(text)
         }
+        record(Events.QUESTION_ANSWERED, mapOf("topic" to topic.wire, "answered" to true))
         val parts = mutableListOf<String>()
         if (aboutTime) {
             parts += speakTime(elapsedMillis)

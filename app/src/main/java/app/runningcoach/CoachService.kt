@@ -30,7 +30,11 @@ import android.support.v4.media.session.PlaybackStateCompat
 import java.util.Locale
 
 class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
-    private val engine = SessionEngine()
+    private val telemetry = DeferredSink()
+    private val engine = SessionEngine(sink = telemetry, clock = { System.currentTimeMillis() })
+    private var fixLost = false
+    private var fixLostAt = 0L
+    private var lastFixAt = 0L
     private val handler = Handler(Looper.getMainLooper())
     private var tts: TextToSpeech? = null
     private var ttsReady = false
@@ -54,6 +58,7 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
             }
             val elapsed = System.currentTimeMillis() - startedAt
             val distance = if (lastLocation == null) null else distanceMeters
+            noteFixStaleness()
             engine.onTick(elapsed, distance).forEach { speak(it) }
             publishSessionState()
             handler.postDelayed(this, TICK_MILLIS)
@@ -63,6 +68,7 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
     override fun onCreate() {
         super.onCreate()
         history = SessionHistory(this)
+        telemetry.delegate = FileTelemetrySink(filesDir)
         createChannel()
         tts = TextToSpeech(this, this)
         mediaSession = MediaSessionCompat(this, "RunningCoach").apply {
@@ -126,6 +132,27 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
             distanceMeters += previous.distanceTo(location)
         }
         lastLocation = location
+        lastFixAt = System.currentTimeMillis()
+        if (fixLost) {
+            fixLost = false
+            recordEvent(Events.LOCATION_FIX_REGAINED, mapOf("lost_s" to (System.currentTimeMillis() - fixLostAt) / 1000))
+        }
+    }
+
+    /** A fix that has gone quiet for longer than the grace period is a lost fix (QR-04). */
+    private fun noteFixStaleness() {
+        if (lastFixAt == 0L || fixLost) {
+            return
+        }
+        if (System.currentTimeMillis() - lastFixAt > FIX_STALE_AFTER_MILLIS) {
+            fixLost = true
+            fixLostAt = lastFixAt
+            recordEvent(Events.LOCATION_FIX_LOST, emptyMap())
+        }
+    }
+
+    private fun recordEvent(name: String, fields: Map<String, Any?>) {
+        telemetry.event(name, System.currentTimeMillis(), engine.sessionId, engine.source, fields)
     }
 
     override fun onDestroy() {
@@ -174,6 +201,7 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
         )
         speak(engine.stop())
         speak(summary)
+        engine.recordSummarySpoken()
         if (keep) {
             history.add(record)
         }
@@ -430,6 +458,7 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
         private const val CHANNEL_ID = "coach"
         private const val NOTIFICATION_ID = 1
         private const val TICK_MILLIS = 1_000L
+        private const val FIX_STALE_AFTER_MILLIS = 15_000L
         private const val WORD_MILLIS = 170L
         private val WORD_BREAK = Regex("\\s+")
     }

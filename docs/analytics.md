@@ -136,8 +136,8 @@ No event carries a name, an email address, a phone number, an address, free text
 | Event | Fires when | Fields | Collected at |
 | --- | --- | --- | --- |
 | `session_started` | The runner starts a session, from the screen or a headset control | `session_id` (uuid, required), `occurred_at` (timestamp, required), `source` (enum, required), `kind` (enum `interval` or `steady`, required) | `coach app`, on the runner's phone |
-| `stats_spoken` | The coach finishes speaking a stats line | `session_id`, `occurred_at`, `source`, `elapsed_s` (integer, required), `stats_present` (integer 0 to 3, required) | `coach app`, on the runner's phone |
-| `effort_cue_spoken` | The coach finishes speaking an effort cue | `session_id`, `occurred_at`, `source`, `effort` (enum `push` or `ease`, required) | `coach app`, on the runner's phone |
+| `stats_spoken` | The coach produces a stats line for the session to speak | `session_id`, `occurred_at`, `source`, `elapsed_s` (integer, required), `stats_present` (integer 0 to 3, required) | `coach app`, on the runner's phone |
+| `effort_cue_spoken` | The coach produces an effort cue for the session to speak | `session_id`, `occurred_at`, `source`, `effort` (enum `push` or `ease`, required) | `coach app`, on the runner's phone |
 | `spoken_line_dropped` | A line falls due and cannot be spoken, because the previous line is still playing or the speech engine is unavailable | `session_id`, `occurred_at`, `source`, `line_kind` (enum `stats`, `effort`, `answer`, required), `reason` (enum, required) | `coach app`, on the runner's phone |
 | `question_asked` | The recogniser returns a result for a spoken question | `session_id`, `occurred_at`, `source`, `topic` (enum `time`, `pace`, `distance`, `off_topic`, required) | `coach app`, on the runner's phone |
 | `question_answered` | The coach finishes speaking an answer to a question | `session_id`, `occurred_at`, `source`, `topic` (enum, required), `answered` (boolean, required) | `coach app`, on the runner's phone |
@@ -147,6 +147,8 @@ No event carries a name, an email address, a phone number, an address, free text
 | `session_summary_spoken` | The coach finishes speaking the after-run summary | `session_id`, `occurred_at`, `source`, `had_distance` (boolean, required) | `coach app`, on the runner's phone |
 
 The table covers the core task end to end: a session starts, the coach speaks stats and effort cues, a question is asked and answered, a lost fix is survived, the session stops, and the summary is spoken.
+
+Every event above is recorded today except `spoken_line_dropped`, which needs the per-line outcome [`FR-014`](functional-requirements/fr/FR-014.md) specifies. Until [issue #175](https://github.com/Running-Coach-App/running-coach-app/issues/175) lands, [the spoken line delivery rate](#spoken-line-delivery-rate) has no value. The table says so rather than implying the event exists.
 
 ## The Pipeline
 
