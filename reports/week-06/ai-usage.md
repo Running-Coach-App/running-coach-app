@@ -31,3 +31,9 @@ Still to be confirmed by the team: the focus metric and the counter-metric behin
 No AI output was used as a research finding, and no claim about an alternative was generated this week.
 
 No generated text was submitted unchecked. The Markdown check and a link-and-anchor check were run before each pull request, and every dependency upgrade recommended this week was built locally before it was recommended.
+
+## Additional work for the Week 6 closeout
+
+Codex was used to compare the repository and GitHub state with Assignment 6, prepare QR-05 and its scripted test evidence, check the sprint's accepted story points, review the existing sprint-close PR, and draft this report.
+
+The report was checked against the Week 6 meeting record, the current issue and pull-request states, the analytics and observability plans, the threshold document, and the latest green workflows on `main`. The test result was run locally. The report was corrected to distinguish a scripted file-sink check from production per-line telemetry, and to state that `REL-06` and the dashboards are still pending. No AI-generated statement was treated as a research finding or as evidence of customer acceptance.
