@@ -11,9 +11,9 @@ This document records what the Running Coach App is made of; the scope it serves
 
 ## Container View
 
-The product genuinely runs as one container, the phone application below, and [`ADR-001`](adr/ADR-001.md) decides that and the stack it runs on. The three platform capabilities beside it are external systems the container exchanges data with, not parts the team deploys.
+The product genuinely runs as one container, the phone application below, and [`ADR-001`](adr/ADR-001.md) decides that and the stack it runs on. The platform capabilities beside it are external systems the container exchanges data with, not parts the team deploys. The team would self-host an analytics backend and an observability backend and would not build them; it has neither, so they are drawn as external systems and the product works with collection off.
 
-![Container view of the Running Coach App: the coach app exchanging data with the platform text-to-speech engine, the platform speech recognition service, and the phone's location provider](container.svg)
+![Container view of the Running Coach App: the coach app exchanging data with the platform text-to-speech engine, the platform speech recognition service, the phone's location provider, and the two telemetry backends the team does not have](container.svg)
 
 ### Container Responsibilities
 
@@ -27,6 +27,7 @@ Every diagram in this document follows these conventions.
 
 - A **rectangle inside the product boundary** is a container the team deploys: an application or a data store that has to be running for the product to work.
 - A **rectangle outside the boundary** is an external system the product exchanges data with and does not deploy.
+- A telemetry backend the team would self-host and would not build is still an external system; this product has none.
 - The **dashed box labelled "Boundary of the product"** encloses what the team ships.
 - An **arrow** carries data in the direction it points, and its label says what crosses it.
 - The second line of a container's label is its technology.
@@ -49,3 +50,5 @@ One row per record. `Proposed` and `Accepted` are active; `Superseded`, `Depreca
 | [ADR-002](adr/ADR-002.md) | Accepted | [`FR-002`](../functional-requirements/fr/FR-002.md), [`FR-003`](../functional-requirements/fr/FR-003.md), [`QR-01`](../quality-requirements/qr/QR-01.md), [`QR-04`](../quality-requirements/qr/QR-04.md) | The Android platform text-to-speech engine |
 | [ADR-003](adr/ADR-003.md) | Accepted | [`QR-01`](../quality-requirements/qr/QR-01.md), [`QR-02`](../quality-requirements/qr/QR-02.md), [`FR-002`](../functional-requirements/fr/FR-002.md), [`FR-003`](../functional-requirements/fr/FR-003.md), [`FR-006`](../functional-requirements/fr/FR-006.md) | A pure Kotlin engine the service drives |
 | [ADR-004](adr/ADR-004.md) | Accepted | [`FR-004`](../functional-requirements/fr/FR-004.md), [`FR-005`](../functional-requirements/fr/FR-005.md), [`QR-01`](../quality-requirements/qr/QR-01.md), [`QR-03`](../quality-requirements/qr/QR-03.md) | An on-device model for intent, with keyword matching behind it |
+| [ADR-005](adr/ADR-005.md) | Accepted | [`FR-013`](../functional-requirements/fr/FR-013.md), [`QR-02`](../quality-requirements/qr/QR-02.md) | JSON Lines in the application's private storage |
+| [ADR-006](adr/ADR-006.md) | Accepted | [`FR-014`](../functional-requirements/fr/FR-014.md), [`QR-01`](../quality-requirements/qr/QR-01.md), [`QR-04`](../quality-requirements/qr/QR-04.md) | A structured JSON Lines log, one object per spoken line |
