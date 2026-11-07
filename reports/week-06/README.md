@@ -53,7 +53,7 @@ No deck or experiment was required this week.
 | --- | --- |
 | @sirjaey | Merged [PR #169](https://github.com/Running-Coach-App/running-coach-app/pull/169) (sprint plan), [PR #171](https://github.com/Running-Coach-App/running-coach-app/pull/171) (analytics), [PR #173](https://github.com/Running-Coach-App/running-coach-app/pull/173) (observability), and [PR #176](https://github.com/Running-Coach-App/running-coach-app/pull/176) (instrumentation). [PR #186](https://github.com/Running-Coach-App/running-coach-app/pull/186), [PR #189](https://github.com/Running-Coach-App/running-coach-app/pull/189), and [PR #190](https://github.com/Running-Coach-App/running-coach-app/pull/190) remain open. |
 | @Ezekiel-Gadzama | Wrote the Week 6 validation record and transcript in merged [PR #180](https://github.com/Running-Coach-App/running-coach-app/pull/180). |
-| @ObeTech1 | Prepared the scripted diagnosability test in [PR #185](https://github.com/Running-Coach-App/running-coach-app/pull/185) and the Week 6 report in the PR for [issue #188](https://github.com/Running-Coach-App/running-coach-app/issues/188). |
+| @ObeTech1 | Prepared the scripted diagnosability test in [PR #185](https://github.com/Running-Coach-App/running-coach-app/pull/185) and this report in [PR #191](https://github.com/Running-Coach-App/running-coach-app/pull/191). |
 | @JustACommonMan-OSDD | No Week 6 implementation PR is recorded under this username in the repository history reviewed on 8 November. |
 
 ## Repository evidence
