@@ -6,9 +6,13 @@ flowchart LR
     tts["Platform text-to-speech<br/>Android"]
     asr["Platform speech recognition<br/>Android"]
     gnss["Location provider<br/>Android, phone receiver"]
+    analytics["Analytics backend<br/>would be self-hosted"]
+    observability["Observability backend<br/>would be self-hosted"]
 
     app -->|"lines to speak"| tts
     tts -->|"spoken line finished"| app
     app -->|"request to listen"| asr
     asr -->|"transcribed question"| app
     gnss -->|"location fixes"| app
+    app -->|"JSON Lines"| analytics
+    app -->|"JSON Lines"| observability
