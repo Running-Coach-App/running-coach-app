@@ -10,5 +10,6 @@ What each test last found is in [the quality requirement testing plan](../projec
 | --- | --- | --- | --- | --- | --- | --- |
 | [QR-01](qr/QR-01.md) | A stats line that falls due during a session starts playing within two seconds of the moment it is due. | High | Medium | Performance Efficiency | Time Behaviour | Active |
 | [QR-02](qr/QR-02.md) | A developer can run the checks that cover the coach's spoken decisions from a clean checkout, and a change that breaks one of those decisions fails them. | High | Medium | Maintainability | Testability | Active |
+| [QR-05](qr/QR-05.md) | An operator can diagnose a failed or delayed coaching line from the telemetry record without asking the runner to reproduce the run. | High | Medium | Maintainability | Analysability | Active |
 | [QR-03](qr/QR-03.md) | A runner starts a session, hears it through, and stops it without taking the phone out or looking at the screen. | Medium | High | Interaction Capability | Operability | Active |
 | [QR-04](qr/QR-04.md) | A session keeps speaking the stats it still has when the phone loses its location fix, instead of stopping or going silent. | Medium | Low | Reliability | Fault Tolerance | Active |
