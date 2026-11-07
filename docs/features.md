@@ -66,3 +66,19 @@ You open the app and find each [session](glossary.md#session) you have already f
 
 - **Stories:** [US-10](https://github.com/Running-Coach-App/running-coach-app/issues/141)
 - **Behavior:** [FR-011](functional-requirements/fr/FR-011.md)
+
+## See how the coach is used
+
+A product analyst can read the [events](glossary.md#event) the product records for each step of a session, so they can tell whether the coach was used end to end.
+
+- **Stories:** [US-12](https://github.com/Running-Coach-App/running-coach-app/issues/167)
+- **Behavior:** [FR-013](functional-requirements/fr/FR-013.md)
+- **Decisions:** [ADR-005](architecture/adr/ADR-005.md)
+
+## Diagnose a bad run from the coach's own records
+
+An operator can read the [instrumentation](glossary.md#instrumentation) of each spoken line and see whether it was spoken or dropped, without asking the runner to reproduce the run.
+
+- **Stories:** [US-13](https://github.com/Running-Coach-App/running-coach-app/issues/168)
+- **Behavior:** [FR-014](functional-requirements/fr/FR-014.md)
+- **Decisions:** [ADR-006](architecture/adr/ADR-006.md)
