@@ -289,3 +289,43 @@ Treat the on-screen first iteration as good enough to continue, with the labelli
 - **Made by:** Customer
 - **Source:** [the Week 5 validation meeting](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-05/meeting-report.md#story-verdicts)
 - **Why:** he said the screenshots look pretty good for a first iteration, then named the heading, the session labels, the always-visible stats, and the microphone as the changes to make next.
+
+## DEC-030
+
+Collect usage and performance metrics, enabled by default, with a runner opt-out.
+
+- **Status:** Active
+- **Date:** 2026-11-07
+- **Made by:** Customer
+- **Source:** [the Week 6 validation meeting](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-06/meeting-report.md#decisions)
+- **Why:** even a localised Android build needs those records for development and for usability studies; Google already collects crash metrics, and a runner who is not comfortable sending the data can refuse.
+
+## DEC-031
+
+Sending those metrics off the device is allowed; it is not an account or a run-history server.
+
+- **Status:** Active
+- **Date:** 2026-11-07
+- **Made by:** Customer
+- **Source:** [the Week 6 validation meeting](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-06/meeting-report.md#decisions)
+- **Why:** there is still no joint database in the cloud and finished runs still stay on the phone, per [DEC-028](#dec-028); application performance data and usage data are a different class, and a runner who does not want them sent can opt out.
+
+## DEC-032
+
+Show whatever the phone's GPS reports; do not try to correct jamming or jumps.
+
+- **Status:** Active
+- **Date:** 2026-11-07
+- **Made by:** Customer
+- **Source:** [the Week 6 validation meeting](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-06/meeting-report.md#decisions)
+- **Why:** it is not this product's job to be accurate when GPS is not; a jammed or jumpy fix is still what the phone sees, and the team should look at stride and other sensors rather than querying GPS all the time.
+
+## DEC-033
+
+Do not host the Android product on the university virtual machine; an installable build from GitHub is enough.
+
+- **Status:** Active
+- **Date:** 2026-11-07
+- **Made by:** Customer
+- **Source:** [the Week 6 validation meeting](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-06/meeting-report.md#decisions)
+- **Why:** the product is an Android application, not a service the runner reaches on the campus network, and local storage already matches [DEC-028](#dec-028).
