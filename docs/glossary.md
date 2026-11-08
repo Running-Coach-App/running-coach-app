@@ -68,6 +68,18 @@ The number that guards the focus metric against being bought with harm. It is wa
 
 The focus metric with its counter-metric and its input metrics nested beneath it, so a reader can see which number a change is supposed to move.
 
+### Event
+
+A named record the product writes when a step of the core task happens, with the fields the event table names.
+
+**Defined by:** [`FR-013`](functional-requirements/fr/FR-013.md), [`docs/analytics.md`](analytics.md#the-events).
+
+### Analytics backend
+
+An external system that would store and query events. This product has none; events stay on the phone.
+
+**Defined by:** [`ADR-005`](architecture/adr/ADR-005.md).
+
 ## Operation
 
 ### Signal
@@ -89,3 +101,19 @@ A measured quality signal: what is measured, in which unit, over which window, a
 ### SLI
 
 See [service level indicator](#service-level-indicator).
+
+### Instrumentation
+
+The code that writes [events](#event) and [signals](#signal) as the session runs.
+
+**Defined by:** [`FR-013`](functional-requirements/fr/FR-013.md), [`FR-014`](functional-requirements/fr/FR-014.md).
+
+### Observability backend
+
+An external system that would store and query signals. This product has none; line records stay on the phone.
+
+**Defined by:** [`ADR-006`](architecture/adr/ADR-006.md).
+
+### Dashboard
+
+A chart view of a metric or an `SLI`. This product has none, because it has no backend; the queries live on the analytics and observability pages.
