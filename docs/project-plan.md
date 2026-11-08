@@ -91,6 +91,12 @@ The product records what it did during a session, so the team can tell how the c
 
 #### REL-06
 
+- **Released:** [v0.4.0](https://github.com/Running-Coach-App/running-coach-app/releases/tag/v0.4.0) on 2026-11-08.
+- **Checked QRs:**
+  - [QR-05](quality-requirements/qr/QR-05.md)
+
+Each test's result, and the sprint of its last check, is in the [Quality Requirement Testing Plan](#quality-requirement-testing-plan).
+
 ### SPRINT-07
 
 A runner who is not on the team can be asked to use the coach, and the team has a written way to watch that use.

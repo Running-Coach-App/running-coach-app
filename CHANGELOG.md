@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0](https://github.com/Running-Coach-App/running-coach-app/releases/tag/v0.4.0) - 2026-11-08
+
+### Added
+
+- The app records what the coach did during a run: the session starting, each stats line, each effort cue, each spoken question and its answer, a location fix lost and regained, the session stopping, and the after-run summary. Each record is one line of JSON in the app's own private storage, keyed by a random session identifier, and carries nothing a runner said and nothing that names them (FR-013).
+- An analytics plan with one focus metric, weekly completed coached sessions, its counter-metric, its input metrics, and the query for each, plus the event table the recording is written from (`docs/analytics.md`).
+- An observability plan with the signals the product emits and two service level indicators, `SLI-01` for spoken line latency and `SLI-02` for continuity through a lost location fix (`docs/observability.md`).
+- A diagnosability quality requirement, `QR-05`, with a test that finds a failed spoken line in the recorded telemetry by its line identifier.
+- Two architectural decision records, `ADR-005` and `ADR-006`, for keeping both kinds of record on the device, and the two telemetry backends shown on the container view as external systems the product does not reach.
+
+### Changed
+
+- Recording is off unless the app turns it on, and a failure to write a record never interrupts a run.
+
 ## [0.3.0](https://github.com/Running-Coach-App/running-coach-app/releases/tag/v0.3.0) - 2026-10-31
 
 ### Added
