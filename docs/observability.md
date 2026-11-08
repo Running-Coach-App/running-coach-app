@@ -24,7 +24,7 @@ The three signal types are the metric, the log, and the trace.
 
 The product emits a **metric** for every `SLI` on this page, as the aggregate computed from the points below.
 
-The product emits a **structured log line** for every spoken line, because [`SLI-01`](#sli-01)'s per-line point is read from it. One line, one log record, carrying the labels in the table above and the measured value.
+The product writes a **structured log line** for every spoken line, because [`SLI-01`](#sli-01)'s per-line point is read from it. One line, one log record, carrying the labels in the table above and the measured value. The sink that writes it is in the product today and the record's shape is fixed by [`FR-014`](functional-requirements/fr/FR-014.md); the call that emits one during a session is not, and [issue #175](https://github.com/Running-Coach-App/running-coach-app/issues/175) carries it into `SPRINT-07`.
 
 The product emits no **trace**. A trace spans work that crosses a boundary, and nothing here crosses one: a session runs inside a single foreground service on one phone.
 
@@ -34,7 +34,7 @@ The team defines no alert this week. An alert is a rule over a signal rather tha
 
 An `SLI` is a quality signal the product emits and the pipeline records: what is measured, in which unit, over which window, and by which query. It is not the target. The target stays in the quality requirement's `Response Measure`.
 
-Two are defined. `SLI-01` is the one the product emits today and the one the diagnosability test reads. `SLI-02` is planned, because the instrumentation it needs does not exist yet.
+Two are defined. `SLI-01` is the one the diagnosability test reads, through the sink the product ships; a real session does not yet produce its points, which is [issue #175](https://github.com/Running-Coach-App/running-coach-app/issues/175). `SLI-02` is planned, because neither the record nor the sink it needs exists yet.
 
 ### SLI-01
 
