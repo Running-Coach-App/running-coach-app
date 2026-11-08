@@ -4,7 +4,9 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertTrue
+import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.TemporaryFolder
 
 /** Collects what the engine emits, so the records can be read back in a test. */
 private class Recorder : TelemetrySink {
@@ -25,6 +27,10 @@ private class Recorder : TelemetrySink {
 }
 
 class TelemetryTest {
+    @Rule
+    @JvmField
+    val temporaryFolder = TemporaryFolder()
+
     private fun engineWith(recorder: Recorder, ids: MutableList<String> = mutableListOf("s-1", "s-2")): SessionEngine {
         var tick = 0L
         return SessionEngine(sink = recorder, clock = { tick += 1_000; tick }, newSessionId = { ids.removeAt(0) })
@@ -149,6 +155,22 @@ class TelemetryTest {
             """{"occurred_at":1700,"session_id":"s-1","source":"smoke","line_id":"l-9","line_kind":"stats","outcome":"dropped_busy","latency_ms":2400}""",
             json,
         )
+    }
+
+    @Test
+    fun aFailedLineCanBeDiagnosedByIdFromTheStoredTelemetry() {
+        val directory = temporaryFolder.newFolder("telemetry")
+        val sink = FileTelemetrySink(directory)
+        sink.line(1_700, "session-1", Source.SMOKE, "line-failed-1", LineKind.STATS, LineOutcome.DROPPED_UNAVAILABLE, 2_400)
+
+        val records = java.io.File(directory, "events.jsonl").readLines()
+        val record = records.single { it.contains("\"line_id\":\"line-failed-1\"") }
+
+        assertEquals(
+            """{"occurred_at":1700,"session_id":"session-1","source":"smoke","line_id":"line-failed-1","line_kind":"stats","outcome":"dropped_unavailable","latency_ms":2400}""",
+            record,
+        )
+        assertFalse(record.contains("runner"))
     }
 
     @Test
