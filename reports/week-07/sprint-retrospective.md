@@ -1,0 +1,49 @@
+# SPRINT-07 retrospective
+
+The fourth retrospective of the project. It covers `SPRINT-07`, 9 to 15 November 2026, whose goal was that a runner who has never seen the product can be handed it and asked to use it, and that the team can tell from a written test, rather than from being in the room, where the product loses them.
+
+> **Held at the sprint's close, after the Sprint Review.** Everything below is the sprint's own work, which is finished. Two things are added at the close once the review has happened: whether the review changed the `UT-01` design, and whether the interface work the `Customer` asked for in Week 5 landed. Neither changes the actions.
+
+## What Went Well
+
+| What went well |
+| --- |
+| The action the sprint inherited twice is done, and done as research rather than as recollection. Google's own Core app quality and Android vitals pages were read and are cited; the useful finding — that the checklist gates nothing and the vitals thresholds are the part with consequences — is the opposite of what the team would have assumed, and the `Customer`'s own prediction about per-phone-model hiding turned out to be the 8% threshold almost word for word. |
+| Three of Google's criteria became requirements with tests instead of paragraphs in a document: [`QR-06`](../../docs/quality-requirements/qr/QR-06.md) with a five-test soak of an hour-long session, [`QR-07`](../../docs/quality-requirements/qr/QR-07.md) on holding GPS only while a session runs, and [`QR-08`](../../docs/quality-requirements/qr/QR-08.md) with the scanner the `Customer` asked for. |
+| The scanner was tested by trying to break it, not by reading it. Three separate bugs that made it print `PASSED` when it should have failed were found that way, and the workflow now performs the sabotage itself — adding a network permission to the manifest and asserting the scan rejects it — on every single run, so the test cannot rot into a check that always passes. |
+| `mkdocs build --strict` now runs on pull requests, which closes an action carried since `SPRINT-05`. It was added in the same week that two links leaving `docs_dir` were written into the plan and the test record and caught by hand, which is the fourth time that mistake has been made and the first time a check will catch the next one. |
+| [`QR-09`](../../docs/quality-requirements/qr/QR-09.md)'s bar was set before any data exists, with the reasoning for the number written beside it and an explicit statement that it is not changed after the sessions. The temptation this avoids is real: the team is measuring its own product and will be the one writing down whether it passed. |
+| The usability test was designed against the product that exists rather than the product the assignment assumes. There is no staging deployment, no analytics pipeline, and no payment to sandbox, and the record says so and names what replaces each, instead of describing an environment the team would then have had to pretend to use. |
+| Dependency versions are locked: all 149 are pinned in a lock file, so an upgrade is now a reviewed change rather than something that happens quietly between two builds. |
+
+## What Did Not
+
+| Problem | Root cause |
+| --- | --- |
+| For the third sprint running, the plan records points the team cannot finish on its own: 27 planned, of which 19 belong to stories blocked on an install the `Customer` has now promised four times. `SPRINT-06`'s retrospective had already written the action that forbids exactly this. | The six carried stories were moved into the `SPRINT-07` milestone at `SPRINT-06`'s close, which is before the action existed, and nothing took them back out. The plan's planned velocity is computed from what the milestone holds, so following the action would have meant unscheduling four stories as a separate, deliberate act — and nobody owned that act. An action that requires somebody to undo a thing already done is weaker than one that changes what gets done next time. |
+| The scanner reached CI with two code paths that meant different things, and the pull request body asserted they meant the same thing. CI failed on nine build-tool advisories that cannot reach a runner, and the claim in the description was simply false. | Only one of the two paths had ever been run. The real `osv-scanner` tool was not installed locally, so every local run took the fallback path, and the path CI actually uses had never been executed by the person who wrote it. Reading two pieces of code and concluding they agree is not the same as running both, and there was nothing in the week's checks that would have told the difference. |
+| The usability test's instrumentation is designed and not implemented. The record names a usability build with a participant-code control and a fixed telemetry source; no such build exists, so the verification cannot happen until `SPRINT-08`, and no session can be counted before it does. | The week's work was scoped as the design, and the implementation was scheduled as a separate task that the design week did not reach. The schedule still holds — the assignment allows the verification in `SPRINT-08` provided it precedes the first counted session — but it puts the one thing that gates every session into the same sprint as the sessions. |
+
+Two problems `SPRINT-06`'s retrospective deferred to this one are deferred again, for the same reason: the course allows four actions and three of these four are consumed by actions carried for the third and fourth time. Making `[Unreleased]` a thing a check reads goes to `SPRINT-08`'s retrospective, named here as where it came from for the second time. Making a pull request's base branch checked rather than chosen is taken up below, because it is mechanically preventable and because it has now been waiting two sprints.
+
+That three of four slots are filled by re-listed actions is the finding this retrospective would make about itself: the team's retrospectives are producing actions the team does not carry out, and the honest answer is not a fifth action.
+
+## Actions
+
+| Action | Owner | Impact | Reason | Carried |
+| --- | --- | --- | --- | --- |
+| Open a task issue in the same change that records a customer decision affecting the code, and link it from the decision | Ezekiel-Gadzama | High | Carried from `SPRINT-04`, `SPRINT-05`, and `SPRINT-06`, `Not done` each time. Four sprints of customer decisions now sit in meeting reports with nothing in the tracker against them: `DEC-024` to `DEC-026` and `DEC-030` to `DEC-033` have no issue between them, and a search of the tracker for those identifiers returns nothing. Two of them are now blocking a usability task as well | Yes |
+| Plan only the points the team can finish on its own, and unschedule a story blocked on somebody outside the team at planning rather than recording it as planned | sirjaey | High | Carried from `SPRINT-06`, `Not done`. Three sprints have now reported a planned velocity that was never a forecast. The fix this time is specific: unscheduling happens at planning, as part of writing the planned velocity, so it is somebody's job at a named moment rather than a thing that should have happened earlier | Yes |
+| Cite an archived copy beside every external vendor URL in the research | ObeTech1 | Medium | Carried from `SPRINT-04`, `SPRINT-05`, and `SPRINT-06`, `Not done` each time, and this sprint made it worse: the Play Store research added five live Google URLs and archived none of them. The research now cites thirteen live vendor domains with one archived copy between them, so the link check still depends on third parties keeping their URLs | Yes |
+| Check a pull request's base branch mechanically, so a branch that targets anything but `main` cannot be merged by accident | sirjaey | High | Carried from `SPRINT-06`, where it was recorded as a problem with no action because the four-action cap was full. It cost `SPRINT-06` two feature entries and five glossary terms, which sat on an absorbed branch while every check on `main` stayed green. Nothing has changed since, and the next occurrence is as invisible as the last one | Yes |
+
+## Carried Actions
+
+Three of the four actions in [`SPRINT-06`'s retrospective](../week-06/sprint-retrospective.md#actions) were marked `Carried: Yes`. The fourth, on planning only the points the team can finish, was marked `Carried: No` and is recorded below as well, because the sprint did not do it and it is re-listed above.
+
+| Action | Outcome |
+| --- | --- |
+| "Run `mkdocs build --strict` on pull requests as well as on `main`" | **Done.** `.github/workflows/docs.yml` runs the strict build on every pull request and on every push to `main`. It earned its place in the same week it was added: two links leaving `docs_dir` were written into `docs/project-plan.md` and the `UT-01` record and were caught by hand, which is exactly the failure that had reached `main` three times before. |
+| "Open a task issue in the same change that records a customer decision affecting the code, and link it from the decision" | **Not done**, for the fourth sprint. `DEC-030` to `DEC-033` still have no task issue, and neither do `DEC-024` to `DEC-026`. Re-listed in `## Actions`. |
+| "Cite an archived copy beside every external vendor URL in the research" | **Not done**, and the gap grew. [The Play Store research](../../docs/research/play-store-quality.md) cites five Google and OSV pages, all live, none archived. Re-listed in `## Actions`. |
+| "Plan only the points the team can finish on its own, and leave a story blocked on somebody outside the team unscheduled until the block clears" | **Not done.** `SPRINT-07` was planned at 27 points, 19 of them on stories blocked on the `Customer`'s install. Marked `Carried: No` in `SPRINT-06` because it was new there; it is re-listed in `## Actions` with a specific moment attached to it. |
