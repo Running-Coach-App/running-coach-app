@@ -30,6 +30,13 @@ jobs:
   scan-pr:
     if: github.event_name == 'pull_request' || github.event_name == 'merge_group'
     uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable-pr.yml@32d3cd482bdadfb38b186c0ad1b031902d55d932" # v2.7.1
+    with:
+      # This job records, it does not gate. Its default is to fail on any
+      # advisory, which would block every branch on the nine build-time
+      # findings in the Android Gradle plugin's test harness, none of which
+      # reach the APK. scripts/scan.sh is the gate, and it fails only on a
+      # dependency that ships. See docs/research/play-store-quality.md.
+      fail-on-vuln: false
 
   scan-all:
     if: github.event_name == 'push' || github.event_name == 'schedule'

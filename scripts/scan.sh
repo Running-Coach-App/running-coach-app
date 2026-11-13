@@ -52,6 +52,13 @@ json() {
 	"$PYTHON" -c "$snippet" "$@" || cannot "the OSV.dev response could not be read. The dependency check did not run."
 }
 
+
+# Every locked dependency as "group:artifact:version<TAB>config,config,...".
+# The lockfile's own "empty=" line and its comments are not dependencies.
+locked_coordinates() {
+	grep -E '^[A-Za-z][^=]*:[^=]*:[^=]*=' "$1" | sed 's/=/	/'
+}
+
 PYTHON=""
 for candidate in python3 python; do
 	if command -v "$candidate" >/dev/null 2>&1; then
@@ -68,6 +75,17 @@ say "Commit:     $(git -C "$ROOT" rev-parse --short HEAD 2>/dev/null || echo 'no
 
 # ---------------------------------------------------------------------------
 # 1. Dependencies with known vulnerabilities.
+#
+# Two sources can supply the advisories: osv-scanner when it is installed, and
+# the OSV.dev HTTP API when it is not. They must not reach different verdicts,
+# so neither decides anything. Each only produces lines of
+#
+#     group:artifact:version<TAB>ADVISORY-ID,ADVISORY-ID
+#
+# and one classifier below splits those against the lockfile's configurations
+# and decides what fails. An earlier version let each path judge for itself,
+# and they disagreed: the API path distinguished a dependency that ships in the
+# APK from one only the build uses, and osv-scanner failed on both alike.
 # ---------------------------------------------------------------------------
 head2 "1. Dependencies with known vulnerabilities"
 
@@ -75,42 +93,58 @@ if [ ! -f "$LOCKFILE" ]; then
 	cannot "no $LOCKFILE. Run 'gradle :app:dependencies --write-locks' to regenerate it."
 fi
 
+advisories="$(mktemp)"
+scratch="$(mktemp)"
+trap 'rm -f "$advisories" "$scratch"' EXIT
+
 if command -v osv-scanner >/dev/null 2>&1; then
-	say "  Using osv-scanner $(osv-scanner --version 2>/dev/null | head -1)"
-	osv_output="$(osv-scanner scan source --lockfile="$LOCKFILE" 2>&1)"
+	say "  Source: osv-scanner $(osv-scanner --version 2>/dev/null | head -1 | awk '{print $NF}')"
+	[ -n "$PYTHON" ] || cannot "need python3 to read osv-scanner's JSON output."
+
+	osv-scanner scan source --lockfile="$LOCKFILE" --format json >"$scratch" 2>/dev/null
 	osv_status=$?
+	# 0 means nothing found and 1 means findings; both are a scan that ran.
 	case "$osv_status" in
-		0) pass "osv-scanner found no known vulnerability in any locked dependency." ;;
-		1)
-			say "$osv_output"
-			fail "osv-scanner reported known vulnerabilities. See the table above."
-			;;
+		0 | 1) : ;;
 		128) cannot "osv-scanner scanned no packages. Is $LOCKFILE empty?" ;;
-		*)
-			say "$osv_output"
-			cannot "osv-scanner exited $osv_status."
-			;;
+		*) cannot "osv-scanner exited $osv_status." ;;
 	esac
+
+	json '
+import json, sys
+
+report = json.load(open(sys.argv[1], encoding="utf-8"))
+for result in report.get("results", []):
+    for package in result.get("packages", []):
+        identity = package.get("package", {})
+        ids = sorted({v["id"] for v in (package.get("vulnerabilities") or [])})
+        if not ids:
+            continue
+        print("%s:%s\t%s" % (identity.get("name", "?"), identity.get("version", "?"), ",".join(ids)))
+' "$scratch" >"$advisories" </dev/null
+
+	# osv-scanner exit 1 means it found something. If nothing was parsed out of
+	# its JSON, the schema moved under us and the findings were dropped, which
+	# would otherwise surface as a clean pass. Refuse instead.
+	if [ "$osv_status" = "1" ] && [ ! -s "$advisories" ]; then
+		cannot "osv-scanner reported findings and none could be parsed from its JSON. Its output format has changed; do not read this as a pass."
+	fi
 else
-	say "  osv-scanner is not installed; querying OSV.dev directly over HTTPS."
+	say "  Source: the OSV.dev HTTP API (osv-scanner is not installed)."
 	say "  (Install it from https://google.github.io/osv-scanner/installation/ for the same answer offline.)"
 
-	if [ -z "$PYTHON" ]; then
-		cannot "need python3 (or install osv-scanner) to read the OSV.dev response."
-	fi
+	[ -n "$PYTHON" ] || cannot "need python3 (or install osv-scanner) to read the OSV.dev response."
 	command -v curl >/dev/null 2>&1 || cannot "need curl."
 
 	request="$(mktemp)"
-	response="$(mktemp)"
-	trap 'rm -f "$request" "$response"' EXIT
+	trap 'rm -f "$advisories" "$scratch" "$request"' EXIT
 
-	# shellcheck disable=SC2016
-	grep -E '^[A-Za-z][^=]*:[^=]*:[^=]*=' "$LOCKFILE" |
+	locked_coordinates "$LOCKFILE" |
 		json '
 import json, sys
 queries = []
 for line in sys.stdin:
-    coordinate = line.strip().split("=", 1)[0]
+    coordinate = line.strip().split("\t", 1)[0]
     group_artifact, _, version = coordinate.rpartition(":")
     queries.append({"package": {"name": group_artifact, "ecosystem": "Maven"}, "version": version})
 json.dump({"queries": queries}, sys.stdout)
@@ -118,67 +152,93 @@ json.dump({"queries": queries}, sys.stdout)
 
 	http="$(curl -sS -X POST -H 'Content-Type: application/json' \
 		--data @"$request" https://api.osv.dev/v1/querybatch \
-		-o "$response" -w '%{http_code}' 2>/dev/null)" ||
+		-o "$scratch" -w '%{http_code}' 2>/dev/null)" ||
 		cannot "could not reach https://api.osv.dev. Are you offline?"
 
 	[ "$http" = "200" ] || cannot "OSV.dev answered HTTP $http."
 
-	# Pair each advisory with the Gradle configurations the package sits in, so
-	# a dependency that ships in the APK is told apart from one that only the
-	# build uses. Only the first kind can reach a runner.
-	report="$(
-		grep -E '^[A-Za-z][^=]*:[^=]*:[^=]*=' "$LOCKFILE" |
-			json '
+	locked_coordinates "$LOCKFILE" |
+		json '
 import json, sys
 
-lock = [line.strip() for line in sys.stdin if line.strip()]
+coordinates = [line.split("\t", 1)[0] for line in sys.stdin.read().splitlines() if line.strip()]
 results = json.load(open(sys.argv[1], encoding="utf-8")).get("results", [])
-shipping, build_only = [], []
+if len(results) != len(coordinates):
+    sys.exit("OSV.dev returned %d results for %d queries" % (len(results), len(coordinates)))
+for coordinate, result in zip(coordinates, results):
+    ids = sorted({v["id"] for v in (result.get("vulns") or [])})
+    if ids:
+        print("%s\t%s" % (coordinate, ",".join(ids)))
+' "$scratch" >"$advisories"
+fi
 
-for line, result in zip(lock, results):
-    coordinate, _, configurations = line.partition("=")
-    advisories = sorted({v["id"] for v in (result.get("vulns") or [])})
-    if not advisories:
+# The one classifier. It is the only thing that decides what fails, whichever
+# source produced the advisories above.
+report="$(
+	locked_coordinates "$LOCKFILE" |
+		json '
+import sys
+
+configurations_of = {}
+order = []
+for line in sys.stdin:
+    coordinate, _, configurations = line.strip().partition("\t")
+    if not coordinate:
         continue
-    row = (coordinate, advisories, configurations.split(","))
-    if sys.argv[2] in row[2]:
-        shipping.append(row)
+    configurations_of[coordinate] = configurations.split(",")
+    order.append(coordinate)
+
+shipping, build_only, unknown = [], [], []
+for line in open(sys.argv[1], encoding="utf-8"):
+    coordinate, _, ids = line.strip().partition("\t")
+    if not coordinate:
+        continue
+    configurations = configurations_of.get(coordinate)
+    if configurations is None:
+        # An advisory against something not in the lockfile. Never silently
+        # dropped: it is reported as shipping, because it cannot be shown not to.
+        unknown.append((coordinate, ids))
+    elif sys.argv[2] in configurations:
+        shipping.append((coordinate, ids))
     else:
-        build_only.append(row)
+        build_only.append((coordinate, ids, configurations[0]))
 
-for coordinate, advisories, _ in shipping:
-    print("SHIPPING\t%s\t%s" % (coordinate, ", ".join(advisories)))
-for coordinate, advisories, configurations in build_only:
-    print("BUILD\t%s\t%s\t%s" % (coordinate, ", ".join(advisories), configurations[0]))
-print("COUNTS\t%d\t%d\t%d" % (len(lock), len(shipping), len(build_only)))
-' "$response" "$SHIPPING_CONFIGURATION"
-	)"
+for coordinate, ids in shipping:
+    print("SHIPPING\t%s\t%s" % (coordinate, ids.replace(",", ", ")))
+for coordinate, ids in unknown:
+    print("UNKNOWN\t%s\t%s" % (coordinate, ids.replace(",", ", ")))
+for coordinate, ids, configuration in build_only:
+    print("BUILD\t%s\t%s\t%s" % (coordinate, ids.replace(",", ", "), configuration))
+print("COUNTS\t%d\t%d\t%d\t%d" % (len(order), len(shipping), len(build_only), len(unknown)))
+' "$advisories" "$SHIPPING_CONFIGURATION"
+)"
 
-	locked="$(printf '%s\n' "$report" | awk -F'\t' '$1=="COUNTS" {print $2}')"
-	n_shipping="$(printf '%s\n' "$report" | awk -F'\t' '$1=="COUNTS" {print $3}')"
-	n_build="$(printf '%s\n' "$report" | awk -F'\t' '$1=="COUNTS" {print $4}')"
+locked="$(printf '%s\n' "$report" | awk -F'\t' '$1=="COUNTS" {print $2}')"
+n_shipping="$(printf '%s\n' "$report" | awk -F'\t' '$1=="COUNTS" {print $3}')"
+n_build="$(printf '%s\n' "$report" | awk -F'\t' '$1=="COUNTS" {print $4}')"
+n_unknown="$(printf '%s\n' "$report" | awk -F'\t' '$1=="COUNTS" {print $5}')"
 
-	# A scan that silently checked nothing must never read as a pass.
-	case "${locked:-}" in
-		'' | 0) cannot "the dependency check parsed no packages. It did not run; do not read this as a pass." ;;
-	esac
-	case "${n_shipping:-}${n_build:-}" in
-		'') cannot "the dependency check produced no counts. It did not run; do not read this as a pass." ;;
-	esac
+# A scan that silently checked nothing must never read as a pass.
+case "${locked:-}" in
+	'' | 0) cannot "the dependency check parsed no packages. It did not run; do not read this as a pass." ;;
+esac
+case "${n_shipping:-}${n_build:-}${n_unknown:-}" in
+	'') cannot "the dependency check produced no counts. It did not run; do not read this as a pass." ;;
+esac
 
-	say "  Checked $locked locked dependencies against OSV.dev."
+say "  Checked $locked locked dependencies."
 
-	if [ "${n_shipping:-0}" -gt 0 ]; then
-		printf '%s\n' "$report" | awk -F'\t' '$1=="SHIPPING" {printf "        %s\n          %s\n", $2, $3}'
-		fail "$n_shipping dependency(ies) on $SHIPPING_CONFIGURATION have known advisories. These ship inside the APK."
-	else
-		pass "no dependency that ships in the APK has a known vulnerability."
-	fi
+if [ "${n_shipping:-0}" -gt 0 ] || [ "${n_unknown:-0}" -gt 0 ]; then
+	printf '%s\n' "$report" | awk -F'\t' '$1=="SHIPPING" {printf "        %s\n          %s\n", $2, $3}'
+	printf '%s\n' "$report" | awk -F'\t' '$1=="UNKNOWN" {printf "        %s  (not found in the lockfile)\n          %s\n", $2, $3}'
+	fail "$((n_shipping + n_unknown)) dependency(ies) that can reach a runner have known advisories."
+else
+	pass "no dependency that ships in the APK has a known vulnerability."
+fi
 
-	if [ "${n_build:-0}" -gt 0 ]; then
-		printf '%s\n' "$report" | awk -F'\t' '$1=="BUILD" {printf "        %s\n          %s\n          first seen in: %s\n", $2, $3, $4}'
-		warn "$n_build build-time dependency(ies) have known advisories. They are not in the APK and cannot reach a runner; they are reported, not failed. See docs/research/play-store-quality.md."
-	fi
+if [ "${n_build:-0}" -gt 0 ]; then
+	printf '%s\n' "$report" | awk -F'\t' '$1=="BUILD" {printf "        %s\n          %s\n          first seen in: %s\n", $2, $3, $4}'
+	warn "$n_build build-time dependency(ies) have known advisories. They are absent from $SHIPPING_CONFIGURATION, so they are not in the APK and cannot reach a runner; they are reported, not failed. See docs/research/play-store-quality.md."
 fi
 
 # ---------------------------------------------------------------------------
