@@ -1,0 +1,27 @@
+name: Docs
+
+# The documentation site is built strictly on every pull request, not only after a
+# merge. mkdocs --strict fails on a link that leaves docs_dir, which the link checker
+# passes, so a change can be green on a pull request and still break the published
+# site the moment it lands on main. That happened three times before this workflow
+# existed; SPRINT-05's and SPRINT-06's retrospectives both carried the action to fix it.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  mkdocs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.12"
+      - name: Build the docs site strictly
+        run: pip install mkdocs==1.6.1 && mkdocs build --strict

@@ -99,17 +99,30 @@ Each test's result, and the sprint of its last check, is in the [Quality Require
 
 ### SPRINT-07
 
-A runner who is not on the team can be asked to use the coach, and the team has a written way to watch that use.
+A runner who has never seen the product can be handed it and asked to use it, and the team can tell from a written test, rather than from being in the room, where the product loses them.
 
-- Due: 2026-11-14
+- Due: 2026-11-15
+- Sprint Backlog: [the issues scheduled into SPRINT-07](https://github.com/Running-Coach-App/running-coach-app/milestone/5)
+- Planned Velocity: 27 points, from the `Story Points` of the six stories carried into this sprint unaccepted at the close of `SPRINT-06`: [US-01](https://github.com/Running-Coach-App/running-coach-app/issues/37) 5, [US-03](https://github.com/Running-Coach-App/running-coach-app/issues/39) 3, [US-04](https://github.com/Running-Coach-App/running-coach-app/issues/40) 8, [US-10](https://github.com/Running-Coach-App/running-coach-app/issues/141) 3, [US-12](https://github.com/Running-Coach-App/running-coach-app/issues/167) 5, and [US-13](https://github.com/Running-Coach-App/running-coach-app/issues/168) 3. The week's own work — the `UT-01` design, its instrumentation, the quality requirement, and the release — is tasks, which carry no points. [`SPRINT-06`'s retrospective](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-06/sprint-retrospective.md#actions) carries an action to plan only the points the team can finish on its own, and four of these six stories are still blocked on an install the team cannot perform; they are recorded here as scheduled because they are in the milestone, and what the sprint actually finished is in `Actual Velocity` below.
+- Actual Velocity: not yet set. It is computed at the sprint's close, after the Sprint Review on which [the definition of done](definition-of-done.md#story) makes every one of these six stories depend, with one sentence on what moved out and to which sprint.
 
 #### REL-07
 
+- **Released:** not yet cut. `REL-07` is tagged `v0.5.0` on the release commit at the sprint's end, on the state after the Sprint Review and any same-week rework, and this field carries the tag and the date once it is.
+- **Checked QRs:**
+  - [QR-06](quality-requirements/qr/QR-06.md)
+  - [QR-08](quality-requirements/qr/QR-08.md)
+
+Each test's result, and the sprint of its last check, is in the [Quality Requirement Testing Plan](#quality-requirement-testing-plan).
+
 ### SPRINT-08
 
-The repository's configuration is the one the team will keep through the end of the course.
+The usability sessions have been run and reported, and the repository's configuration is the one the team will keep through the end of the course.
 
 - Due: 2026-11-21
+- Sprint Backlog: [the issues scheduled into SPRINT-08](https://github.com/Running-Coach-App/running-coach-app/milestone/6)
+
+This goal is provisional: it is set in `SPRINT-07` so the results sprint has its target already, and it is replaced at `SPRINT-08`'s planning. The sprint carries the counted [`UT-01`](usability-tests/ut-01/README.md) sessions, their sanitized notes, the results, the findings and their triage, the [`QR-09`](quality-requirements/qr/QR-09.md) verdict, and `REL-08`.
 
 #### REL-08
 
@@ -137,5 +150,6 @@ One row per quality requirement test, in the order of [the quality requirements 
 | [QR-02](quality-requirements/qr/QR-02.md) | [QR-02 QRT-01](quality-requirements/qr/QR-02.md#qrt-01) | Passes | SPRINT-05 | [SPRINT-05](#sprint-05) | [Android build #32 on `main`](https://github.com/Running-Coach-App/running-coach-app/actions/runs/41182999822): unit tests and debug assembly passed. A temporary change to `SessionEngine.start` made `startAndStopAreSpokenAndTheSessionGoesQuiet` fail; restored source and reran all 18 tests successfully. |
 | [QR-05](quality-requirements/qr/QR-05.md) | [QR-05 QRT-01](quality-requirements/qr/QR-05.md#qrt-01) | Passes | SPRINT-06 | [SPRINT-06](#sprint-06) | [reports/week-06/qr-05-qrt-01.md](https://github.com/Running-Coach-App/running-coach-app/blob/0cdccb28338deeb5d55a10c4a167d4d44076e9d2/reports/week-06/qr-05-qrt-01.md): scripted test reads a failed line from the file telemetry sink by its line ID and verifies the diagnostic fields. |
 | [QR-06](quality-requirements/qr/QR-06.md) | [QR-06 QRT-01](quality-requirements/qr/QR-06.md#qrt-01) | Passes | SPRINT-07 | [SPRINT-07](#sprint-07) | `StabilitySoakTest`, 5 tests, 0 failures, run in the full suite of 35: an hour-long session at the real one-second cadence with the fix dropping for 90 s in every 10 min, ticks that go backwards and jump, 500 answers, and 50 start-and-stop cycles. The timed session took 10 ms against a 2,000 ms budget. |
+| [QR-09](quality-requirements/qr/QR-09.md) | [QR-09 QRT-01](quality-requirements/qr/QR-09.md#qrt-01) | Not verified | None | [SPRINT-08](#sprint-08) | None. The test is [`UT-01`](usability-tests/ut-01/README.md), designed in `SPRINT-07` and run in `SPRINT-08`: no session has been counted, so there is nothing to read. The verdict is recorded here with the results, against the bar of 0.6 the team set before the first session. |
 | [QR-08](quality-requirements/qr/QR-08.md) | [QR-08 QRT-01](quality-requirements/qr/QR-08.md#qrt-01) | Passes | SPRINT-07 | [SPRINT-07](#sprint-07) | `./scripts/scan.sh` exits 0: 149 locked dependencies checked against OSV.dev with none shipping an advisory, no network permission in the manifest or the built APK, no networking type in the source, and no credential in a tracked file. Adding `android.permission.INTERNET` makes it exit 1, which the `Security scan` workflow asserts on every run. |
-| [QR-07](quality-requirements/qr/QR-07.md) | [QR-07 QRT-01](quality-requirements/qr/QR-07.md#qrt-01) | Not verified | — | [SPRINT-07](#sprint-07) | Defined and not run. It reads `adb shell dumpsys location` before, during, and after a session on a physical phone, and no phone outside the team is available: the `Customer` has not installed the product. |
+| [QR-07](quality-requirements/qr/QR-07.md) | [QR-07 QRT-01](quality-requirements/qr/QR-07.md#qrt-01) | Not verified | None | [SPRINT-08](#sprint-08) | Defined and not run, and moved from `SPRINT-07` to `SPRINT-08`. It reads `adb shell dumpsys location` before, during, and after a session on a physical phone. The reason for the move is that `SPRINT-07` put the team's one Android phone on the [`UT-01`](usability-tests/ut-01/README.md) design instead, and the `SPRINT-08` sessions bring a phone and a route together anyway, so the run is cheapest there. `reports/week-07/README.md` declares the move in its `## Deviations`. |

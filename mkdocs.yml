@@ -27,6 +27,13 @@ nav:
       - Quality requirements: quality-requirements/README.md
       - Functional requirements: functional-requirements/README.md
   - Architecture: architecture/README.md
+  - Usability tests:
+      - Usability tests: usability-tests/README.md
+      - UT-01: usability-tests/ut-01/README.md
+      - UT-01 surveys: usability-tests/ut-01/surveys.md
+      - UT-01 consent: usability-tests/ut-01/consent.md
+      - UT-01 sessions: usability-tests/ut-01/sessions/README.md
+      - UT-01 results: usability-tests/ut-01/results.md
   - Features: features.md
   - Analytics: analytics.md
   - Observability: observability.md
