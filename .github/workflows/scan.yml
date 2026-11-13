@@ -1,0 +1,47 @@
+name: Security scan
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      # The scan reads app/gradle.lockfile and the manifest, and needs no
+      # Android toolchain. Installing osv-scanner makes the dependency check
+      # run against the pinned release rather than the OSV.dev HTTP API, so CI
+      # exercises the same path a reader with the tool installed would get.
+      - name: Install osv-scanner
+        env:
+          OSV_SCANNER_VERSION: v2.7.1
+        run: |
+          curl -sSfL -o /usr/local/bin/osv-scanner \
+            "https://github.com/google/osv-scanner/releases/download/${OSV_SCANNER_VERSION}/osv-scanner_linux_amd64"
+          chmod +x /usr/local/bin/osv-scanner
+          osv-scanner --version
+
+      - name: Run the repository security scan
+        run: ./scripts/scan.sh
+
+      # Proves the scan is wired up and can still fail. A scan that has never
+      # failed says nothing, and a silently broken one reads as a pass.
+      - name: Check the scan fails when the product gains a network permission
+        run: |
+          set -e
+          sed -i 's|<uses-permission android:name="android.permission.RECORD_AUDIO" />|&\n    <uses-permission android:name="android.permission.INTERNET" />|' \
+            app/src/main/AndroidManifest.xml
+          if ./scripts/scan.sh > /tmp/negative.log 2>&1; then
+            echo "The scan passed an app declaring android.permission.INTERNET. It is not checking." >&2
+            cat /tmp/negative.log >&2
+            exit 1
+          fi
+          grep -q 'the manifest declares a network permission' /tmp/negative.log
+          git checkout -- app/src/main/AndroidManifest.xml
+          echo "The scan correctly rejected a network permission."

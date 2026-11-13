@@ -8,6 +8,11 @@ updates:
       interval: weekly
 
   # Kotlin and Android Gradle dependencies. See DEC-009.
+  #
+  # Dependency locking is on, so a bump here also needs app/gradle.lockfile
+  # regenerated on the same branch with 'gradle :app:dependencies --write-locks'.
+  # Dependabot does not do that, so its pull requests fail the Android build
+  # until someone pushes the new lockfile. See CONTRIBUTING.md.
   - package-ecosystem: gradle
     directory: /
     schedule:
