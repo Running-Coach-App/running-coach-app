@@ -1,0 +1,48 @@
+name: OSV-Scanner
+
+# Google's own reusable workflow, which uploads its findings to the repository's
+# Security tab as SARIF. scripts/scan.sh is the check a reader runs and the one
+# that gates a pull request; this is the record over time, and it reports the
+# build-time advisories that the script warns about rather than fails on.
+#
+# The pull-request job reports only what the branch introduces. The scheduled
+# job rescans everything weekly, so an advisory published after a merge is still
+# found on a repository that is not being pushed to.
+
+on:
+  pull_request:
+    branches: [main]
+  merge_group:
+    branches: [main]
+  push:
+    branches: [main]
+  schedule:
+    - cron: "41 6 * * 2"
+
+permissions:
+  # Required to upload the SARIF file to CodeQL.
+  actions: read
+  # Required to write the findings to the Security tab.
+  security-events: write
+  contents: read
+
+jobs:
+  scan-pr:
+    if: github.event_name == 'pull_request' || github.event_name == 'merge_group'
+    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable-pr.yml@32d3cd482bdadfb38b186c0ad1b031902d55d932" # v2.7.1
+    with:
+      # This job records, it does not gate. Its default is to fail on any
+      # advisory, which would block every branch on the nine build-time
+      # findings in the Android Gradle plugin's test harness, none of which
+      # reach the APK. scripts/scan.sh is the gate, and it fails only on a
+      # dependency that ships. See docs/research/play-store-quality.md.
+      fail-on-vuln: false
+
+  scan-all:
+    if: github.event_name == 'push' || github.event_name == 'schedule'
+    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@32d3cd482bdadfb38b186c0ad1b031902d55d932" # v2.7.1
+    with:
+      # The build-time advisories live in the Android Gradle plugin's test
+      # platform and are recorded rather than failed, the same decision
+      # scripts/scan.sh documents. scripts/scan.sh is what fails a branch.
+      fail-on-vuln: false

@@ -17,6 +17,7 @@ nav:
       - Comparison: research/comparison.md
       - Alternatives: research/alternatives.md
       - On-device feasibility: research/on-device-feasibility.md
+      - Play Store quality: research/play-store-quality.md
   - Plan:
       - Project plan: project-plan.md
       - Risks: risks.md
