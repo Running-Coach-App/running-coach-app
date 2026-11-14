@@ -9,7 +9,7 @@ The university VM was not obtained in time for the Week 5 meeting, so staging an
 | Environment | Where it runs | What it is for |
 | --- | --- | --- |
 | Development | A teammate's machine, with a phone or an emulator | Changing the product and running it from [`docs/setup.md`](setup.md) |
-| Integration | GitHub Actions on pull requests and on `main` | The product-code checks and `actionlint`. The workflows deploy nothing, because they cannot reach the university network |
+| Integration | GitHub Actions on pull requests and on `main` | Checks and scans on every pull request. A push to `main` also runs `.github/workflows/deploy-campus.yml` when campus secrets are set |
 | Staging | The university VM, a separate port from production | The release candidate APK, served for install and for a `deployed` quality-requirement test |
 | Production | The university VM, a second port | The same commit as staging, served for the `Customer` to install from the university network. There is no domain name |
 
@@ -35,9 +35,27 @@ Use `$STAGING_URL` and `$PRODUCTION_URL` wherever a command would need an addres
 
 The Android SDK path stays in `local.properties` on the machine that builds, as [`docs/setup.md`](setup.md) already says.
 
+## Automatic deploy on `main`
+
+When repository secrets `CAMPUS_VM_HOST`, `CAMPUS_VM_USER`, and `CAMPUS_VM_SSH_KEY` are set, each push to `main` runs [`.github/workflows/deploy-campus.yml`](../.github/workflows/deploy-campus.yml). That workflow builds and tests the debug APK, copies it to `/opt/coaching/apk/` on the VM, pulls `main` under `/opt/coaching/repo/running-coach-app`, reinstalls systemd units from [`deploy/vm/install-services.sh`](../deploy/vm/install-services.sh), and restarts the services.
+
+| Secret | Purpose |
+| --- | --- |
+| `CAMPUS_VM_HOST` | Campus IPv4, for SSH and for URLs baked into the APK at build time |
+| `CAMPUS_VM_USER` | SSH user, usually `root` |
+| `CAMPUS_VM_SSH_KEY` | Private key GitHub Actions uses to `scp` and `ssh` |
+
+First-time VM setup: clone the repository, run `bash deploy/vm/install-services.sh`, and put the deploy public key in `authorized_keys`. Do not commit hostnames or keys.
+
+**Download page (campus network):** `$SCHEME://$HOST:9000/` serves `app-debug.apk`.
+
+**Ingest (port 8080):** posts from the app land as `events-*.jsonl` and `diagnostics-*.jsonl` under `/opt/coaching/data/`. No database: append-only files.
+
+GitHub-hosted runners may not reach a campus-only address. If deploy steps time out, run the same `scp` and `git pull` from a machine on the university network, or ask the TA about runner reachability.
+
 ## Manual deploy
 
-Deploy by hand. There is no deployment job in CI.
+Use when campus secrets are not set, or CI cannot reach the VM.
 
 1. On a machine that can build, check out the release-candidate commit and assemble the debug APK as [`docs/setup.md`](setup.md) describes.
 2. Copy `app/build/outputs/apk/debug/app-debug.apk` to the staging directory on the VM.
@@ -67,4 +85,6 @@ Record the commit that production finally runs with the release. A run on an ear
 
 ## Telemetry
 
-The product records its own events on the phone and exports them as a file; nothing is deployed for it. [`docs/analytics.md`](analytics.md) holds the metrics, the event table, and the queries, and [`docs/observability.md`](observability.md) holds the signals and the `SLI`s. Both say why their pipeline has no backend.
+The VM runs [`deploy/collector/serve.py`](../deploy/collector/serve.py) on port 8080. With usage data on ([`DEC-030`](decisions.md#dec-030)), the app POSTs new lines from `events.jsonl` and `diagnostics.jsonl` when `collector.url` is set at build time ([`DEC-031`](decisions.md#dec-031)). Inspect uploads with `ls /opt/coaching/data/` on the VM.
+
+[`docs/analytics.md`](analytics.md) and [`docs/observability.md`](observability.md) describe the on-device shapes.

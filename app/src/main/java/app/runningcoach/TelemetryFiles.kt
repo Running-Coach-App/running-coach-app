@@ -5,8 +5,7 @@ import java.io.File
 /**
  * Writes each record as one line of JSON to a file in the app's private storage.
  *
- * Nothing is sent anywhere: the product holds no INTERNET permission, and DEC-028
- * keeps a runner's data on the device, to be exported as a file when they choose.
+ * Run history stays on the device per DEC-028; campus upload of these lines is optional.
  *
  * A failure to write is swallowed. Recording what the coach did must never be the
  * reason a run stops.
@@ -55,7 +54,7 @@ class FileTelemetrySink(
         }
     }
 
-    private companion object {
+    companion object {
         const val EVENTS_FILE = "events.jsonl"
 
         /** Covers the longest window docs/analytics.md defines, at ten events a session. */

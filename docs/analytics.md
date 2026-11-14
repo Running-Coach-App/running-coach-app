@@ -166,7 +166,7 @@ Every event above is recorded today except `spoken_line_dropped`, which needs th
 
 ## The Pipeline
 
-The `coach app` container records every event itself. There is no collector, no network call, and no backend: the product has no `INTERNET` permission, and [`DEC-028`](decisions.md#dec-028) keeps a runner's data on the device.
+The `coach app` container records every event itself. [`DEC-028`](decisions.md#dec-028) keeps run history on the device. With usage data on ([`DEC-030`](decisions.md#dec-030)), new lines may POST to a campus collector when the build sets `collector.url` ([`DEC-031`](decisions.md#dec-031)).
 
 Events are appended to a JSON Lines file in the app's private storage, one object per line, in the order they happened. A runner exports that file when they choose to, which is the file export [`DEC-028`](decisions.md#dec-028) asked for. The team reads an exported file by loading it as the `events` table the queries above are written against.
 

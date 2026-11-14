@@ -1,7 +1,18 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
 }
+
+val localProperties = Properties().apply {
+    val file = rootProject.file("local.properties")
+    if (file.exists()) {
+        file.inputStream().use { load(it) }
+    }
+}
+val collectorUrl = localProperties.getProperty("collector.url", "")
+val downloadUrl = localProperties.getProperty("download.url", "")
 
 android {
     namespace = "app.runningcoach"
@@ -13,11 +24,21 @@ android {
         targetSdk = 35
         versionCode = 4
         versionName = "0.4.0"
+        buildConfigField("String", "COLLECTOR_URL", "\"$collectorUrl\"")
+        buildConfigField("String", "DOWNLOAD_URL", "\"$downloadUrl\"")
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 
     buildTypes {
+        debug {
+            manifestPlaceholders["usesCleartext"] = "true"
+        }
         release {
             isMinifyEnabled = false
+            manifestPlaceholders["usesCleartext"] = "false"
         }
     }
 
