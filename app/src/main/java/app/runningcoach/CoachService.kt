@@ -242,7 +242,11 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
         if (line == null) {
             revealGeneration++
             speaking = false
-            if (engine.running) {
+            // Only the microphone being on makes this listening. Without the
+            // check the screen says Listening after every spoken line, including
+            // in a session whose recogniser was never armed, which is the one
+            // thing a runner who just turned the microphone off must not see.
+            if (engine.running && history.micEnabled) {
                 listening = true
             }
             publishSessionState()
