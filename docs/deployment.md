@@ -9,7 +9,7 @@ The university VM was not obtained in time for the Week 5 meeting, so staging an
 | Environment | Where it runs | What it is for |
 | --- | --- | --- |
 | Development | A teammate's machine, with a phone or an emulator | Changing the product and running it from [`docs/setup.md`](setup.md) |
-| Integration | GitHub Actions on pull requests and on `main` | Checks and scans on every pull request. A push to `main` also runs `.github/workflows/deploy-campus.yml` when campus secrets are set |
+| Integration | GitHub Actions on pull requests and on `main` | Checks and scans on every pull request. A push to `main` also runs [`.github/workflows/deploy-campus.yml`](https://github.com/Running-Coach-App/running-coach-app/blob/main/.github/workflows/deploy-campus.yml) when campus secrets are set |
 | Staging | The university VM, a separate port from production | The release candidate APK, served for install and for a `deployed` quality-requirement test |
 | Production | The university VM, a second port | The same commit as staging, served for the `Customer` to install from the university network. There is no domain name |
 
@@ -37,7 +37,7 @@ The Android SDK path stays in `local.properties` on the machine that builds, as 
 
 ## Automatic deploy on `main`
 
-When repository secrets `CAMPUS_VM_HOST`, `CAMPUS_VM_USER`, and `CAMPUS_VM_SSH_KEY` are set, each push to `main` runs [`.github/workflows/deploy-campus.yml`](../.github/workflows/deploy-campus.yml). That workflow builds and tests the debug APK, copies it to `/opt/coaching/apk/` on the VM, pulls `main` under `/opt/coaching/repo/running-coach-app`, reinstalls systemd units from [`deploy/vm/install-services.sh`](../deploy/vm/install-services.sh), and restarts the services.
+When repository secrets `CAMPUS_VM_HOST`, `CAMPUS_VM_USER`, and `CAMPUS_VM_SSH_KEY` are set, each push to `main` runs [`.github/workflows/deploy-campus.yml`](https://github.com/Running-Coach-App/running-coach-app/blob/main/.github/workflows/deploy-campus.yml). That workflow builds and tests the debug APK, copies it to `/opt/coaching/apk/` on the VM, pulls `main` under `/opt/coaching/repo/running-coach-app`, reinstalls systemd units from [`deploy/vm/install-services.sh`](https://github.com/Running-Coach-App/running-coach-app/blob/main/deploy/vm/install-services.sh), and restarts the services.
 
 | Secret | Purpose |
 | --- | --- |
@@ -85,6 +85,6 @@ Record the commit that production finally runs with the release. A run on an ear
 
 ## Telemetry
 
-The VM runs [`deploy/collector/serve.py`](../deploy/collector/serve.py) on port 8080. With usage data on ([`DEC-030`](decisions.md#dec-030)), the app POSTs new lines from `events.jsonl` and `diagnostics.jsonl` when `collector.url` is set at build time ([`DEC-031`](decisions.md#dec-031)). Inspect uploads with `ls /opt/coaching/data/` on the VM.
+The VM runs [`deploy/collector/serve.py`](https://github.com/Running-Coach-App/running-coach-app/blob/main/deploy/collector/serve.py) on port 8080. With usage data on ([`DEC-030`](decisions.md#dec-030)), the debug APK POSTs new lines from `events.jsonl` and `diagnostics.jsonl` when `collector.url` is set at build time ([`DEC-031`](decisions.md#dec-031)). Inspect uploads with `ls /opt/coaching/data/` on the VM.
 
 [`docs/analytics.md`](analytics.md) and [`docs/observability.md`](observability.md) describe the on-device shapes.

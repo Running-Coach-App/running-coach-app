@@ -33,12 +33,8 @@ android {
     }
 
     buildTypes {
-        debug {
-            manifestPlaceholders["usesCleartext"] = "true"
-        }
         release {
             isMinifyEnabled = false
-            manifestPlaceholders["usesCleartext"] = "false"
         }
     }
 
