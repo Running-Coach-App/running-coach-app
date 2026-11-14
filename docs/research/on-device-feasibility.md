@@ -1,5 +1,7 @@
 # On-Device Feasibility
 
+**Sources read:** 2026-10-17.
+
 ## Verdict
 
 Android platform text-to-speech fits the minimum usable product for speaking fixed cues, run statistics, and a short answer to a spoken query. The Android `TextToSpeech` API synthesizes text for immediate playback, but the app must wait for engine initialization and verify that an English voice is available. The API does not by itself guarantee that every installed voice works offline, so the chosen engine and voice must be checked on the target phone.
@@ -18,7 +20,7 @@ On the target Android phone, test one small Gemma model with questions about ela
 
 ## Sources
 
-- [Android `TextToSpeech` API reference](https://developer.android.com/reference/android/speech/tts/TextToSpeech)
-- [Gemma 3n model overview](https://ai.google.dev/gemma/docs/gemma-3n)
-- [Deploy Gemma on mobile devices](https://ai.google.dev/gemma/docs/integrations/mobile)
-- [Gemma 3n model card](https://ai.google.dev/gemma/docs/gemma-3n/model_card)
+- [Android `TextToSpeech` API reference](https://developer.android.com/reference/android/speech/tts/TextToSpeech) ([archived 2026-11-05; read 2026-10-17](https://web.archive.org/web/20261105061428/https://developer.android.com/reference/android/speech/tts/TextToSpeech))
+- [Gemma 3n model overview](https://ai.google.dev/gemma/docs/gemma-3n) ([archived 2026-11-02; read 2026-10-17](https://web.archive.org/web/20261102133457/https://ai.google.dev/gemma/docs/gemma-3n))
+- [Deploy Gemma on mobile devices](https://ai.google.dev/gemma/docs/integrations/mobile) ([archived 2026-11-01; read 2026-10-17](https://web.archive.org/web/20261101034624/https://ai.google.dev/gemma/docs/integrations/mobile))
+- [Gemma 3n model card](https://ai.google.dev/gemma/docs/gemma-3n/model_card) ([archived 2026-10-21; read 2026-10-17](https://web.archive.org/web/20261021161059/https://ai.google.dev/gemma/docs/gemma-3n/model_card))
