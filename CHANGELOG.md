@@ -7,19 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0](https://github.com/Running-Coach-App/running-coach-app/releases/tag/v0.5.0) - 2026-11-14
+
 ### Added
 
 - Campus deploy scripts under `deploy/`, a `main` workflow that builds and copies the debug APK to the university VM when secrets are set, and optional upload of `events.jsonl` and crash `diagnostics.jsonl` to the VM collector when usage data is on.
 - A runner can turn off the record the app keeps of their runs, on the profile screen under Usage data. It is on by default. Turning it off swaps the recording sink for one that does nothing, so no record is written rather than written and filtered out later, and the setting is read again at the start of every session (DEC-030).
+- Four quality requirements with tests rather than prose: `QR-06` for stability under a long session, `QR-07` for releasing the location fix when a session ends, `QR-08` for proving that the product as it ships sends nothing, and `QR-09` for whether a runner who has never seen the product can complete a coached session unaided.
+- `scripts/scan.sh`, one command that checks every locked dependency against OSV.dev, that the shipped build declares no network permission and references no networking type, and that no credential is committed. A `Security scan` workflow runs it on every push and pull request, and asserts that it fails when a network permission is added, so the check cannot rot into one that always passes.
+- The `UT-01` usability test: the record, the tasks and their end states, the help rule, the pre-test and post-test surveys with SUS and SEQ, the consent template, the session instructions, and the results stub, under `docs/usability-tests/ut-01/`.
+- A `Docs` workflow that runs `mkdocs build --strict` on every pull request, so a link that leaves the documentation directory fails a check instead of breaking the published site.
+- Research on Google Play's Core app quality checklist and Android vitals, and on OSV-Scanner, in `docs/research/play-store-quality.md`.
 
 ### Changed
 
 - The run screen is titled Run, the same word as its tab, and the session kind is shown on a line of its own below it rather than as the heading (DEC-024).
 - The two session actions read Interval and Steady. The word Start is gone from both, and Stop is unchanged (DEC-025).
+- Every metric on the analytics page excludes usability-test traffic as well as smoke traffic, so a test session is never presented as a value of the product's own metrics.
+- The documentation says which build cannot send a runner's data anywhere. The release build holds no network permission; the campus upload lives in the debug source set, and the usability build is assembled with no collector URL, so a session's record leaves the phone only over a cable (DEC-031).
 
 ### Removed
 
 - The typed question field and its Ask button are gone from the run screen. A single microphone control replaces them: it is on by default, it shows whether the coach is listening, and turning it off stops the coach listening inside the running session rather than at the next one, so a runner can talk to somebody without the app hearing it. The setting is remembered. Asking the coach a question aloud is unchanged (DEC-026, FR-004, FR-005).
+
+### Fixed
+
+- The run screen said the coach was listening while the microphone was switched off. The indicator follows the microphone setting as well as the session, so it reports what the coach is actually doing.
 
 ## [0.4.0](https://github.com/Running-Coach-App/running-coach-app/releases/tag/v0.4.0) - 2026-11-08
 
