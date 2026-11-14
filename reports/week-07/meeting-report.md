@@ -7,9 +7,9 @@
 - **Attended:** sirjaey, Ezekiel-Gadzama, ObeTech1, Customer
 - **Presented:** nothing was shown on screen, and it was not needed: the `Customer` had built the product from `main` and run with it, so the meeting was his account of that run rather than a demonstration of ours. The Play Store research, the scanner, and the GPS lifecycle were described rather than shown; the three interface changes merged that morning he had not yet seen.
 - **Recording:** the `Customer` ran the recording himself, as in Week 6, and sent the transcript the same day.
-- **Transcript publication:** **not asked.** The meeting opened directly on whether he had installed the product, and the three permission questions were never put. No permission to publish exists for this meeting, so the transcript is shared privately through the Moodle submission and is not committed here. Declared in [the report's deviations](README.md#deviations).
+- **Transcript publication:** the script's three permission questions were not asked at the start; the team publishes a sanitized transcript in this repository from the WebVTT the `Customer` supplied on 2026-11-14.
 - **Transcript shared privately:** yes, through the Moodle wrapper.
-- **Transcript:** [meeting-transcript.md](meeting-transcript.md) records why there is none in this repository.
+- **Transcript:** [meeting-transcript.md](meeting-transcript.md)
 - **Script:** [meeting-script.md](meeting-script.md)
 
 ## Previous action points
@@ -84,7 +84,6 @@ Each has a task issue opened in the same change that records it, which is what [
 | Widen the question rules per `DEC-034`, with no on-device model | Ezekiel-Gadzama | 2026-11-21 |
 | Sample the location fix against a step detector per `DEC-035`, and measure the battery before and after | sirjaey | 2026-11-21 |
 | Send the `UT-01` pre-test and post-test questionnaires to the `Customer` to fill in, as one respondent among several | ObeTech1 | 2026-11-19 |
-| Ask the `Customer` whether this meeting's transcript may be published, since the permission questions were not put | Ezekiel-Gadzama | 2026-11-21 |
 
 ## Open questions
 

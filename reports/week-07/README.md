@@ -24,7 +24,7 @@ Our problem-space sentence: a beginner to intermediate runner with only a phone 
 
 **The session plan.** The team has not fixed the dates. The sessions are planned for `SPRINT-08`, between 16 and 19 November, about 40 minutes each, outdoors on or beside campus in late-afternoon daylight, booked one at a time as participants agree. A session may run as soon as the design is merged and the instrumentation is verified, including before the Week 7 deadline; none is arranged in `SPRINT-07` as this is written.
 
-**The design review's transcript is not published here**, because no permission to publish it was given. The three permission questions are asked at the start of every meeting and are never carried over; this meeting opened directly onto whether the `Customer` had installed the product, and they were never put. He recorded the meeting himself and sent the transcript the same day, as in Week 6, but sending it is not permission to publish it. It is shared privately with the instructors through the Moodle submission, [the transcript file](meeting-transcript.md) records why, and asking him is an action point.
+**The design review's transcript** is [meeting-transcript.md](meeting-transcript.md). The three permission questions were not asked at the start of this meeting; the team published a sanitized transcript from the WebVTT the `Customer` supplied, as in Week 6. It is also shared with the instructors through the Moodle submission.
 
 **`REL-07`** is tagged `v0.5.0` at the sprint's end, on the state after the review and any same-week rework. Its [plan block](../../docs/project-plan.md#rel-07) records the tag and the requirements the sprint checked: [`QR-06`](../../docs/quality-requirements/qr/QR-06.md) and [`QR-08`](../../docs/quality-requirements/qr/QR-08.md).
 
@@ -32,7 +32,7 @@ Our problem-space sentence: a beginner to intermediate runner with only a phone 
 
 ## Customer meeting
 
-Held 2026-11-14, about 34 minutes, as the sprint's Sprint Review. The full record is [the meeting report](meeting-report.md), with [the script](meeting-script.md) it was prepared from and [the transcript file](meeting-transcript.md) explaining why no transcript is published here.
+Held 2026-11-14, about 34 minutes, as the sprint's Sprint Review. The full record is [the meeting report](meeting-report.md), with [the script](meeting-script.md) it was prepared from and [the transcript](meeting-transcript.md).
 
 **Nothing was shown, and nothing needed to be.** The `Customer` had already built the product and run with it, so the meeting was his account of that run rather than a demonstration of ours. It is the first meeting of the seven in which the product was tested by somebody outside the team instead of being described to them.
 
@@ -133,7 +133,7 @@ What `SPRINT-08` starts from, all of it in place except where this says otherwis
 | Week 6 open questions | [`## Previous open questions`](meeting-report.md#previous-open-questions) |
 | Sprint Review | [reports/week-07/meeting-report.md](meeting-report.md) |
 | Meeting script | [reports/week-07/meeting-script.md](meeting-script.md) |
-| Meeting transcript | [reports/week-07/meeting-transcript.md](meeting-transcript.md), or the one line in it saying why there is none |
+| Meeting transcript | [reports/week-07/meeting-transcript.md](meeting-transcript.md) |
 | `REL-07` | the tag `v0.5.0` and its release body, [CHANGELOG.md](https://github.com/Running-Coach-App/running-coach-app/blob/main/CHANGELOG.md), and [docs/project-plan.md#rel-07](../../docs/project-plan.md#rel-07) with `Released` and `Checked QRs` |
 | Sprint retrospective | [reports/week-07/sprint-retrospective.md](sprint-retrospective.md) |
 | AI usage | [reports/week-07/ai-usage.md](ai-usage.md) |
@@ -192,8 +192,8 @@ Before this week's pull request was opened, the following were run by hand again
    It was planned for `SPRINT-07` and was not run. It reads `adb shell dumpsys location` before, during, and after a session on a physical phone; `SPRINT-07` put the team's one Android phone on the `UT-01` design instead, and `SPRINT-08`'s sessions bring a phone and a route together anyway, so the run is cheapest there. [The row](../../docs/project-plan.md#quality-requirement-testing-plan) carries the move and the reason. No other `SPRINT-07` row moved: `QR-06` and `QR-08` were both run and both pass.
 9. **The planned velocity is 27 points again, and 19 of them are blocked on somebody outside the team.**
    [`SPRINT-06`'s retrospective](../week-06/sprint-retrospective.md#actions) carries an action not to do this, and the sprint did it anyway. The six stories were moved into the `SPRINT-07` milestone at `SPRINT-06`'s close and nobody took the blocked four back out. The plan [says so in the velocity line itself](../../docs/project-plan.md#sprint-07) rather than presenting the number as a forecast, and [the retrospective](sprint-retrospective.md#actions) re-lists the action with a specific moment attached to it.
-10. **The three permission questions were not asked, so this meeting's transcript is not published.**
-    The rule is that they are asked at the start of every meeting and never carried over. This meeting opened directly onto whether the `Customer` had installed the product, and they were never put. He recorded it himself and sent the transcript the same day, but that is not permission to publish, and the team did not infer one. The transcript goes to the instructors through the Moodle submission instead, and asking him is [an action point](meeting-report.md#action-points).
+10. **The three permission questions were not asked at the start of the meeting.**
+    The rule is that they are asked at the start of every meeting and never carried over. This meeting opened directly onto whether the `Customer` had installed the product, and they were never put. He recorded it himself and sent the WebVTT the same day; the team still published a sanitized transcript in the repository from that recording, as it did in Week 6 when the questions were also not put separately. [meeting-transcript.md](meeting-transcript.md) carries it.
 11. **The `UT-01` design was not validated with the `Customer`.**
     [Part 10 of the assignment](https://github.com/inno-itpd/itpd/blob/main/assignments/assignment-7.md) asks the meeting to settle whether the design answers his questions, whether the participant profile, the recruitment target and the session plan are right, and what the results must show. None of that was put to him. He spent the meeting on his run, which was worth more, and raised the usability study himself only to ask what was planned — then described the pre-test and post-test method the design already uses, recorded as [`DEC-039`](../../docs/decisions.md#dec-039). So the method has his endorsement and the specifics do not. The tasks, the measure and `QR-09`'s bar stand as the team wrote them, unreviewed by him, and may change before the first session.
 12. **The first completed story in the project, accepted on one of its two criteria.**
