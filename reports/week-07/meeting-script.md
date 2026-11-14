@@ -130,6 +130,8 @@ Two more honest notes, if there is time:
 
 It exits 0 when everything passes, 1 when a check fails, and 2 when a check could not run — because a scanner that silently checks nothing and prints "passed" is worse than no scanner.
 
+**Note added after the meeting, on 2026-11-14.** Both claims above — that the app holds no network permission at all, and that the scan checks every file in the source — were true of `main` when they were said. Later the same day [#228](https://github.com/Running-Coach-App/running-coach-app/pull/228) landed the campus collector upload that [`DEC-031`](../../docs/decisions.md#dec-031) permits: the `INTERNET` permission, the uploader and the cleartext allowance sit in the **debug** source set, the release build is unchanged, and the scan now covers the main manifest, `app/src/main`, and the built release APK. This script is left as it was delivered rather than rewritten after the fact, and [`QR-08`](../../docs/quality-requirements/qr/QR-08.md) carries the current wording.
+
 **Two things to say about why it can be trusted, because they are the interesting part:**
 
 - **We broke it on purpose and it caught us.** Adding `android.permission.INTERNET` to the manifest makes it fail with that reason named — and the CI workflow performs exactly that sabotage on every single run, so the test cannot rot into a check that always passes. During development three separate bugs were found that made it pass when it should have failed; one of them was caught by CI rather than by us. All three are fixed, and the negative tests are what found them.
