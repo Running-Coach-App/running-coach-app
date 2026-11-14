@@ -96,7 +96,7 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
             ACTION_START_STEADY -> startSession(SessionKind.STEADY)
             ACTION_STOP -> stopSession()
             ACTION_MEDIA -> if (engine.running) stopSession() else startSession(SessionKind.INTERVAL)
-            ACTION_ASK -> intent.getStringExtra(EXTRA_QUESTION)?.let { ask(it) }
+            ACTION_SET_MIC -> applyMicSetting()
             Intent.ACTION_MEDIA_BUTTON -> MediaButtonReceiver.handleIntent(mediaSession, intent)
         }
         return START_STICKY
@@ -292,6 +292,9 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
     }
 
     private fun listenForSpeech() {
+        if (!history.micEnabled) {
+            return
+        }
         if (!SpeechRecognizer.isRecognitionAvailable(this)) {
             return
         }
@@ -310,6 +313,22 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
             listening = true
             publishSessionState()
         }
+    }
+
+    /**
+     * Applies the microphone setting DEC-026 asks for. Turning it off stops
+     * the recogniser now; turning it on arms it again if a session is running.
+     */
+    private fun applyMicSetting() {
+        if (history.micEnabled) {
+            if (engine.running) {
+                listenForSpeech()
+            }
+            return
+        }
+        recognizer?.cancel()
+        listening = false
+        publishSessionState()
     }
 
     private val listener = object : RecognitionListener {
@@ -438,10 +457,9 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
         const val ACTION_START_STEADY = "app.runningcoach.START_STEADY"
         const val ACTION_STOP = "app.runningcoach.STOP"
         const val ACTION_MEDIA = "app.runningcoach.MEDIA"
-        const val ACTION_ASK = "app.runningcoach.ASK"
+        const val ACTION_SET_MIC = "app.runningcoach.SET_MIC"
         const val ACTION_SESSION_STATE = "app.runningcoach.SESSION_STATE"
         const val SESSION_STATE_PERMISSION = "app.runningcoach.SESSION_STATE"
-        const val EXTRA_QUESTION = "question"
         const val EXTRA_RUNNING = "running"
         const val EXTRA_KIND = "kind"
         const val EXTRA_STAT_TIME = "stat_time"

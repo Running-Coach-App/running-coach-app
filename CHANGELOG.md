@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- The run screen is titled Run, the same word as its tab, and the session kind is shown on a line of its own below it rather than as the heading (DEC-024).
+- The two session actions read Interval and Steady. The word Start is gone from both, and Stop is unchanged (DEC-025).
+
+### Removed
+
+- The typed question field and its Ask button are gone from the run screen. A single microphone control replaces them: it is on by default, it shows whether the coach is listening, and turning it off stops the coach listening inside the running session rather than at the next one, so a runner can talk to somebody without the app hearing it. The setting is remembered. Asking the coach a question aloud is unchanged (DEC-026, FR-004, FR-005).
+
 ## [0.4.0](https://github.com/Running-Coach-App/running-coach-app/releases/tag/v0.4.0) - 2026-11-08
 
 ### Added

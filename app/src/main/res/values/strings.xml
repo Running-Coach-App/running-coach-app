@@ -16,11 +16,12 @@
     <string name="coach_speaking">Speaking</string>
     <string name="coach_listening">Listening</string>
     <string name="location_warning">Turn on location to get pace and distance.</string>
-    <string name="start_interval">Start interval</string>
-    <string name="start_steady">Start steady</string>
+    <string name="action_interval">Interval</string>
+    <string name="action_steady">Steady</string>
     <string name="stop_session">Stop</string>
-    <string name="question_hint">Type a question</string>
-    <string name="ask">Ask</string>
+    <string name="mic_on">Microphone on</string>
+    <string name="mic_off">Microphone off</string>
+    <string name="mic_note">Turn it off to stop the coach listening while you talk to someone.</string>
     <string name="tab_run">Run</string>
     <string name="tab_history">History</string>
     <string name="tab_profile">Profile</string>

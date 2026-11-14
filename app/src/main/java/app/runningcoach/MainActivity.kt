@@ -44,11 +44,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewProfile: View
     private lateinit var historyList: LinearLayout
     private lateinit var historyEmpty: View
+    private lateinit var micToggle: Button
     private lateinit var tabRun: Button
     private lateinit var tabHistory: Button
     private lateinit var tabProfile: Button
     private lateinit var history: SessionHistory
     private var shownView: Int = R.id.viewRun
+    private var sessionRunning = false
 
     private val permissions = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions(),
@@ -62,6 +64,7 @@ class MainActivity : AppCompatActivity() {
                 return
             }
             val running = intent.getBooleanExtra(CoachService.EXTRA_RUNNING, false)
+            sessionRunning = running
             applyCoachSheet(intent)
             if (running) {
                 val kind = intent.getStringExtra(CoachService.EXTRA_KIND)
@@ -106,6 +109,7 @@ class MainActivity : AppCompatActivity() {
         viewProfile = findViewById(R.id.viewProfile)
         historyList = findViewById(R.id.historyList)
         historyEmpty = findViewById(R.id.historyEmpty)
+        micToggle = findViewById(R.id.micToggle)
         tabRun = findViewById(R.id.tabRun)
         tabHistory = findViewById(R.id.tabHistory)
         tabProfile = findViewById(R.id.tabProfile)
@@ -123,9 +127,15 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.stopSession).setOnClickListener {
             send(CoachService.ACTION_STOP)
         }
-        findViewById<Button>(R.id.ask).setOnClickListener {
-            val question = findViewById<EditText>(R.id.question).text.toString()
-            send(CoachService.ACTION_ASK, question)
+        showMic()
+        micToggle.setOnClickListener {
+            history.micEnabled = !history.micEnabled
+            showMic()
+            // The service re-reads the setting. It is only told while a session
+            // is running, so that a toggle never starts a foreground service.
+            if (sessionRunning) {
+                send(CoachService.ACTION_SET_MIC)
+            }
         }
         tabRun.setOnClickListener { showView(R.id.viewRun) }
         tabHistory.setOnClickListener { showView(R.id.viewHistory) }
@@ -268,6 +278,10 @@ class MainActivity : AppCompatActivity() {
         history.speechRate = rate
     }
 
+    private fun showMic() {
+        micToggle.setText(if (history.micEnabled) R.string.mic_on else R.string.mic_off)
+    }
+
     private fun applyStats(intent: Intent) {
         val time = intent.getStringExtra(CoachService.EXTRA_STAT_TIME)
         statTime.text = time
@@ -399,11 +413,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun send(action: String, question: String? = null) {
+    private fun send(action: String) {
         val intent = Intent(this, CoachService::class.java).setAction(action)
-        if (question != null) {
-            intent.putExtra(CoachService.EXTRA_QUESTION, question)
-        }
         ContextCompat.startForegroundService(this, intent)
     }
 }
