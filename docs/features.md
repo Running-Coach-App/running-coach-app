@@ -75,6 +75,14 @@ A product analyst can read the [events](glossary.md#event) the product records f
 - **Behavior:** [FR-013](functional-requirements/fr/FR-013.md)
 - **Decisions:** [ADR-005](architecture/adr/ADR-005.md)
 
+## Turn off the record the app keeps
+
+A runner who does not want the app keeping a record of their runs turns it off on the profile screen, and the app then writes nothing at all rather than writing it and ignoring it.
+
+- **Stories:** [US-12](https://github.com/Running-Coach-App/running-coach-app/issues/167)
+- **Behavior:** [FR-013](functional-requirements/fr/FR-013.md)
+- **Decisions:** [DEC-030](decisions.md#dec-030), [ADR-005](architecture/adr/ADR-005.md)
+
 ## Diagnose a bad run from the coach's own records
 
 An operator can read the [instrumentation](glossary.md#instrumentation) of each spoken line and see whether it was spoken or dropped, without asking the runner to reproduce the run.

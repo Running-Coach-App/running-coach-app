@@ -76,6 +76,30 @@
             android:text="@string/voice_faster" />
 
         <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_24"
+            android:text="@string/profile_data_label"
+            android:textColor="@color/text_muted"
+            android:textSize="@dimen/text_caption" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_4"
+            android:text="@string/profile_data_body"
+            android:textColor="@color/text_muted"
+            android:textSize="@dimen/text_caption" />
+
+        <Button
+            android:id="@+id/dataToggle"
+            style="@style/Widget.RunningCoach.Button.Secondary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_8"
+            android:text="@string/data_on" />
+
+        <TextView
             android:id="@+id/profileTotals"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

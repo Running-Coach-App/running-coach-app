@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var historyList: LinearLayout
     private lateinit var historyEmpty: View
     private lateinit var micToggle: Button
+    private lateinit var dataToggle: Button
     private lateinit var tabRun: Button
     private lateinit var tabHistory: Button
     private lateinit var tabProfile: Button
@@ -110,6 +111,7 @@ class MainActivity : AppCompatActivity() {
         historyList = findViewById(R.id.historyList)
         historyEmpty = findViewById(R.id.historyEmpty)
         micToggle = findViewById(R.id.micToggle)
+        dataToggle = findViewById(R.id.dataToggle)
         tabRun = findViewById(R.id.tabRun)
         tabHistory = findViewById(R.id.tabHistory)
         tabProfile = findViewById(R.id.tabProfile)
@@ -142,6 +144,15 @@ class MainActivity : AppCompatActivity() {
         tabProfile.setOnClickListener { showView(R.id.viewProfile) }
         findViewById<Button>(R.id.profileSave).setOnClickListener {
             history.displayName = findViewById<EditText>(R.id.profileName).text.toString().trim()
+        }
+        dataToggle.setOnClickListener {
+            history.telemetryEnabled = !history.telemetryEnabled
+            showData()
+            // Same rule as the microphone: the service re-reads the setting at
+            // the start of every session, so it is only told during one.
+            if (sessionRunning) {
+                send(CoachService.ACTION_SET_TELEMETRY)
+            }
         }
         findViewById<Button>(R.id.voiceSlower).setOnClickListener { setSpeechRate(0.8f) }
         findViewById<Button>(R.id.voiceNormal).setOnClickListener { setSpeechRate(1.0f) }
@@ -264,6 +275,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun bindProfile() {
+        showData()
         findViewById<EditText>(R.id.profileName).setText(history.displayName)
         val records = history.sessions()
         val metres = records.mapNotNull { it.distanceMeters }.sum()
@@ -276,6 +288,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun setSpeechRate(rate: Float) {
         history.speechRate = rate
+    }
+
+    private fun showData() {
+        dataToggle.setText(if (history.telemetryEnabled) R.string.data_on else R.string.data_off)
     }
 
     private fun showMic() {

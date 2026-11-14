@@ -10,7 +10,7 @@ package app.runningcoach
  * CoachService. The product holds no INTERNET permission (DEC-028).
  */
 
-/** What the traffic is. A metric excludes SMOKE; none excludes USABILITY_TEST. */
+/** What the traffic is. Every metric excludes SMOKE and USABILITY_TEST. */
 enum class Source(val wire: String) {
     APP("app"),
     USABILITY_TEST("usability-test"),

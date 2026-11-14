@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- A runner can turn off the record the app keeps of their runs, on the profile screen under Usage data. It is on by default. Turning it off swaps the recording sink for one that does nothing, so no record is written rather than written and filtered out later, and the setting is read again at the start of every session (DEC-030).
+
 ### Changed
 
 - The run screen is titled Run, the same word as its tab, and the session kind is shown on a line of its own below it rather than as the heading (DEC-024).

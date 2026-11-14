@@ -49,6 +49,21 @@ class SessionHistory(context: Context) {
         }
 
     /**
+     * Whether the product records what the coach did during a run.
+     *
+     * DEC-030 asks for these records by default and for a runner who is not
+     * comfortable with them to be able to refuse. Refusing is not a filter
+     * applied later: nothing is written at all, per the sink swap in
+     * CoachService. On by default, which is the half of DEC-030 the Customer
+     * was most explicit about.
+     */
+    var telemetryEnabled: Boolean
+        get() = prefs.getBoolean(KEY_TELEMETRY, true)
+        set(value) {
+            prefs.edit().putBoolean(KEY_TELEMETRY, value).apply()
+        }
+
+    /**
      * Whether the coach listens for a spoken question while a session runs.
      * DEC-026 asks for a microphone the runner can turn off, so that the app
      * stops listening while they are talking to somebody. On by default,
@@ -72,6 +87,7 @@ class SessionHistory(context: Context) {
         private const val KEY_NAME = "display_name"
         private const val KEY_RATE = "speech_rate"
         private const val KEY_MIC = "mic_enabled"
+        private const val KEY_TELEMETRY = "telemetry_enabled"
         private const val MAX_SESSIONS = 50
     }
 }

@@ -31,6 +31,7 @@ import java.util.Locale
 
 class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
     private val telemetry = DeferredSink()
+    private val fileSink by lazy { FileTelemetrySink(filesDir) }
     private val engine = SessionEngine(sink = telemetry, clock = { System.currentTimeMillis() })
     private var fixLost = false
     private var fixLostAt = 0L
@@ -68,7 +69,7 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
     override fun onCreate() {
         super.onCreate()
         history = SessionHistory(this)
-        telemetry.delegate = FileTelemetrySink(filesDir)
+        applyTelemetrySetting()
         createChannel()
         tts = TextToSpeech(this, this)
         mediaSession = MediaSessionCompat(this, "RunningCoach").apply {
@@ -97,6 +98,7 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
             ACTION_STOP -> stopSession()
             ACTION_MEDIA -> if (engine.running) stopSession() else startSession(SessionKind.INTERVAL)
             ACTION_SET_MIC -> applyMicSetting()
+            ACTION_SET_TELEMETRY -> applyTelemetrySetting()
             Intent.ACTION_MEDIA_BUTTON -> MediaButtonReceiver.handleIntent(mediaSession, intent)
         }
         return START_STICKY
@@ -170,6 +172,7 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
         if (engine.running) {
             return
         }
+        applyTelemetrySetting()
         distanceMeters = 0.0
         lastLocation = null
         startedAt = System.currentTimeMillis()
@@ -320,6 +323,18 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
     }
 
     /**
+     * Applies the recording setting DEC-030 asks for. A runner who refuses gets
+     * the no-op sink, so no record is written rather than written and filtered
+     * out later: the file never gains the line in the first place. It is read
+     * again at the start of every session, so a change between runs needs no
+     * restart, and the activity sends ACTION_SET_TELEMETRY when the setting is
+     * changed during one.
+     */
+    private fun applyTelemetrySetting() {
+        telemetry.delegate = if (history.telemetryEnabled) fileSink else NoTelemetry
+    }
+
+    /**
      * Applies the microphone setting DEC-026 asks for. Turning it off stops
      * the recogniser now; turning it on arms it again if a session is running.
      */
@@ -462,6 +477,7 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
         const val ACTION_STOP = "app.runningcoach.STOP"
         const val ACTION_MEDIA = "app.runningcoach.MEDIA"
         const val ACTION_SET_MIC = "app.runningcoach.SET_MIC"
+        const val ACTION_SET_TELEMETRY = "app.runningcoach.SET_TELEMETRY"
         const val ACTION_SESSION_STATE = "app.runningcoach.SESSION_STATE"
         const val SESSION_STATE_PERMISSION = "app.runningcoach.SESSION_STATE"
         const val EXTRA_RUNNING = "running"
