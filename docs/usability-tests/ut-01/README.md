@@ -206,9 +206,11 @@ The team has not fixed the session dates, and this record carries them when it h
 | --- | --- | --- |
 | Facilitator | [@sirjaey](https://github.com/sirjaey) | Runs every counted session, reads the scenarios verbatim, applies the help rule and the stop rule |
 | Observer | [@Ezekiel-Gadzama](https://github.com/Ezekiel-Gadzama) | Records the outcome, the hints, the time on task, the pocket exits, the friction, and the quotes |
-| Recordings and raw notes | [@ObeTech1](https://github.com/ObeTech1) | Keeps the recordings in the cloud folder, and the consent records, the identity mapping and the raw notes in the private repository |
+| Recordings and raw notes | [@sirjaey](https://github.com/sirjaey) | Keeps the recordings in the cloud folder, and the consent records, the identity mapping and the raw notes in the private repository |
 
 The same facilitator runs all the counted sessions, so no participant is helped differently from another. At least two of the three are present at every session.
+
+The facilitator also keeps the recordings and the raw notes, which is two of the three roles on one member rather than the even split this table started with. The reason is recorded here rather than left to be guessed at: the recordings folder has to be readable by the course instructors, who are outside every team member's own domain, and the account that first held the role cannot share outside its domain at all. The role moved on 2026-11-14 to an account that can. Nothing about a session changes — the filing is done afterwards, never during a task — and the observer is still a second person, which is the part of the split that the data depends on.
 
 ## Environment
 
@@ -235,7 +237,7 @@ A durable consent is collected before every counted session, on the template in 
 | The recordings | the team's cloud recordings folder | the team and the instructors |
 | This record, the surveys, the consent template, the sanitized session notes, the results, the images | this repository | anyone |
 
-The private repository is [`Running-Coach-App/running-coach-app-usability-data`](https://github.com/Running-Coach-App/running-coach-app-usability-data). It is private, it holds text only, and the team and the course instructors are its readers. Its link needs authentication, so the link check excludes it, with the reason recorded beside the exclusion in `.lycheeignore`. The recordings folder is a team-owned cloud folder, linked from the private repository and from the Moodle submission rather than from any public file, because its link is an access grant.
+The private repository is [`Running-Coach-App/running-coach-app-usability-data`](https://github.com/Running-Coach-App/running-coach-app-usability-data). It is private, it holds text only, and the team and the course instructors are its readers. Its link needs authentication, so the link check excludes it, with the reason recorded beside the exclusion in `.lycheeignore`. The recordings folder is a team-owned cloud folder, linked from the private repository and from the Moodle submission rather than from any public file, because its link is an access grant. It has to sit on an account that can share with people outside its own domain, since the course instructors are outside every team member's, and that constraint is what decides which account owns it rather than who volunteers.
 
 **Retention.** The private repository, its history, and the recordings are deleted after the course is graded. The sanitized public record — this file, the surveys, the consent template, the session notes, the results, and the images — stays.
 
