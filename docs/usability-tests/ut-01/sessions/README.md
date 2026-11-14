@@ -23,9 +23,9 @@ Both members, together, on the day:
 | --- | --- | --- |
 | Facilitator | [@sirjaey](https://github.com/sirjaey) | Speaks. Reads the scenarios verbatim, applies the help rule, applies the stop rule. |
 | Observer | [@Ezekiel-Gadzama](https://github.com/Ezekiel-Gadzama) | Silent. Fills the observation sheet: outcome, hints, time, pocket exits, friction, quotes. |
-| Recordings and notes | [@ObeTech1](https://github.com/ObeTech1) | Afterwards: files the recording, the consent, the sheets, and the telemetry export. |
+| Recordings and notes | [@sirjaey](https://github.com/sirjaey) | Afterwards: files the recording, the consent, the sheets, and the telemetry export. |
 
-The same facilitator runs every counted session. At least two of the three are present. The observer does not speak to the participant during a task.
+The same facilitator runs every counted session. At least two of the three are present. The observer does not speak to the participant during a task. The facilitator holds the filing role as well, for [the reason in the record](../README.md#roles); it is done after the session, so it does not compete with running one.
 
 ## The script
 
