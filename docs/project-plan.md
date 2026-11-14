@@ -117,20 +117,24 @@ Each test's result, and the sprint of its last check, is in the [Quality Require
 
 ### SPRINT-08
 
-The usability sessions have been run and reported, and the repository's configuration is the one the team will keep through the end of the course.
+The `Customer` can finish a pocket session on the Pixel 8 after the Week 7 failures are addressed, and the team has run and reported the planned usability sessions against a build that reflects his feedback.
 
 - Due: 2026-11-21
 - Sprint Backlog: [the issues scheduled into SPRINT-08](https://github.com/Running-Coach-App/running-coach-app/milestone/6)
+- Backlog order after the Week 7 review: first investigate and fix or document the Pixel 8 pocket-session failure ([#219](https://github.com/Running-Coach-App/running-coach-app/issues/219)) and establish headset microphone routing ([#220](https://github.com/Running-Coach-App/running-coach-app/issues/220)), because these block the product's central pocket-use promise. Next address the spoken-question gaps ([#221](https://github.com/Running-Coach-App/running-coach-app/issues/221)), battery use ([#222](https://github.com/Running-Coach-App/running-coach-app/issues/222)), the stats interval ([#223](https://github.com/Running-Coach-App/running-coach-app/issues/223)), lock-screen controls ([#224](https://github.com/Running-Coach-App/running-coach-app/issues/224)), and the README onboarding gap ([#225](https://github.com/Running-Coach-App/running-coach-app/issues/225)). Run the `UT-01` sessions in parallel only when the private data setup and instrumentation verification are ready; retain its consent and observation protocol.
+- The `Customer`'s retest of the updated interface and a JSON run report is due this sprint. The retest must check the changes that landed after his first run, while the Pixel 8 and headset issues stay explicit acceptance risks until verified.
+- This refinement follows the evidence and decisions in the [Week 7 meeting report](../reports/week-07/meeting-report.md#summary), especially the failed pocket session and [DEC-034](decisions.md#dec-034) through [DEC-039](decisions.md#dec-039). It does not treat the suspected microphone cause as confirmed.
 
-This goal is provisional: it is set in `SPRINT-07` so the results sprint has its target already, and it is replaced at `SPRINT-08`'s planning. The sprint carries the counted [`UT-01`](usability-tests/ut-01/README.md) sessions, their sanitized notes, the results, the findings and their triage, the [`QR-09`](quality-requirements/qr/QR-09.md) verdict, and `REL-08`.
+The usability work remains in the backlog: counted [`UT-01`](usability-tests/ut-01/README.md) sessions, sanitized notes, results, findings and triage, the [`QR-09`](quality-requirements/qr/QR-09.md) verdict, and `REL-08`. The `SPRINT-08` planning review can reorder these items against the fixes, but must not count sessions until the private data setup and instrumentation verification are complete.
 
 #### REL-08
 
 ### SPRINT-09
 
-The product on main is the one the team will pitch.
+The product the team pitches is the build the `Customer` has retested, and the pitch is grounded in the Week 7 customer feedback and the `UT-01` findings.
 
 - Due: 2026-11-28
+- Backlog focus: finish any Week 7 customer-feedback work carried from `SPRINT-08`, verify the `Customer`'s retest findings, and use the usability results to choose and support the final product claims. Do not present a repair as complete without the corresponding check or customer evidence.
 
 #### REL-09
 
