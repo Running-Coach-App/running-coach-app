@@ -76,7 +76,13 @@ The facilitator answers questions about the scenario and never about the interfa
 
 ### Why asking the coach a question aloud is not a task
 
-The product's spoken-question flow is the one part of the main flow this test leaves alone, and that is a decision rather than an oversight. The question input is still a typed box: the three interface changes the `Customer` asked for in Week 5 — among them replacing the typed Ask with a microphone control — are recorded as [`DEC-024`](../../decisions.md#dec-024) to [`DEC-026`](../../decisions.md#dec-026) and are not built. Asking a participant to ask a question aloud would measure a gap the team already knows about and has already agreed to close, at the cost of the thing it does not know. It becomes a task in the next test, once [US-04](https://github.com/Running-Coach-App/running-coach-app/issues/40) lands.
+The product's spoken-question flow is the one part of the main flow this test leaves alone, and that is a decision rather than an oversight.
+
+When this design was written the reason was simply that the flow was unfinished: the question input was a typed box, and replacing it with a microphone control was one of three interface changes the `Customer` asked for in Week 5, recorded as [`DEC-024`](../../decisions.md#dec-024) to [`DEC-026`](../../decisions.md#dec-026) and unbuilt. That is no longer true. All three landed on 2026-11-14 under [issue #202](https://github.com/Running-Coach-App/running-coach-app/issues/202): the run screen is titled `Run`, the session actions read `Interval` and `Steady`, and the typed box is gone, replaced by a microphone control the runner can turn off.
+
+The task set still leaves it alone, for two reasons that are not the old one. The three tasks and [`QR-09`](../../quality-requirements/qr/QR-09.md)'s bar were written before that change landed, and a task set edited on the day the design is submitted is a task set nobody has reviewed; the review is where it is decided, and the meeting script asks the `Customer` directly whether there is something else he would rather see attempted. And the control is a day old: it has never been used on a run by anybody outside the team, so a task resting on it would put the newest code in the product between a participant and the thing this test is for.
+
+Nothing here is fixed. Tasks may change until the first counted session, and if the `Customer` asks for the spoken question at the review, it is added then, as same-week rework rather than as an action carried into the sessions. What does not change afterwards is the bar, for the reason `QR-09` gives.
 
 ## Protocol
 

@@ -54,7 +54,7 @@ Three counted sessions minimum, five as the design target, every participant 18 
 | Secondary 1 | Find out what the coach said on that run, and how far it went | 3 minutes |
 | Secondary 2 | Make the coach speak more slowly on the next run | 3 minutes |
 
-Each is `Unaided`, `Assisted`, or `Failed` against an end state written before the first session, with [a help rule](../../docs/usability-tests/ut-01/README.md#the-help-rule) that names what counts as help and requires the facilitator to say "hint" aloud onto the recording when one is given. No task names a button, a label, a screen, or a number of steps. Asking the coach a question aloud is deliberately not a task, because the question input is still a typed box and [the record says why](../../docs/usability-tests/ut-01/README.md#why-asking-the-coach-a-question-aloud-is-not-a-task).
+Each is `Unaided`, `Assisted`, or `Failed` against an end state written before the first session, with [a help rule](../../docs/usability-tests/ut-01/README.md#the-help-rule) that names what counts as help and requires the facilitator to say "hint" aloud onto the recording when one is given. No task names a button, a label, a screen, or a number of steps. Asking the coach a question aloud is deliberately not a task. The reason given when the design was written — that the question input was still a typed box — stopped being true on 2026-11-14, when [#202](https://github.com/Running-Coach-App/running-coach-app/issues/202) landed the microphone control; [the record](../../docs/usability-tests/ut-01/README.md#why-asking-the-coach-a-question-aloud-is-not-a-task) says so and gives the two reasons that now hold, and the review is where the `Customer` settles it.
 
 ### The surveys
 
@@ -141,13 +141,13 @@ It gained four risks with their fallbacks, ten glossary terms that keep a measur
 
 It gained a `Docs` workflow that runs `mkdocs build --strict` on pull requests, closing an action carried since `SPRINT-05`. That check immediately matters: two links written this sprint left `docs_dir`, which the link checker passes and the strict build rejects, and they were caught by hand because the workflow did not exist yet.
 
-The product gained no new spoken behaviour this sprint. The run-screen rework the Week 5 meeting asked for, and the metrics opt-out from Week 6, are stated at the close either way in [the meeting report](meeting-report.md).
+The product gained the three interface changes the Week 5 meeting asked for, under [#202](https://github.com/Running-Coach-App/running-coach-app/issues/202) on the day the action point was due: the run screen is titled `Run` with the session kind on a line of its own ([`DEC-024`](../../docs/decisions.md#dec-024)), the session actions read `Interval` and `Steady` ([`DEC-025`](../../docs/decisions.md#dec-025)), and the typed question box and its `Ask` button are replaced by a microphone control the runner can turn off mid-run, which stops the recogniser inside the running session rather than at the next one ([`DEC-026`](../../docs/decisions.md#dec-026)). The spoken-question path itself was already there; what was missing was the control over it. It gained no other new spoken behaviour, and the metrics opt-out from Week 6 is stated at the close in [the meeting report](meeting-report.md).
 
 ## Contribution
 
 | Member | Work |
 | --- | --- |
-| @sirjaey | Authored [the Play Store research](../../docs/research/play-store-quality.md), `scripts/scan.sh`, the `Security scan` workflow and its negative test, the dependency lock, [`QR-06`](../../docs/quality-requirements/qr/QR-06.md) with `StabilitySoakTest`, [`QR-07`](../../docs/quality-requirements/qr/QR-07.md), and [`QR-08`](../../docs/quality-requirements/qr/QR-08.md); designed `UT-01` — the record, the tasks, the surveys, the consent, the session instructions, the results stub — and wrote [`QR-09`](../../docs/quality-requirements/qr/QR-09.md), the four risks, the glossary terms, the `SPRINT-07` and `SPRINT-08` plan blocks, the `Docs` workflow, this report, and the meeting script |
+| @sirjaey | Applied `DEC-024`, `DEC-025`, and `DEC-026` to the run screen under [#202](https://github.com/Running-Coach-App/running-coach-app/issues/202); authored [the Play Store research](../../docs/research/play-store-quality.md), `scripts/scan.sh`, the `Security scan` workflow and its negative test, the dependency lock, [`QR-06`](../../docs/quality-requirements/qr/QR-06.md) with `StabilitySoakTest`, [`QR-07`](../../docs/quality-requirements/qr/QR-07.md), and [`QR-08`](../../docs/quality-requirements/qr/QR-08.md); designed `UT-01` — the record, the tasks, the surveys, the consent, the session instructions, the results stub — and wrote [`QR-09`](../../docs/quality-requirements/qr/QR-09.md), the four risks, the glossary terms, the `SPRINT-07` and `SPRINT-08` plan blocks, the `Docs` workflow, this report, and the meeting script |
 | @Ezekiel-Gadzama | At the close |
 | @ObeTech1 | At the close |
 
