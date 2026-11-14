@@ -239,6 +239,7 @@ Title the run screen Run, matching the selected tab, and show the session kind s
 - **Made by:** Customer
 - **Source:** [the Week 5 validation meeting](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-05/meeting-report.md#decisions)
 - **Why:** History and Profile keep the same word on the tab and on the heading, and showing Interval as the heading made him unsure where he was.
+- **Task issue:** [#202](https://github.com/Running-Coach-App/running-coach-app/issues/202)
 
 ## DEC-025
 
@@ -249,6 +250,7 @@ Label the session actions Interval and Steady, without the word Start.
 - **Made by:** Customer
 - **Source:** [the Week 5 validation meeting](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-05/meeting-report.md#decisions)
 - **Why:** Start interval and Start steady read as if Start were the action, and Stop already pairs with the session kind; Interval, Steady, and Stop are enough.
+- **Task issue:** [#202](https://github.com/Running-Coach-App/running-coach-app/issues/202)
 
 ## DEC-026
 
@@ -259,6 +261,7 @@ Show time, pace, and distance without a typed question, and replace Ask with a m
 - **Made by:** Customer
 - **Source:** [the Week 5 validation meeting](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-05/meeting-report.md#decisions)
 - **Why:** stats are the only answer the typed box can produce, so making him ask is a menu with one item; a microphone he can turn off also stops the app listening while he talks to someone.
+- **Task issue:** [#202](https://github.com/Running-Coach-App/running-coach-app/issues/202)
 
 ## DEC-027
 
@@ -299,6 +302,7 @@ Collect usage and performance metrics, enabled by default, with a runner opt-out
 - **Made by:** Customer
 - **Source:** [the Week 6 validation meeting](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-06/meeting-report.md#decisions)
 - **Why:** even a localised Android build needs those records for development and for usability studies; Google already collects crash metrics, and a runner who is not comfortable sending the data can refuse.
+- **Task issue:** [#208](https://github.com/Running-Coach-App/running-coach-app/issues/208)
 
 ## DEC-031
 
@@ -309,6 +313,7 @@ Sending those metrics off the device is allowed; it is not an account or a run-h
 - **Made by:** Customer
 - **Source:** [the Week 6 validation meeting](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-06/meeting-report.md#decisions)
 - **Why:** there is still no joint database in the cloud and finished runs still stay on the phone, per [DEC-028](#dec-028); application performance data and usage data are a different class, and a runner who does not want them sent can opt out.
+- **Task issue:** [#227](https://github.com/Running-Coach-App/running-coach-app/issues/227)
 
 ## DEC-032
 
@@ -319,6 +324,7 @@ Show whatever the phone's GPS reports; do not try to correct jamming or jumps.
 - **Made by:** Customer
 - **Source:** [the Week 6 validation meeting](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-06/meeting-report.md#decisions)
 - **Why:** it is not this product's job to be accurate when GPS is not; a jammed or jumpy fix is still what the phone sees, and the team should look at stride and other sensors rather than querying GPS all the time.
+- **Task issue:** none — the running code already uses each fix as the platform delivers it; [`QR-06`](quality-requirements/qr/QR-06.md) and `StabilitySoakTest` guard against smoothing or rejecting jumpy fixes, so this decision needs no further implementation.
 
 ## DEC-033
 
@@ -329,6 +335,7 @@ Do not host the Android product on the university virtual machine; an installabl
 - **Made by:** Customer
 - **Source:** [the Week 6 validation meeting](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-06/meeting-report.md#decisions)
 - **Why:** the product is an Android application, not a service the runner reaches on the campus network, and local storage already matches [DEC-028](#dec-028).
+- **Task issue:** [#227](https://github.com/Running-Coach-App/running-coach-app/issues/227)
 
 ## DEC-034
 
