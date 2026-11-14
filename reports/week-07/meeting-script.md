@@ -6,11 +6,15 @@ For the `SPRINT-07` validation meeting, which is the sprint's Sprint Review. Thi
 
 Our problem-space sentence: a beginner to intermediate runner with only a phone hears what to do and how the run is going while they are running, without looking at the screen. That sentence is the [product vision goal](../../docs/product-vision.md#goal), and [the threshold of success](../../docs/threshold-of-success.md) is the bar for it.
 
-Two things make this meeting different from the last one.
+Three things make this meeting different from the last one.
 
 **The carried action is done.** The `Customer` asked for the Play Store research in Week 5 and asked again in Week 6 whether we had done it. We had not, and he called that even with his own missed install. It is done now, it is written down, it produced three quality requirements and one defect, and the scanner he asked for runs on every change. Part 3 is that answer, and it is the part of this meeting we should be most confident in. Lead with it.
 
+**The three interface changes he asked for in Week 5 are built and merged.** The run screen is titled `Run`, the session actions read `Interval` and `Steady`, and the typed Ask box is gone, replaced by a microphone he can turn off mid-run. They are on `main` and installed on the phone, so Part 2 can show them rather than describe them. `DEC-024`, `DEC-025` and `DEC-026` are closed.
+
 **This week's deliverable is a test, not a feature.** We designed a usability test: three tasks, three to five strangers, a consent form, surveys, and a private place for the raw data. Nobody has run it yet. The point of Part 4 is to find out whether the thing we plan to measure is the thing he wants measured, *before* the sessions happen, because after them it is too late to change.
+
+One more thing to have ready, because it is the best argument we have and it is an awkward one. Checking the new microphone control on a real phone turned up a defect: with the microphone off, the screen still said `Listening`. The microphone itself was genuinely off — the phone's own accounting proved it — but the screen lied about it, which is exactly the thing that control exists to reassure somebody about. Every automated check had passed on that build, because none of them can read a label. It is fixed. Do not hide it: it is the single clearest answer to why a usability test needs a person in the room, and he will trust the rest more for hearing it.
 
 What we believe now, and are bringing to be argued with: the product is finished enough that the most useful thing left is finding out where it loses a person who has never seen it. What we do not know is whether he agrees that is worth a sprint, and whether the tasks we chose are the ones he would have chosen.
 
@@ -21,17 +25,17 @@ Questions marked ★ are the ones that would change the project most; ask them e
 ## Agenda
 
 1. Permission questions (2 min). Show: nothing. Questions 1–3.
-2. The product as it stands (3 min). Show: the release page, and a live session on the phone. Questions 4–5.
-3. **Play Store quality and the scanner — the carried action (8 min).** Show: [the research page](../../docs/research/play-store-quality.md) and `./scripts/scan.sh` running. Questions 6–9.
+2. The product as it stands, and the three changes he asked for (5 min). Show: the new run screen on the phone, and a live session. Questions 4–5.
+3. **Play Store quality and the scanner — the carried action (7 min).** Show: [the research page](../../docs/research/play-store-quality.md) and `./scripts/scan.sh` running. Questions 6–9.
 4. The `UT-01` design (10 min). Show: [the record](../../docs/usability-tests/ut-01/README.md), the surveys, the consent, the instrumentation, the session plan, and [`QR-09`](../../docs/quality-requirements/qr/QR-09.md). Questions 10–15.
 5. The Week 8 plan (3 min). Show: [`SPRINT-08`](../../docs/project-plan.md#sprint-08). Questions 16–17.
-6. Open questions carried from Week 6 (3 min). Show: nothing. Questions 18–23.
+6. Open questions carried from Week 6 (2 min). Show: nothing. Questions 18–23.
 7. Close (1 min). Read back every decision and every action point.
 
 ## Before the call
 
 - The latest release page open, with the APK visible under Assets.
-- The app running on a phone, so a session can be started during the call.
+- Have the app running on a phone, on a build from `main` that carries the three interface changes, so a session can be started during the call and the new screen can be shown rather than described.
 - A terminal with `./scripts/scan.sh` ready to run, and its output from a clean run already in the scrollback in case the live run is slow.
 - [The research page](../../docs/research/play-store-quality.md) open.
 - [The `UT-01` record](../../docs/usability-tests/ut-01/README.md) open, and the printed consent form in hand to show him.
@@ -47,16 +51,29 @@ Ask all three, separately, and do not carry an answer over from a previous meeti
 2. May we publish a sanitized transcript of it in the public repository?
 3. If not, may we share the transcript privately with the course instructors?
 
-## Part 2: The product as it stands (3 minutes)
+## Part 2: The product as it stands, and the three changes he asked for (5 minutes)
 
-Short. He has seen the app; this is to put a working thing on the table before we talk about documents.
+Put a working thing on the table before we talk about documents. Unlike every previous meeting, there is something of his to show: the three changes he asked for in Week 5 are built, merged, and on the phone in the room.
+
+**Show the screen first, then ask.** Hold the phone up, or share it:
+
+- The heading now reads **Run**, the same word as the tab, and the session kind sits on its own line beneath it rather than being the heading. That was his — he said showing `Interval` as the heading left him unsure which screen he was on.
+- The two buttons read **Interval** and **Steady**. The word `Start` is gone, because he pointed out it read as though `Start` were the action when `Stop` already pairs with the kind.
+- The typed **Ask** box is gone. In its place is one **microphone control** he can turn off mid-run, which stops the coach listening while he talks to somebody. Turn it off in front of him and start a session, so he sees it is a real control and not a label.
+
+Asking a question aloud always worked; what was missing was any say over it. That is what he now has.
 
 4. ★ Did you install it this time? If you did: what happened on the run? If you did not, what stopped you — and is there something we can change to make it easier, or is it time?
 5. Anything we can start a session on the phone right now and show you?
 
+**Two things to put in front of him while the phone is in his hand.** Neither is a numbered question, and neither is pass or fail — they are the two judgements in this work that are his and not ours:
+
+- The caption under the microphone reads *"Turn it off to stop the coach listening while you talk to someone."* That is his own reason, in our words. Is it the right wording, or does it need to say something else?
+- The session kind dropped from a large bold heading to a smaller line under `Run`. That is what he asked for, but how prominent it should be is a judgement, and he is the one who was confused by the old arrangement. Is it now too quiet?
+
 > If he has still not installed: do not spend the meeting on it. Note it, move on, and pick it up in the action points. This is the fourth week of asking, and the usability test now exists precisely because the product cannot keep waiting on one person's install to learn anything.
 
-## Part 3: Play Store quality and the scanner (8 minutes)
+## Part 3: Play Store quality and the scanner (7 minutes)
 
 **This is the carried action from Week 5 and Week 6. Lead with the answer, not with an apology.**
 
@@ -139,13 +156,14 @@ Show [the record](../../docs/usability-tests/ut-01/README.md) on screen and walk
 
 - **The three research questions.** Does a first-time runner work out how to start without being told; where do they take the phone back out of the pocket, and what are they looking for; do they recognise from sound alone that the session is running and then that it has ended.
 - **The tasks.** One main task — be coached through a short run with the phone away, 12 minutes — and two secondary ones: find what the coach said on that run, and make the coach speak more slowly. Same three tasks, same order, every participant. The wording names no button and no screen, on purpose: the moment we say "press the volume key" we have tested our own instructions instead of the product.
-- **Why asking a question aloud is not one of the tasks.** Be straight about this one, because the reason changed under us. When the design was written the question input was still a typed box. It is not any more: the microphone control landed today. The tasks and the bar were fixed before it did, and a control that is a day old and has never been used on a real run is not what we want between a participant and the thing we are testing. But this is his call, and question 14 asks him for it — if he wants it attempted, we add it before the first session rather than after.
+- **Why asking a question aloud is not one of the tasks.** Be straight about this one, because the reason changed under us. When the design was written the question input was still a typed box, so the flow was unfinished and testing it would have measured a gap we had already agreed to close. That reason is gone: the microphone control is merged. Two reasons stand in its place. The tasks and the bar were fixed before the control existed, and a task set rewritten on the day the design is submitted is one nobody has reviewed. And the control is days old — it has already needed one defect fixed since it landed, which is the strongest possible evidence that it is not yet the steady thing to put between a participant and what we are actually testing. This is his call: question 14 asks him. If he wants it attempted, we add it before the first session rather than after.
 - **The surveys.** A background questionnaire before, one standard ease question after each task, the ten standard System Usability Scale items after all three, and open questions at the end. All standard wording, so the numbers can be compared with anybody else's.
 - **The instrumentation and its verification.** During a session the app tags its own records as usability-test traffic and stamps them with the participant's code, so the stopwatch can be checked against what the phone actually did. We verify that works on one of our own runs before the first real participant, and no session counts before that. It cannot cover the two secondary tasks or the question of where the phone was — only the observer sees that — and the record says so rather than pretending otherwise.
 - **The consent, and the private repository.** Show the printed form. Every participant is 18 or older, is recorded, agrees that a sanitized summary is published, and can withdraw at any time. The recording, the raw notes, and the list joining a code to a name live in a private repository and a private folder that only the team and the instructors can open, and all of it is deleted after the course is graded. Nothing with a person's name in it goes near the public repository.
 - **The recordings folder.** A team-owned cloud folder, shared with the instructors, linked from the private repository and the Moodle submission and never from a public page.
 - **The session plan.** Three participants minimum, five as the target, 40 minutes each, outdoors on campus in the late-afternoon daylight, between 16 and 19 November.
 - **[`QR-09`](../../docs/quality-requirements/qr/QR-09.md), and the bar.** The requirement this test settles is whether a stranger can start a coached session, hear it through and end it *without being told how*. The bar is set before the sessions: at least 0.6 of the participants have to do it with no help at all — 2 of 3, or 3 of 5. Below that, the product does not keep its promise, and we will report that it does not.
+- **Why that test is run by a person and not by a command.** We have a fresh example, so use it rather than arguing in the abstract. The microphone defect in Part 2 — the screen saying `Listening` while the microphone was off — passed every automated check we have. Three continuous-integration checks, thirty-five unit tests and the security scanner all went green on that build. None of them can read a label, and no command can tell whether somebody understood what they were looking at. That is the whole case for `QR-09`'s test being a person in a room with a participant.
 
 **What to ask him:**
 
@@ -163,7 +181,7 @@ Show [the record](../../docs/usability-tests/ut-01/README.md) on screen and walk
 16. ★ Next sprint is the sessions, the results, and whatever they turn up as work. The results are due on 21 November. Does anything you have asked for need to come ahead of that?
 17. When the results exist, how do you want them — the sanitized write-up in the repository, a walk-through in the meeting, or both?
 
-## Part 6: Open questions carried from Week 6 (3 minutes)
+## Part 6: Open questions carried from Week 6 (2 minutes)
 
 These six have now been carried for two weeks because the meetings ran short. Ask them in this order and take whatever time is left. If we reach only two, reach these two first: 18 and 19.
 
@@ -188,7 +206,7 @@ Each of these was due 2026-11-14. Say what happened to each one, including the o
 | Action from Week 6 | What to say |
 | --- | --- |
 | Choose the Play Store publishing rules that fit, and add a scanner a stranger can run | Done. Part 3 is the answer. |
-| Title the run screen Run, drop Start from the labels, show the stats without a typed question, replace Ask with a microphone control | Done, on the due date, under [#202](https://github.com/Running-Coach-App/running-coach-app/issues/202). The heading is `Run` with the session kind on its own line, the actions read `Interval` and `Steady`, and the typed box is replaced by a microphone he can turn off mid-run. Offer to show it on the phone in Part 2. |
+| Title the run screen Run, drop Start from the labels, show the stats without a typed question, replace Ask with a microphone control | **Done and merged**, on the due date, under [#202](https://github.com/Running-Coach-App/running-coach-app/issues/202) and [#203](https://github.com/Running-Coach-App/running-coach-app/pull/203). Shown on the phone in Part 2, so this one needs no explaining. One defect found afterwards on a real phone and fixed under [#204](https://github.com/Running-Coach-App/running-coach-app/issues/204) — say so. |
 | Build the app, install it on his phone, confirm pocket and headset use | His. Part 2. |
 | Ask the carried questions on the presets, professional runners, the wearable, the recogniser, and the export shape | Part 6 is that. |
 | Add the metrics opt-out, default on | Say honestly whether it is built. |
