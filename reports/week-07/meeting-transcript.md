@@ -1,11 +1,9 @@
 # Week 7 meeting transcript
 
-**The Week 7 Sprint Review has not been held at the time this file is created, so there is no transcript in it yet.**
+**There is no transcript in this repository for the Week 7 meeting, because no permission to publish one was given.**
 
-What happens to this file depends on the answers to the three permission questions, which [the script](meeting-script.md#part-1-permission-questions-2-minutes) asks first and which are never carried over from an earlier meeting:
+The three permission questions are asked at the start of every meeting and are never carried over from an earlier one. This meeting opened directly on whether the `Customer` had installed the product, and the questions were not put. He recorded the meeting himself and sent the transcript the same day, as he did in Week 6 — but sending it to the team is not permission to publish it, and the team will not infer one.
 
-- If the `Customer` permits the recording and permits publication, the sanitized transcript is written here from the recording, and [the report](meeting-report.md) links it.
-- If he permits the recording but refuses publication, this file is replaced by one line saying so, the transcript goes to the course instructors privately through the Moodle submission, and the report records that.
-- If he refuses the recording, there is no transcript. This file is replaced by one line saying so, and the report records it.
+The transcript is therefore shared privately with the course instructors through the Moodle submission, which is where the recording link and its access instructions also go. [The Week 7 report](README.md#deviations) declares this as a deviation, and [the meeting report](meeting-report.md#action-points) carries the action to ask him.
 
-A published transcript is sanitized before it is committed: no real name, no university email address, no Zoom link or passcode, no credential, and no address of anything on the university network.
+If he gives permission, a sanitized transcript replaces this file: real names become roles and GitHub usernames, and no email address, meeting link, passcode or credential appears in it.
