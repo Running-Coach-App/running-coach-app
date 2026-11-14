@@ -329,3 +329,63 @@ Do not host the Android product on the university virtual machine; an installabl
 - **Made by:** Customer
 - **Source:** [the Week 6 validation meeting](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-06/meeting-report.md#decisions)
 - **Why:** the product is an Android application, not a service the runner reaches on the campus network, and local storage already matches [DEC-028](#dec-028).
+
+## DEC-034
+
+Widen the spoken-question rules rather than add an on-device model, and generate the phrasings with a language model instead of hand-writing them.
+
+- **Status:** Active
+- **Date:** 2026-11-14
+- **Made by:** Customer
+- **Source:** [the Week 7 validation meeting](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-07/meeting-report.md#decisions)
+- **Why:** he could get an answer for time and nothing else, and asked for stats as a whole and got the off-topic reply. He ruled out the on-device model the team proposed in the meeting, on performance grounds rather than taste: an embedded model is "quite a bit of work, and it will make the performance of the app even worse... it will work for 5 seconds, and then done". The rules approach is not the problem; three of them is.
+
+## DEC-035
+
+Sample the location fix occasionally, against a step or pace detector, rather than holding it for the whole session.
+
+- **Status:** Active
+- **Date:** 2026-11-14
+- **Made by:** Customer
+- **Source:** [the Week 7 validation meeting](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-07/meeting-report.md#decisions)
+- **Why:** his twelve-minute run cost 6% of his battery, against 9% for 37 minutes of a game, and his phone grew warm. He accepted the accuracy cost before it was raised: over a couple of hundred steps "the accuracy is not going to be that great anyway". This supersedes the weaker line [DEC-033](#dec-033) left in place, that the fix is held only while a session runs.
+
+## DEC-036
+
+Let the runner set how often the coach speaks the stats line.
+
+- **Status:** Active
+- **Date:** 2026-11-14
+- **Made by:** Customer
+- **Source:** [the Week 7 validation meeting](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-07/meeting-report.md#decisions)
+- **Why:** he heard the stats once in about ten minutes and had expected roughly every two, and the effort cues arriving correctly made the gap more obvious rather than less. The interval is a runner's preference, not a constant.
+
+## DEC-037
+
+Put the session's stats and a stop control where they can be reached without unlocking the phone.
+
+- **Status:** Active
+- **Date:** 2026-11-14
+- **Made by:** Customer
+- **Source:** [the Week 7 validation meeting](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-07/meeting-report.md#decisions)
+- **Why:** with the pocket controls not working on his phone he had to unlock it to do anything, and other apps put controls on the lock screen. It is also the fix for the one Google criterion the product is known to fail, `Audio_Notification_Style`, because `MediaStyle` is what puts both on the lock screen.
+
+## DEC-038
+
+The README must say what a runner gets from the product and how to start, without the reader having to ask anybody.
+
+- **Status:** Active
+- **Date:** 2026-11-14
+- **Made by:** Customer
+- **Source:** [the Week 7 validation meeting](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-07/meeting-report.md#decisions)
+- **Why:** the most motivated reader this repository has could not work out what to do with it, and asked an AI assistant instead. Every usability participant recruited from here on arrives the same way.
+
+## DEC-039
+
+Run the usability study with a pre-test questionnaire and a post-test questionnaire, on more than one participant.
+
+- **Status:** Active
+- **Date:** 2026-11-14
+- **Made by:** Customer
+- **Source:** [the Week 7 validation meeting](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-07/meeting-report.md#decisions)
+- **Why:** he described the method he expects, unprompted and in the same shape [UT-01](usability-tests/ut-01/README.md) already has, and said plainly what it is for: "the app is not as important as you practicing creating questionnaires... talking to users, processing messy responses". He offered himself as one respondent and immediately added that one is not enough.
