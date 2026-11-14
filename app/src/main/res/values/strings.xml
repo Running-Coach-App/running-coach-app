@@ -36,6 +36,10 @@
     <string name="voice_slower">Slower</string>
     <string name="voice_normal">Normal</string>
     <string name="voice_faster">Faster</string>
+    <string name="profile_data_label">Usage data</string>
+    <string name="profile_data_body">The app keeps a record of what the coach did on a run: when a session started, when it spoke, when the GPS fix dropped. It records nothing you said and nothing that names you. Turn it off and the app writes no record at all.</string>
+    <string name="data_on">Usage data on</string>
+    <string name="data_off">Usage data off</string>
     <string name="profile_totals">%1$d runs · %2$s</string>
     <string name="kind_interval">Interval</string>
     <string name="kind_steady">Steady</string>
