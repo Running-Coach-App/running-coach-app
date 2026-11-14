@@ -7,9 +7,9 @@
 - **Attended:** sirjaey, Ezekiel-Gadzama, ObeTech1, Customer
 - **Presented:** nothing was shown on screen, and it was not needed: the `Customer` had built the product from `main` and run with it, so the meeting was his account of that run rather than a demonstration of ours. The Play Store research, the scanner, and the GPS lifecycle were described rather than shown; the three interface changes merged that morning he had not yet seen.
 - **Recording:** the `Customer` ran the recording himself, as in Week 6, and sent the transcript the same day.
-- **Transcript publication:** **not asked.** The meeting opened directly on whether he had installed the product, and the three permission questions were never put. No permission to publish exists for this meeting, so the transcript is shared privately through the Moodle submission and is not committed here. Declared in [the report's deviations](README.md#deviations).
+- **Transcript publication:** the script's three permission questions were not asked at the start; the team publishes a sanitized transcript in this repository from the WebVTT the `Customer` supplied on 2026-11-14.
 - **Transcript shared privately:** yes, through the Moodle wrapper.
-- **Transcript:** [meeting-transcript.md](meeting-transcript.md) records why there is none in this repository.
+- **Transcript:** [meeting-transcript.md](meeting-transcript.md)
 - **Script:** [meeting-script.md](meeting-script.md)
 
 ## Previous action points
@@ -26,7 +26,7 @@ The five action points [the Week 6 report](../week-06/meeting-report.md#action-p
 
 ## Previous open questions
 
-The six questions [the Week 6 report](../week-06/meeting-report.md#open-questions) left open. **None was asked.** The meeting ran on the `Customer`'s feedback from his run, and the script's Part 6 was never reached. All six are carried again, now for a third week.
+The six questions [the Week 6 report](../week-06/meeting-report.md#open-questions) left open. **None was asked.** The meeting ran on the `Customer`'s feedback from his run, and the script's Part 6 was never reached. All six are carried again, now for a third week, including whether [`TOS-02`](../../docs/threshold-of-success.md#tos-02) should be reset.
 
 | Question | Answer | Decision |
 | --- | --- | --- |
@@ -57,7 +57,9 @@ The `Customer` used the product for the first time, and his verdict was plain: *
 
 **He could not get started from the README** and asked an AI assistant what to do with the repository instead. [`DEC-038`](../../docs/decisions.md#dec-038), [#225](https://github.com/Running-Coach-App/running-coach-app/issues/225).
 
-**On the usability study**, he asked unprompted what was planned, described the pre-test and post-test method the team has already designed, and said what it is for: "the app is not as important as you practicing creating questionnaires... talking to users, processing messy responses". He offered to fill a questionnaire himself and immediately added that one respondent is not enough. [`DEC-039`](../../docs/decisions.md#dec-039). The team's problem with arranging the sessions is in `## Open questions`.
+**On the usability study**, he asked unprompted what was planned, described the pre-test and post-test method the team has already designed, and said what it is for: "the app is not as important as you practicing creating questionnaires... talking to users, processing messy responses". He offered to fill a questionnaire himself and immediately added that one respondent is not enough. [`DEC-039`](../../docs/decisions.md#dec-039). @Ezekiel-Gadzama said the host city is about 4°C with no realistic outdoor runners and proposed recruiting abroad; @ObeTech1 reported about 20°C in Nigeria the same morning. The team's problem with arranging the sessions is in `## Open questions`.
+
+**He will retest.** After @sirjaey confirmed the typed question box was removed in `main` that morning, the `Customer` said he would pull the latest debug build again and try the JSON run report. The microphone-off control mid-run was mentioned the same way and was already merged ([#202](https://github.com/Running-Coach-App/running-coach-app/issues/202)).
 
 **[`TOS-02`](../../docs/threshold-of-success.md#tos-02) stays missed, and is now missed on evidence.** The goal asks for somebody outside the team to finish one *pocket* session: start, hear time, pace and distance, hear an effort cue, ask one stat aloud, and stop. He started, heard effort cues, and stopped. He never heard pace, never completed a question from the pocket, and took the phone out. The goal is still the right bar, and the product does not yet clear it.
 
@@ -82,17 +84,17 @@ Each has a task issue opened in the same change that records it, which is what [
 | Widen the question rules per `DEC-034`, with no on-device model | Ezekiel-Gadzama | 2026-11-21 |
 | Sample the location fix against a step detector per `DEC-035`, and measure the battery before and after | sirjaey | 2026-11-21 |
 | Send the `UT-01` pre-test and post-test questionnaires to the `Customer` to fill in, as one respondent among several | ObeTech1 | 2026-11-19 |
-| Ask the `Customer` whether this meeting's transcript may be published, since the permission questions were not put | Ezekiel-Gadzama | 2026-11-21 |
 
 ## Open questions
 
 | Question | What it would change | Follow-up |
 | --- | --- | --- |
 | Should the product save the text the recogniser heard, for debugging? | The product records that a question was asked and its topic, never its words, which is what [`DEC-004`](../../docs/decisions.md#dec-004) and a unit test hold in place. He raised both sides himself — "I shouldn't be saving the conversation" and then "maybe for debugging purposes, maybe we should do that, for a version" — so it is open rather than decided | Next customer meeting. Needs its own `DEC-nnn` either way, and a retention rule if the answer is yes |
-| Do the product's error logs go to a server, and does that mean the app gains the `INTERNET` permission? | Everything. The product holds no network permission, which is what [`QR-08`](../../docs/quality-requirements/qr/QR-08.md), [`ADR-005`](../../docs/architecture/adr/ADR-005.md), [`ADR-006`](../../docs/architecture/adr/ADR-006.md) and [`DEC-028`](../../docs/decisions.md#dec-028) rest on, and it is the claim the `Customer` personally verified this week. A log shipper would reverse it | Within the team first, before any server work lands. Raised in the meeting as work in progress rather than as a proposal |
+| Do usage and crash records go to the campus collector, and how does that fit [`DEC-031`](../../docs/decisions.md#dec-031) and [`QR-08`](../../docs/quality-requirements/qr/QR-08.md)? | @Ezekiel-Gadzama described auto-deploy to the university VM, an install URL, and optional upload of error and usage logs when usage data is on. The `Customer` did not hear it in the same breath as the repository scan he checked; [`DEC-031`](../../docs/decisions.md#dec-031) already allows off-device performance and usage data with opt-out, while [`QR-08`](../../docs/quality-requirements/qr/QR-08.md) still gates release builds with no network permission. Campus upload lives in the debug build only | Within the team first. Align what is merged with what the report tells a reader the scanner proves |
+| Should the coach turn listening on only while the phone thinks the runner is moving — a spoken "command mode" — rather than for the whole session? | Whether the recogniser runs continuously and how much battery and privacy that costs. He floated tying the microphone to a step or pace signal and announcing when command mode is on or off; it is an idea, not a decision | Next customer meeting if pocket use is still blocked |
 | Where do the usability participants come from, if nobody will run outdoors in the host city? | The whole shape of [`UT-01`](../../docs/usability-tests/ut-01/README.md): in person, on the team's phone, with an observer watching and the session recorded. Remote participants break all four | Within the team, before the first session. The `Customer` acknowledged the difficulty — "in your case it will be a bit difficult to follow them and see how they use it" — and suggested giving instructions instead |
 | Is a wearable the product's real home? | He raised a pivot to a watch and then argued against it himself, "but other apps can do it already". Not a proposal, but the first time the product's shape has been questioned | Next customer meeting |
-| The five carried from Week 6: the presets, professional runners, heart rate, the platform recogniser, and the export shape | As recorded in [the Week 6 report](../week-06/meeting-report.md#open-questions) | Next customer meeting. Third week carried; they should be asked first rather than last |
+| The six carried from Week 6: the presets, professional runners, heart rate, the platform recogniser, the export shape, and whether [`TOS-02`](../../docs/threshold-of-success.md#tos-02) should be reset | As recorded in [the Week 6 report](../week-06/meeting-report.md#open-questions) | Next customer meeting. Third week carried; they should be asked first rather than last |
 
 ## Disagreements
 

@@ -194,9 +194,23 @@ The findings template and the triage plan are in [`results.md`](results.md), whi
 
 The design is finished in `SPRINT-07`, inside the Week 7 deadline of 2026-11-15. The counted sessions are planned for `SPRINT-08`, 16 to 21 November 2026, and the results are due with Submission 8 on 2026-11-21.
 
-The team has not fixed the session dates, and this record carries them when it has. How it arranges them:
+Recruitment started **2026-11-14** ([@Ezekiel-Gadzama](https://github.com/Ezekiel-Gadzama), [issue #215](https://github.com/Running-Coach-App/running-coach-app/issues/215)). The runbook is [recruitment.md](recruitment.md).
 
-- Recruiting starts as soon as the design is merged, in person and through the course's channels, against the profile above.
+### Arranged sessions
+
+Three counted sessions are booked. Participant identities live only in the private usability-data repository (`identity.md`); this table carries codes, dates, and status only.
+
+| Code | Date | Start (local) | Status |
+| --- | --- | --- | --- |
+| P-01 | 2026-11-17 | 16:00 | Agreed — profile checked |
+| P-02 | 2026-11-18 | 16:00 | Agreed — profile checked |
+| P-03 | 2026-11-19 | 16:00 | Agreed — profile checked |
+
+Reserve codes **P-04** and **P-05** are held for replacements if someone withdraws; they have no date until needed.
+
+How remaining sessions are arranged if more are booked:
+
+- Recruiting continues in person and through the course's channels, against the profile above.
 - Each session needs about 40 minutes, outdoors, dry, and in daylight, which on this calendar means late afternoon.
 - Sessions are booked one at a time as participants agree, and this record and [the index](../README.md) gain the dates as they are set.
 - A session may run as soon as the design is written and the instrumentation is verified, including before the Week 7 deadline. None is arranged in `SPRINT-07` as this is written; if one is, the verification moves ahead of it and the index lists both run sprints.
