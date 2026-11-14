@@ -2,14 +2,11 @@
 # Keep this list as short as possible; never exclude external links as a blanket rule.
 
 # 2026-10-02: the link check timed out on this page in pull request 21. A direct request the same day returned the Hal Higdon novice half-marathon plan. Cited from reports/week-01/candidate-list.md and docs/research/alternatives.md.
-https://www\.halhigdon\.com/training-programs/half-marathon-training/novice-1-half-marathon/
 
 # 2026-10-02: same site. A direct request returned the printable plan. The checker has answered this host with 202 instead of the file. Cited from docs/research/alternatives.md.
-https://www\.halhigdon\.com/wp-content/uploads/2018/04/Novice-1-Half-Marathon-Printable\.pdf
 
-# 2026-10-02: Run With Hal help center returns 403 to the link checker. Cited from docs/research/alternatives.md as read on 2026-09-29.
+# 2026-11-14: Save Page Now returned HTTP 520 for these two Run With Hal help-center URLs; no archive snapshot exists. Cited from docs/research/alternatives.md.
 https://runwithhal\.zendesk\.com/hc/en-us/articles/360033786051-What-will-the-plan-adapt-to
-https://runwithhal\.zendesk\.com/hc/en-us/articles/360033786711-How-much-does-the-app-cost
 https://runwithhal\.zendesk\.com/hc/en-us/articles/360033786871-Can-I-sync-my-Apple-Watch-Strava-or-other-device-account
 
 # 2026-11-13: the team's private usability-data repository, created in SPRINT-07 with the team and the course
