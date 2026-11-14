@@ -88,7 +88,7 @@ What the product reports about its own operation: a metric, a log, or a trace. [
 
 ### Telemetry
 
-The events and signals a product reports about itself, taken together. Running Coach App's telemetry never leaves the phone on its own.
+The events and signals a product reports about itself, taken together. Running Coach App's telemetry never leaves the phone on its own from a release build. A debug build can upload it to the team's campus collector, which [`DEC-031`](decisions.md#dec-031) permits and [`docs/deployment.md`](deployment.md) describes.
 
 ### Observability
 

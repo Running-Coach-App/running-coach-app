@@ -6,7 +6,7 @@ What the Running Coach App reports about its own operation, so that a bad run ca
 
 ## The Unit Of Work
 
-The product serves no requests. It has no network permission, no routes, and nothing calls it. The unit of work an `SLI` is measured over is therefore a **spoken line**: one line that falls due during a session and is either spoken or dropped.
+The product serves no requests. Its release build has no network permission, it has no routes, and nothing calls it; a debug build uploads telemetry to the campus collector under [`DEC-031`](decisions.md#dec-031) and still serves nothing. The unit of work an `SLI` is measured over is therefore a **spoken line**: one line that falls due during a session and is either spoken or dropped.
 
 Everything the assignment's request language asks for maps onto that unit:
 
