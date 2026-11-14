@@ -15,13 +15,22 @@
         android:padding="@dimen/spacing_24">
 
         <TextView
-            android:id="@+id/sessionStatus"
+            android:id="@+id/runTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/session_idle"
+            android:text="@string/tab_run"
             android:textColor="@color/text_primary"
             android:textSize="@dimen/text_title"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/sessionStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_4"
+            android:text="@string/session_idle"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/text_body" />
 
         <TextView
             android:id="@+id/pocketNote"
@@ -213,7 +222,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_24"
-            android:text="@string/start_interval" />
+            android:text="@string/action_interval" />
 
         <Button
             android:id="@+id/startSteady"
@@ -221,7 +230,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_8"
-            android:text="@string/start_steady" />
+            android:text="@string/action_steady" />
 
         <Button
             android:id="@+id/stopSession"
@@ -231,21 +240,21 @@
             android:layout_marginTop="@dimen/spacing_16"
             android:text="@string/stop_session" />
 
-        <EditText
-            android:id="@+id/question"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_24"
-            android:hint="@string/question_hint"
-            android:importantForAutofill="no"
-            android:inputType="text" />
-
         <Button
-            android:id="@+id/ask"
+            android:id="@+id/micToggle"
             style="@style/Widget.RunningCoach.Button.Secondary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_8"
-            android:text="@string/ask" />
+            android:layout_marginTop="@dimen/spacing_24"
+            android:text="@string/mic_on" />
+
+        <TextView
+            android:id="@+id/micNote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_4"
+            android:text="@string/mic_note"
+            android:textColor="@color/text_muted"
+            android:textSize="@dimen/text_caption" />
     </LinearLayout>
 </ScrollView>
