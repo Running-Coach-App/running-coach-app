@@ -108,7 +108,7 @@ A runner who has never seen the product can be handed it and asked to use it, an
 
 #### REL-07
 
-- **Released:** not yet cut. `REL-07` is tagged `v0.5.0` on the release commit at the sprint's end, on the state after the Sprint Review and any same-week rework, and this field carries the tag and the date once it is.
+- **Released:** [v0.5.0](https://github.com/Running-Coach-App/running-coach-app/releases/tag/v0.5.0) on 2026-11-14.
 - **Checked QRs:**
   - [QR-06](quality-requirements/qr/QR-06.md)
   - [QR-08](quality-requirements/qr/QR-08.md)
