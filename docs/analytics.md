@@ -125,6 +125,18 @@ SELECT round(100.0 * (1 - sum(lost_s) / nullif(sum(total_s), 0)), 1) AS fix_avai
 FROM session_spans;  -- lost_s from each fix-lost interval, total_s from start to stop
 ```
 
+## The Runner's Refusal
+
+Everything below is recorded by default, and a runner can turn it off.
+
+[`DEC-030`](decisions.md#dec-030) is the `Customer`'s: collect usage and performance metrics, on by default, with a runner opt-out. He gave the reason himself — even a local Android build needs these records for development and for usability studies, Google already collects crash metrics, and a runner who is not comfortable with it can refuse.
+
+The refusal is on the profile screen, as `Usage data`. Turning it off does not filter the records later or hide them from a query: the product swaps its recording sink for one that does nothing, so the file on the phone never gains the line. There is nothing to delete afterwards because nothing was written.
+
+The setting is read again at the start of every session, so a runner who changes their mind between runs needs no restart, and changing it during a session takes effect in that session.
+
+What this costs the team is worth stating plainly: every metric on this page is computed from records a runner allowed. A metric with no value may mean the product was not used, or it may mean the people using it refused to be recorded, and nothing here can tell those apart. That is the trade [`DEC-030`](decisions.md#dec-030) makes, and it is the right way round — but a number read from this page is a number about runners who did not object.
+
 ## The Events
 
 Every event name is `object_action` in snake case, so the object comes first and the past-tense action second, as in `session_started`.
