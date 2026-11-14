@@ -147,6 +147,10 @@ class MainActivity : AppCompatActivity() {
         }
         dataToggle.setOnClickListener {
             history.telemetryEnabled = !history.telemetryEnabled
+            (application as? RunningCoachApp)?.installCrashHandler()
+            if (history.telemetryEnabled) {
+                Thread { TelemetryUpload.runOnce(this) }.start()
+            }
             showData()
             // Same rule as the microphone: the service re-reads the setting at
             // the start of every session, so it is only told during one.
@@ -179,6 +183,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+        if (history.telemetryEnabled && BuildConfig.COLLECTOR_URL.isNotBlank()) {
+            Thread { TelemetryUpload.runOnce(this) }.start()
+        }
         val filter = IntentFilter(CoachService.ACTION_SESSION_STATE)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             registerReceiver(

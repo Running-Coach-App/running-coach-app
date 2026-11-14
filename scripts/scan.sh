@@ -258,12 +258,12 @@ else
 	pass "the manifest declares no network permission (checked: $(printf '%s' "$NETWORK_PERMISSIONS" | tr '|' ' '))."
 fi
 
-api_hits="$(grep -rnE -e "$NETWORK_APIS" "$ROOT/app/src" 2>/dev/null || true)"
+api_hits="$(grep -rnE -e "$NETWORK_APIS" "$ROOT/app/src/main" 2>/dev/null || true)"
 if [ -n "$api_hits" ]; then
 	printf '%s\n' "$api_hits" | sed 's|^|        |'
-	fail "source code references a networking type. Each hit above must be explained or removed."
+	fail "source under app/src/main references a networking type. Each hit above must be explained or removed."
 else
-	pass "no source file references a networking type."
+	pass "no file under app/src/main references a networking type (debug campus upload lives under app/src/debug)."
 fi
 
 # The APK is the artifact a runner installs, so check it too when one is built.

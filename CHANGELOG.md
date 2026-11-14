@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Campus deploy scripts under `deploy/`, a `main` workflow that builds and copies the debug APK to the university VM when secrets are set, and optional upload of `events.jsonl` and crash `diagnostics.jsonl` to the VM collector when usage data is on.
 - A runner can turn off the record the app keeps of their runs, on the profile screen under Usage data. It is on by default. Turning it off swaps the recording sink for one that does nothing, so no record is written rather than written and filtered out later, and the setting is read again at the start of every session (DEC-030).
 
 ### Changed

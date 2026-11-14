@@ -7,7 +7,7 @@ package app.runningcoach
  * The events are the ones `docs/analytics.md` registers; the line records are the
  * ones FR-014 specifies. Nothing here sends anything anywhere: a sink decides
  * where a record goes, and the only sink that writes is the file one in
- * CoachService. The product holds no INTERNET permission (DEC-028).
+ * CoachService. Optional campus upload is gated on DEC-030 and DEC-031.
  */
 
 /** What the traffic is. Every metric excludes SMOKE and USABILITY_TEST. */
@@ -100,6 +100,8 @@ object Json {
         return obj(head)
     }
 
+    fun record(fields: Map<String, Any?>): String = obj(fields)
+
     fun line(occurredAt: Long, sessionId: String, source: Source, lineId: String, kind: LineKind, outcome: LineOutcome, latencyMillis: Long): String =
         obj(
             linkedMapOf(
@@ -124,6 +126,7 @@ object Json {
             is Boolean -> value.toString()
             is Int, is Long -> value.toString()
             is Double -> if (value.isFinite()) value.toString() else "null"
+            is List<*> -> value.joinToString(separator = ",", prefix = "[", postfix = "]") { element -> value(element) }
             else -> string(value.toString())
         }
 
