@@ -64,6 +64,20 @@ class SessionHistory(context: Context) {
         }
 
     /**
+     * How often the coach speaks the stats line, in minutes.
+     *
+     * DEC-036. The Customer asked for the interval to be the runner's to set — "it
+     * would be nice to change that interval somehow" — which supersedes DEC-013's
+     * note that a configurable cadence could wait. The default is the three minutes
+     * DEC-013 fixed, so a runner who changes nothing gets the agreed behaviour.
+     */
+    var statsIntervalMinutes: Int
+        get() = prefs.getInt(KEY_STATS_INTERVAL, DEFAULT_STATS_INTERVAL_MINUTES)
+        set(value) {
+            prefs.edit().putInt(KEY_STATS_INTERVAL, value).apply()
+        }
+
+    /**
      * Whether the coach listens for a spoken question while a session runs.
      * DEC-026 asks for a microphone the runner can turn off, so that the app
      * stops listening while they are talking to somebody. On by default,
@@ -88,6 +102,13 @@ class SessionHistory(context: Context) {
         private const val KEY_RATE = "speech_rate"
         private const val KEY_MIC = "mic_enabled"
         private const val KEY_TELEMETRY = "telemetry_enabled"
+        private const val KEY_STATS_INTERVAL = "stats_interval_minutes"
+
+        /** What DEC-013 fixed and FR-002 documents, so changing nothing keeps it. */
+        const val DEFAULT_STATS_INTERVAL_MINUTES = 3
+
+        /** The intervals the profile screen offers, in minutes. */
+        val STATS_INTERVAL_CHOICES = listOf(1, 2, 3, 5)
         private const val MAX_SESSIONS = 50
     }
 }

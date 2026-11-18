@@ -173,6 +173,7 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
             return
         }
         applyTelemetrySetting()
+        applyStatsInterval()
         distanceMeters = 0.0
         lastLocation = null
         startedAt = System.currentTimeMillis()
@@ -332,6 +333,16 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
      */
     private fun applyTelemetrySetting() {
         telemetry.delegate = if (history.telemetryEnabled) fileSink else NoTelemetry
+    }
+
+    /**
+     * Applies the spoken stats cadence DEC-036 made the runner's to set. Read at the
+     * start of every session, like the microphone and the usage data, so a change takes
+     * effect without the app being restarted. A session already running keeps the cadence
+     * it started with, which is what FR-002 says.
+     */
+    private fun applyStatsInterval() {
+        engine.statsEveryMillis = history.statsIntervalMinutes * 60_000L
     }
 
     /**

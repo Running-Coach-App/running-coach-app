@@ -43,6 +43,8 @@
     <string name="profile_totals">%1$d runs · %2$s</string>
     <string name="kind_interval">Interval</string>
     <string name="kind_steady">Steady</string>
+    <string name="stats_interval_label">How often the coach speaks your time, pace, and distance.</string>
+    <string name="stats_interval">Stats every %1$d min</string>
     <string name="notification_title">Running coach</string>
     <string name="notification_text">Ready</string>
 </resources>

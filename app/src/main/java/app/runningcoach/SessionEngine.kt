@@ -36,6 +36,13 @@ class SessionEngine(
     var elapsedMillis: Long = 0
         private set
 
+    /**
+     * How often a stats line falls due. DEC-036 made this the runner's to set, so
+     * CoachService writes it from the saved setting at the start of every session.
+     * The default is the three minutes DEC-013 fixed.
+     */
+    var statsEveryMillis: Long = STATS_EVERY_MILLIS
+
     var distanceMeters: Double? = null
         private set
 
@@ -63,7 +70,7 @@ class SessionEngine(
         elapsedMillis = 0
         distanceMeters = null
         lastSpokenEffort = null
-        nextStatsAtMillis = FIRST_STATS_AT_MILLIS
+        nextStatsAtMillis = statsEveryMillis
         paceMissingAnnounced = false
         distanceMissingAnnounced = false
         offTopicRepliesGiven = 0
@@ -125,7 +132,7 @@ class SessionEngine(
         }
         if (elapsedMillis >= nextStatsAtMillis) {
             lines += statsPhrase()
-            nextStatsAtMillis += STATS_EVERY_MILLIS
+            nextStatsAtMillis += statsEveryMillis
             record(
                 Events.STATS_SPOKEN,
                 mapOf("elapsed_s" to elapsedMillis / 1000, "stats_present" to statsPresent()),

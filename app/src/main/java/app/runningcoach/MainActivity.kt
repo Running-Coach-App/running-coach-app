@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var historyEmpty: View
     private lateinit var micToggle: Button
     private lateinit var dataToggle: Button
+    private lateinit var statsIntervalToggle: Button
     private lateinit var tabRun: Button
     private lateinit var tabHistory: Button
     private lateinit var tabProfile: Button
@@ -112,6 +113,7 @@ class MainActivity : AppCompatActivity() {
         historyEmpty = findViewById(R.id.historyEmpty)
         micToggle = findViewById(R.id.micToggle)
         dataToggle = findViewById(R.id.dataToggle)
+        statsIntervalToggle = findViewById(R.id.statsIntervalToggle)
         tabRun = findViewById(R.id.tabRun)
         tabHistory = findViewById(R.id.tabHistory)
         tabProfile = findViewById(R.id.tabProfile)
@@ -144,6 +146,15 @@ class MainActivity : AppCompatActivity() {
         tabProfile.setOnClickListener { showView(R.id.viewProfile) }
         findViewById<Button>(R.id.profileSave).setOnClickListener {
             history.displayName = findViewById<EditText>(R.id.profileName).text.toString().trim()
+        }
+        statsIntervalToggle.setOnClickListener {
+            val choices = SessionHistory.STATS_INTERVAL_CHOICES
+            val next = choices[(choices.indexOf(history.statsIntervalMinutes) + 1) % choices.size]
+            history.statsIntervalMinutes = next
+            showStatsInterval()
+            // Unlike the microphone and the usage data, this one is not sent to a running
+            // session. FR-002 keeps a session's cadence fixed for its duration, and the
+            // service reads the setting at the start of the next one.
         }
         dataToggle.setOnClickListener {
             history.telemetryEnabled = !history.telemetryEnabled
@@ -283,6 +294,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun bindProfile() {
         showData()
+        showStatsInterval()
         findViewById<EditText>(R.id.profileName).setText(history.displayName)
         val records = history.sessions()
         val metres = records.mapNotNull { it.distanceMeters }.sum()
@@ -295,6 +307,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun setSpeechRate(rate: Float) {
         history.speechRate = rate
+    }
+
+    private fun showStatsInterval() {
+        val minutes = history.statsIntervalMinutes
+        statsIntervalToggle.text = getString(R.string.stats_interval, minutes)
     }
 
     private fun showData() {
