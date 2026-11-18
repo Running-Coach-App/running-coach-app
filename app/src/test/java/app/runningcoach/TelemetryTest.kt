@@ -113,6 +113,21 @@ class TelemetryTest {
     }
 
     @Test
+    fun askingForEverythingRecordsOneTopicRatherThanClaimingItWasAboutTime() {
+        val recorder = Recorder()
+        val session = engineWith(recorder)
+        session.start(SessionKind.STEADY)
+        session.onTick(90_000, 500.0)
+        session.answer("what are my stats")
+
+        val asked = recorder.events.single { it.name == Events.QUESTION_ASKED }
+        assertEquals("all", asked.fields["topic"])
+        val answered = recorder.events.single { it.name == Events.QUESTION_ANSWERED }
+        assertEquals("all", answered.fields["topic"])
+        assertEquals(true, answered.fields["answered"])
+    }
+
+    @Test
     fun anOffTopicQuestionRecordsThatItWasNotAnswered() {
         val recorder = Recorder()
         val session = engineWith(recorder)

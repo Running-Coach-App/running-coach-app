@@ -339,7 +339,7 @@ Do not host the Android product on the university virtual machine; an installabl
 
 ## DEC-034
 
-Widen the spoken-question rules rather than add an on-device model, and generate the phrasings with a language model instead of hand-writing them.
+Widen the spoken-question rules rather than add an on-device model, and generate the phrasings with a language model at authoring time, rather than hand-writing them. No model runs in the product: what ships is the generated word list and the rule that matches it.
 
 - **Status:** Active
 - **Date:** 2026-11-14

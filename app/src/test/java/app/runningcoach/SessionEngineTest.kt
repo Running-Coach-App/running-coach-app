@@ -174,6 +174,87 @@ class SessionEngineTest {
     }
 
     @Test
+    fun aPaceQuestionIsAnsweredInManyWordingsIncludingTheBareWord() {
+        for (asked in listOf(
+            "What's my pace?", "pace", "Pace.", "what is my pace", "pace please",
+            "How fast am I going?", "what speed", "am I slow?", "what's my tempo",
+            "minutes per kilometre", "what are my splits",
+        )) {
+            val reply = runningSession().answer(asked)
+            assertTrue("\"$asked\" was not answered with a pace: $reply", reply.startsWith("Pace"))
+        }
+    }
+
+    @Test
+    fun askingForTheStatsAnswersTimePaceAndDistanceInOneLine() {
+        for (asked in listOf(
+            "What's my stats?", "stats", "what are my stats", "give me everything",
+            "all of it", "summary", "status update", "how's it going",
+            "how is the run going", "where am I at", "run report",
+        )) {
+            val reply = runningSession().answer(asked)
+            assertTrue("\"$asked\" did not answer the time: $reply", reply.contains("Time"))
+            assertTrue("\"$asked\" did not answer the pace: $reply", reply.contains("Pace"))
+            assertTrue("\"$asked\" did not answer the distance: $reply", reply.contains("Distance"))
+        }
+    }
+
+    @Test
+    fun aTimeQuestionAndADistanceQuestionEachKeepToWhatWasAsked() {
+        for (asked in listOf("what's my time", "how long", "elapsed", "how many minutes")) {
+            val reply = runningSession().answer(asked)
+            assertTrue("\"$asked\": $reply", reply.startsWith("Time"))
+            assertFalse("\"$asked\" also answered the distance: $reply", reply.contains("Distance"))
+        }
+        for (asked in listOf("how far", "distance", "how many kilometres", "how many km", "how much further")) {
+            val reply = runningSession().answer(asked)
+            assertTrue("\"$asked\": $reply", reply.startsWith("Distance"))
+            assertFalse("\"$asked\" also answered the time: $reply", reply.contains("Time"))
+        }
+    }
+
+    @Test
+    fun namingOneStatIsNotWidenedIntoAllThree() {
+        // "doing" used to mean every stat, so this question answered three things when it
+        // asked for one.
+        val reply = runningSession().answer("what speed am I doing")
+        assertTrue(reply.startsWith("Pace"))
+        assertFalse(reply.contains("Distance"))
+        assertEquals(
+            "Time 1 minute 30 seconds. Pace 3 minutes 0 seconds per kilometre. Distance 0.5 kilometres.",
+            runningSession().answer("How am I doing?"),
+        )
+    }
+
+    @Test
+    fun aWordInsideALongerWordIsNotAQuestionAboutTheRun() {
+        // "fast" is a pace word and "breakfast" is not, which is what matching whole words buys.
+        val reply = runningSession().answer("What did I have for breakfast?")
+        assertFalse("breakfast was answered with a pace: $reply", reply.contains("Pace"))
+        assertEquals(SessionEngine.OFF_TOPIC_THEMES.first().second, reply)
+    }
+
+    @Test
+    fun aHeartRateQuestionIsStillRefusedRatherThanAnsweredWithAPace() {
+        // "rate" is deliberately absent from the pace wordings: the product has no heart rate.
+        val reply = runningSession().answer("What is my heart rate?")
+        assertFalse("heart rate was answered with a pace: $reply", reply.contains("Pace"))
+    }
+
+    @Test
+    fun aQuestionAboutTheTimeSoFarIsNotAlsoAnsweredWithADistance() {
+        // Bare "far" is deliberately absent from the distance wordings.
+        assertEquals("Time 1 minute 30 seconds.", runningSession().answer("what's my time so far"))
+    }
+
+    private fun runningSession(): SessionEngine {
+        val session = SessionEngine()
+        session.start(SessionKind.STEADY)
+        session.onTick(90_000, 500.0)
+        return session
+    }
+
+    @Test
     fun howAmIDoingReturnsTimePaceAndDistance() {
         val session = SessionEngine()
         session.start(SessionKind.STEADY)

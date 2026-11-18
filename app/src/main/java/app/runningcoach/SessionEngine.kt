@@ -141,23 +141,29 @@ class SessionEngine(
         return 1 + (if (haveDistance && elapsedMillis > 0) 1 else 0) + (if (haveDistance) 1 else 0)
     }
 
+    /**
+     * The spoken answer to a question about this run. The wordings live in
+     * [QuestionVocabulary] as data, per `DEC-034`; a question naming one or two stats
+     * is answered with those, a question asking for everything is answered with all
+     * three, and anything else is turned back to the run by [offTopicReply].
+     */
     fun answer(question: String): String {
         if (!running) {
             return "There is no session."
         }
-        val text = question.lowercase()
-        if (text.contains("doing")) {
-            record(Events.QUESTION_ASKED, mapOf("topic" to QuestionTopic.TIME.wire))
-            record(Events.QUESTION_ANSWERED, mapOf("topic" to QuestionTopic.TIME.wire, "answered" to true))
+        val words = QuestionVocabulary.words(question)
+        if (QuestionVocabulary.matches(words, QuestionVocabulary.EVERYTHING)) {
+            record(Events.QUESTION_ASKED, mapOf("topic" to QuestionTopic.ALL.wire))
+            record(Events.QUESTION_ANSWERED, mapOf("topic" to QuestionTopic.ALL.wire, "answered" to true))
             return listOf(
                 speakTime(elapsedMillis),
                 speakPace(elapsedMillis, distanceMeters),
                 speakDistance(distanceMeters),
             ).joinToString(" ")
         }
-        val aboutTime = text.contains("time") || text.contains("long")
-        val aboutPace = text.contains("pace") || text.contains("fast")
-        val aboutDistance = text.contains("distance") || text.contains("far")
+        val aboutTime = QuestionVocabulary.matches(words, QuestionVocabulary.TIME)
+        val aboutPace = QuestionVocabulary.matches(words, QuestionVocabulary.PACE)
+        val aboutDistance = QuestionVocabulary.matches(words, QuestionVocabulary.DISTANCE)
         val topic = when {
             aboutTime -> QuestionTopic.TIME
             aboutPace -> QuestionTopic.PACE
@@ -167,7 +173,7 @@ class SessionEngine(
         record(Events.QUESTION_ASKED, mapOf("topic" to topic.wire))
         if (topic == QuestionTopic.OFF_TOPIC) {
             record(Events.QUESTION_ANSWERED, mapOf("topic" to topic.wire, "answered" to false))
-            return offTopicReply(text)
+            return offTopicReply(words)
         }
         record(Events.QUESTION_ANSWERED, mapOf("topic" to topic.wire, "answered" to true))
         val parts = mutableListOf<String>()
@@ -188,8 +194,7 @@ class SessionEngine(
      * coach recognises gets that theme's line; anything else gets the next of the
      * general replies, so asking twice does not get the same words twice.
      */
-    private fun offTopicReply(question: String): String {
-        val words = question.split(NOT_A_LETTER).filter { it.isNotEmpty() }
+    private fun offTopicReply(words: List<String>): String {
         val themed = OFF_TOPIC_THEMES.firstOrNull { (keywords, _) -> keywords.any { it in words } }
         if (themed != null) {
             return themed.second
@@ -257,7 +262,6 @@ class SessionEngine(
             return "${formatTenths(distanceMeters / 1000.0)} km"
         }
 
-        private val NOT_A_LETTER = Regex("[^a-z]+")
 
         /**
          * Said to an off-topic question the coach recognises a theme in. Each line turns the
