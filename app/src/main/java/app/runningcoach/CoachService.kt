@@ -401,7 +401,9 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
     }
 
     private fun startInForeground() {
-        val notice = notification()
+        // Keep the stats and the stop control on a session that is already running: every
+        // onStartCommand comes through here, and a plain notification would drop them.
+        val notice = if (engine.running) notification(engine.statsForDisplay()) else notification()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             startForeground(
                 NOTIFICATION_ID,
@@ -448,6 +450,21 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
         getSystemService(NotificationManager::class.java).notify(NOTIFICATION_ID, notice)
     }
 
+    /**
+     * The session notification.
+     *
+     * `MediaStyle`, carrying the media session's token, for two reasons that arrived in the
+     * same week. Google's `Audio_Notification_Style` requires it of an app that plays audio
+     * from the background, which this product does and did not satisfy. And `DEC-037`: the
+     * customer asked to see the run and stop it without unlocking the phone — "maybe
+     * on-screen control, without unlocking the phone, so you don't have to unlock it, you
+     * can just look at it and get the stats" — which is what a media-styled notification
+     * with a transport control gives him.
+     *
+     * The stats go in the content text, so they are what the lock screen shows, and the
+     * visibility is public so that the lock screen shows them rather than hiding them
+     * behind a placeholder. It stays ongoing, so `Audio_Playback_Background` still holds.
+     */
     private fun notification(lines: List<String>? = null): Notification {
         val open = PendingIntent.getActivity(
             this,
@@ -455,7 +472,19 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
             Intent(this, MainActivity::class.java),
             PendingIntent.FLAG_IMMUTABLE,
         )
-        return NotificationCompat.Builder(this, CHANNEL_ID)
+        // An explicit stop rather than a media button: the service already handles
+        // ACTION_STOP, and it is in the foreground, so this needs no manifest filter and no
+        // background start.
+        val stop = PendingIntent.getForegroundService(
+            this,
+            1,
+            Intent(this, CoachService::class.java).setAction(ACTION_STOP),
+            PendingIntent.FLAG_IMMUTABLE,
+        )
+        val style = androidx.media.app.NotificationCompat.MediaStyle()
+            .setShowCancelButton(false)
+        mediaSession?.sessionToken?.let { style.setMediaSession(it) }
+        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle(getString(R.string.notification_title))
             .setContentText(
                 if (lines == null) {
@@ -468,7 +497,12 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
             .setColor(ContextCompat.getColor(this, R.color.accent_default))
             .setContentIntent(open)
             .setOngoing(true)
-            .build()
+            .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+        if (lines != null) {
+            builder.addAction(R.drawable.ic_stop, getString(R.string.stop_session), stop)
+            style.setShowActionsInCompactView(0)
+        }
+        return builder.setStyle(style).build()
     }
 
     companion object {
