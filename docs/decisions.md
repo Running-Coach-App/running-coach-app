@@ -124,7 +124,7 @@ Answer off-topic questions with a polite focus-on-running reply.
 
 Keep a three-minute spoken stats cadence for the MUP.
 
-- **Status:** Active
+- **Status:** Superseded in part by [DEC-036](#dec-036), which made the cadence the runner's to set on 2026-11-14. Three minutes remains the default, so this decision still describes what the product does until a runner changes it.
 - **Date:** 2026-10-17
 - **Made by:** Customer
 - **Source:** [the Week 3 validation meeting](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-03/meeting-report.md#decisions)

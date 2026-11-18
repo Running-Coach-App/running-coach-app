@@ -174,6 +174,40 @@ class SessionEngineTest {
     }
 
     @Test
+    fun theDefaultCadenceIsStillEveryThreeMinutes() {
+        // DEC-013 fixed three minutes and FR-002 documents it. DEC-036 made the
+        // interval settable without changing what it is when nobody sets it.
+        val session = SessionEngine()
+        session.start(SessionKind.STEADY)
+        val spokenAt = (1..12).filter { minute ->
+            session.onTick(minute * 60_000L, 1000.0).any { it.startsWith("Time") }
+        }
+        assertEquals(listOf(3, 6, 9, 12), spokenAt)
+    }
+
+    @Test
+    fun aChangedIntervalChangesWhenTheStatsLineFallsDue() {
+        val session = SessionEngine()
+        session.statsEveryMillis = 2 * 60_000L
+        session.start(SessionKind.STEADY)
+        val spokenAt = (1..12).filter { minute ->
+            session.onTick(minute * 60_000L, 1000.0).any { it.startsWith("Time") }
+        }
+        assertEquals(listOf(2, 4, 6, 8, 10, 12), spokenAt)
+    }
+
+    @Test
+    fun theIntervalTakesEffectFromTheStartOfTheNextSessionRatherThanMidRun() {
+        val session = SessionEngine()
+        session.start(SessionKind.STEADY)
+        assertTrue(session.onTick(180_000, 1000.0).any { it.startsWith("Time") })
+        session.stop()
+        session.statsEveryMillis = 60_000L
+        session.start(SessionKind.STEADY)
+        assertTrue(session.onTick(60_000, 1000.0).any { it.startsWith("Time") })
+    }
+
+    @Test
     fun aPaceQuestionIsAnsweredInManyWordingsIncludingTheBareWord() {
         for (asked in listOf(
             "What's my pace?", "pace", "Pace.", "what is my pace", "pace please",
