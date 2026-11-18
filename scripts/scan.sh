@@ -266,11 +266,14 @@ else
 	pass "no file under app/src/main references a networking type (debug campus upload lives under app/src/debug)."
 fi
 
-# The APK is the artifact a runner installs, so check it too when one is built.
-apk="$(find "$ROOT/app/build/outputs/apk" -name '*.apk' -print 2>/dev/null | head -1)"
+# The release APK is the artifact a runner installs, so check it too when one is built.
+# A debug APK is deliberately not checked. DEC-031's campus upload lives in the debug
+# source set, so a debug build declares INTERNET on purpose; failing on it would make this
+# scan fail for anybody who had assembled one, which is what docs/setup.md tells them to do.
+apk="$(find "$ROOT/app/build/outputs/apk/release" -name '*.apk' -print 2>/dev/null | head -1)"
 if [ -z "$apk" ]; then
-	say "  (No built APK found, so the shipped manifest was not checked. Build one with"
-	say "   'gradle :app:assembleDebug' and run this again to include it.)"
+	say "  (No built release APK found, so the shipped manifest was not checked. Build one"
+	say "   with 'gradle :app:assembleRelease' and run this again to include it.)"
 else
 	aapt2="$(command -v aapt2 || true)"
 	if [ -z "$aapt2" ]; then
@@ -281,14 +284,14 @@ else
 		done
 	fi
 	if [ -z "$aapt2" ]; then
-		say "  (aapt2 not found, so the built APK's manifest was not checked.)"
+		say "  (aapt2 not found, so the built release APK's manifest was not checked.)"
 	else
 		apk_permissions="$("$aapt2" dump badging "$apk" 2>/dev/null | grep -oE -e "android\.permission\.($NETWORK_PERMISSIONS)" || true)"
 		if [ -n "$apk_permissions" ]; then
 			printf '        %s\n' $apk_permissions
-			fail "the built APK declares a network permission: $(basename "$apk")."
+			fail "the built release APK declares a network permission: $(basename "$apk")."
 		else
-			pass "the built APK declares no network permission ($(basename "$apk"))."
+			pass "the built release APK declares no network permission ($(basename "$apk"))."
 		fi
 	fi
 fi

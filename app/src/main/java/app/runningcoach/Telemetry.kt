@@ -36,6 +36,9 @@ enum class QuestionTopic(val wire: String) {
     TIME("time"),
     PACE("pace"),
     DISTANCE("distance"),
+
+    /** Every stat at once, which DEC-034 added a vocabulary for. */
+    ALL("all"),
     OFF_TOPIC("off_topic"),
 }
 
