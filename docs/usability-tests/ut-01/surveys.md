@@ -4,18 +4,23 @@ Every question a participant is asked in a `UT-01` session, in the order it is a
 
 Nothing here asks for a name, an email address, a phone number, an address, or anything else that identifies a person. The participant is known by their `P-nn` code, and only the identity mapping in the private usability-data repository joins the code to a person.
 
+## Eligibility, before the consent
+
+Asked at the welcome, before the consent form is handed over and before the recorder is started, so that a participant who cannot take part leaves with nothing signed and nothing recorded. [`recruitment.md`](recruitment.md) establishes the same thing before a code is assigned; this is the confirmation in the room, not a substitute for it.
+
+- **Are you 18 or older?** (Yes / No. A participant who answers No does not take part: nothing is signed, nothing is recorded, and nothing about them is kept.)
+
 ## Pre-test, before the tasks
 
 Asked once, at the start of the session, after the consent.
 
-1. **Are you 18 or older?** (Yes / No. A participant who answers No does not take part, and nothing about them is recorded.)
-2. How often do you run, jog, or walk briskly for exercise? (Less than once a month / once or twice a month / about once a week / more than once a week)
-3. Do you take a phone with you when you do? (Always / sometimes / never)
-4. Which apps, if any, have you used while exercising? (Open answer: the kind of app, not an account or a username.)
-5. Have you used an app that talks to you while you exercise? (Yes / No / Not sure. If yes: which kind, and what did you make of it?)
-6. Where do you usually keep your phone while exercising? (Pocket / armband or belt / hand / somewhere else / I do not take it)
-7. Do you usually wear headphones while exercising? (Yes, wired / yes, wireless / no)
-8. Before you have seen anything of it: what would you expect an app that coaches you out loud while you run to do for you?
+1. How often do you run, jog, or walk briskly for exercise? (Less than once a month / once or twice a month / about once a week / more than once a week)
+2. Do you take a phone with you when you do? (Always / sometimes / never)
+3. Which apps, if any, have you used while exercising? (Open answer: the kind of app, not an account or a username.)
+4. Have you used an app that talks to you while you exercise? (Yes / No / Not sure. If yes: which kind, and what did you make of it?)
+5. Where do you usually keep your phone while exercising? (Pocket / armband or belt / hand / somewhere else / I do not take it)
+6. Do you usually wear headphones while exercising? (Yes, wired / yes, wireless / no)
+7. Before you have seen anything of it: what would you expect an app that coaches you out loud while you run to do for you?
 
 ## SEQ, after each task
 
