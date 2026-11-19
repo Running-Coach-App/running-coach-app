@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Turning off `Usage data` no longer stops the app opening. The campus upload shim invoked the uploader with no receiver and threw on every debug launch; the crash handler happened to swallow it while usage data was on, and delegated to the system handler — killing the app — as soon as a runner turned it off. The shim now invokes the uploader correctly and can no longer take the app down, and whether a runner keeps usage data no longer decides whether a crash is fatal.
+
 ## [0.5.0](https://github.com/Running-Coach-App/running-coach-app/releases/tag/v0.5.0) - 2026-11-14
 
 ### Added
