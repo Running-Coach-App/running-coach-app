@@ -2,7 +2,7 @@
 
 **Reviewed:** 2026-11-19
 
-The configuration this project actually has, read from the repository rather than from memory of it. This is an inventory, not a change plan: it says what each item is, who keeps it true, what it connects to, and what breaks without it. Proposals for changing any of it live in the week's evaluation, [`reports/week-08/cm-evaluation.md`](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-08/cm-evaluation.md).
+The configuration this project actually has, read from the repository rather than from memory of it. This is an inventory, not a change plan: it says what each item is, who keeps it true, what it connects to, and what breaks without it. Proposals for changing any of it live in the week's evaluation, `reports/week-08/cm-evaluation.md`.
 
 Items are grouped by the job they do. A set of files is one item at its index or entry point. A private setting is named in words; no address, credential, or secret value appears here.
 
@@ -117,7 +117,7 @@ The campus deployment: the scripts under `deploy/`, the workflow that runs them,
   - **Deploys** the artifact `CFG-08` builds, on every push to `main` when the secrets are set.
   - **Serves** the collector that the debug build's upload targets, which [`DEC-031`](decisions.md#dec-031) permits.
   - **Failed** on 2026-11-19 on commit `d45aaeb` while `android.yml` passed on the same commit, which is recorded at [#260](https://github.com/Running-Coach-App/running-coach-app/issues/260).
-- **What good looks like:** The deployment runs from the commit that passed its checks rather than from a hand-edited machine, the runbook in [`docs/deployment.md`](deployment.md) matches what the scripts do, and no address or credential appears in a public file. The course rule is [Deployment Requirements](https://github.com/inno-itpd/itpd/blob/main/requirements/deployment-requirements.md).
+- **What good looks like:** The deployment runs from the commit that passed its checks rather than from a hand-edited machine, the runbook in [`docs/deployment.md`](deployment.md) matches what the scripts do, and no address or credential appears in a public file. The course rule is [Configuration Management Requirements](https://github.com/inno-itpd/itpd/blob/main/requirements/configuration-management-requirements.md).
 
 ## Dependencies and builds
 
@@ -163,11 +163,11 @@ The agent instruction set: the team's `AGENTS.md`, its per-tool routers, and the
 - **Type:** Documentation and configuration files
 - **Purpose:** It is what every coding agent reads before it touches this repository, and it is the only thing standing between the team's conventions and an agent that invents its own. Without it an agent commits with a tool's name in the message, pushes to `main`, or edits a submitted week's report.
 - **Owner:** sirjaey
-- **Where:** [`AGENTS.md`](https://github.com/Running-Coach-App/running-coach-app/blob/main/AGENTS.md) is the committed team artifact. [`CLAUDE.md`](https://github.com/Running-Coach-App/running-coach-app/blob/main/CLAUDE.md), [`GEMINI.md`](https://github.com/Running-Coach-App/running-coach-app/blob/main/GEMINI.md), and [`.github/copilot-instructions.md`](https://github.com/Running-Coach-App/running-coach-app/blob/main/.github/copilot-instructions.md) route their tools to it. `AGENTS.override.md` and `.cursor/rules/` are local-only and deliberately untracked, listed in the repository's local exclude file.
+- **Where:** [`AGENTS.md`](https://github.com/Running-Coach-App/running-coach-app/blob/main/AGENTS.md) is the **only committed file in this item**. `CLAUDE.md`, `GEMINI.md`, `.github/copilot-instructions.md`, `AGENTS.override.md`, and `.cursor/rules/` all exist on members' machines and **none of them is tracked**; they are listed in the repository's local exclude file. This was checked with `git ls-files` while writing this plan, not assumed.
 - **Connections:**
   - **Points at** this plan, [`CONTRIBUTING.md`](https://github.com/Running-Coach-App/running-coach-app/blob/main/CONTRIBUTING.md), and [`docs/definition-of-done.md`](definition-of-done.md).
-  - **Constrains** what reaches `CFG-01`: the no-agent-name rule is enforced by a local commit hook as well as by the instruction.
-  - **Is split** between a committed half and an untracked half, which means a new member or a new agent sees only part of the rules from a clean clone. This is the gap the evaluation examines.
+  - **Constrains** what reaches `CFG-01`: the no-agent-name rule is enforced by a local commit hook as well as by the instruction. The hook is also untracked, so it protects only the machines that already have it.
+  - **Reaches an agent only partly from a clean clone.** `AGENTS.md` is there, so a tool that looks for it finds the team's rules. The per-tool routers that tell Claude Code, Gemini CLI, and Copilot to read it are not, so those three start a fresh clone with no project instructions at all. Everything in `.cursor/rules/` — ten files including the no-agent-trailer rule and the branch rules — is in the same position.
 - **What good looks like:** An agent reading a clean checkout finds every rule it must follow, the routers agree with the file they route to, and no instruction contradicts another. The internal contradiction found on 2026-11-19 — two different Gradle versions named seven lines apart in `AGENTS.md` — is the kind of defect this item exists to prevent. The course rule is [Agent Instructions Requirements](https://github.com/inno-itpd/itpd/blob/main/requirements/agent-instructions-requirements.md).
 
 ### CFG-11

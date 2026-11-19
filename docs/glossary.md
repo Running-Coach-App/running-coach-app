@@ -206,7 +206,7 @@ The act of reading the configuration against the repository and judging it. It p
 
 The written judgement a review produces, organised by local goal rather than by item: what achieves each goal today, a more convenient way, why the goal is still achieved, and what the change gives up. It ends with the one change the team would make first.
 
-**Defined by:** [`reports/week-08/cm-evaluation.md`](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-08/cm-evaluation.md).
+**Defined by:** `reports/week-08/cm-evaluation.md`.
 
 ### Baseline
 
