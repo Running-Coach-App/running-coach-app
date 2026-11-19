@@ -39,6 +39,12 @@ Read the parts in quotation marks as they are written. Everything else is an ins
 >
 > This will take about forty minutes. Part of it is a short run — about five minutes, at whatever pace you like, and you can walk it if you prefer. You can stop at any point for any reason, and you do not have to tell me why."
 
+Then, before anything is handed over and before the recorder is on:
+
+> "One thing I have to confirm before we go any further: are you 18 or older?"
+
+**If they say no, the session ends here.** Nothing is signed, nothing is recorded, and nothing about them is kept. Thank them, and recruit a replacement under the next free code. [`recruitment.md`](../recruitment.md) asks the same thing before a code is assigned; this is the confirmation in the room, and it comes before the consent so that a "no" costs the person nothing.
+
 ### 2. Consent and the recording check
 
 Hand over [`consent.md`](../consent.md) printed. Let them read it; do not summarise it for them. Then:
@@ -55,7 +61,7 @@ Collect the signed form. **Start the recorder now**, and say the date and the `P
 
 ### 3. The pre-test
 
-Ask the eight pre-test questions from [`surveys.md`](../surveys.md#pre-test-before-the-tasks) in order. Question 1 is the 18-or-older check; if the answer is no, stop and record nothing.
+Ask the seven pre-test questions from [`surveys.md`](../surveys.md#pre-test-before-the-tasks) in order. The 18-or-older check is not among them: it was confirmed at the welcome, before anything was signed or recorded.
 
 Write the answers on the observation sheet. Do not comment on any answer.
 
