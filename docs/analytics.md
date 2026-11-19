@@ -2,7 +2,7 @@
 
 What the Running Coach App records about its own use, what that record is read for, and how each number is computed.
 
-The product runs entirely on the phone, and the build a runner installs from a release holds no network permission. [`DEC-028`](decisions.md#dec-028) keeps a runner's data on the device and prefers a file export over a server. Everything on this page is built that way: events are recorded on the phone, and a runner exports them as a file when they choose to. A release build sends nothing anywhere on its own.
+The product runs entirely on the phone. A release build holds no network permission at all, and the build published on the releases page is a **debug** build, which holds `INTERNET` and allows cleartext but has no collector address compiled into it, so it uploads nothing ([#248](https://github.com/Running-Coach-App/running-coach-app/issues/248)). [`DEC-028`](decisions.md#dec-028) keeps a runner's data on the device and prefers a file export over a server. Everything on this page is built that way: events are recorded on the phone, and a runner exports them as a file when they choose to. A release build sends nothing anywhere on its own.
 
 A debug build can. [`DEC-031`](decisions.md#dec-031) permits the team's own metrics to leave the device, and a debug APK built with a campus collector URL uploads new `events.jsonl` and `diagnostics.jsonl` lines to that collector when usage data is on — [`docs/deployment.md`](deployment.md) describes it. The `INTERNET` permission, the uploading code and the cleartext allowance are all in the debug source set, so a release APK cannot upload at all. No number on this page is computed from an upload: every metric here is computed from the phone's own file.
 

@@ -3,8 +3,10 @@
 **An Android app that talks to you while you run, so you can leave your phone in your pocket.**
 
 It speaks your time, your pace and your distance on a cadence you choose, tells you when to push
-and when to ease off, and answers a question you ask out loud. Everything stays on the phone: the
-app you install from a release holds no internet permission, so it has nowhere to send anything.
+and when to ease off, and answers a question you ask out loud. Your runs stay on the phone: there
+is no account, no server, and nothing to sign in to. [What the build on the releases page
+is](#what-the-build-on-the-releases-page-is) sets out exactly what it can and cannot do, rather
+than asking you to take that on trust.
 
 ## What you get if you install it
 
@@ -48,6 +50,36 @@ Being plain about this is quicker than letting you find out:
    - **Notifications**, so the session can keep running with the screen off and show you where you
      are without unlocking.
 
+### What the build on the releases page is
+
+It is a **debug** build, and being straight about that is worth more to you than a reassuring
+sentence:
+
+- **It carries the `INTERNET` permission and allows cleartext traffic.** The debug source set adds
+  both, for the campus-collector upload that [`DEC-031`](docs/decisions.md#dec-031) permits on the
+  team's own test phones.
+- **It has nowhere to send anything.** The collector address is read at build time from
+  `local.properties`, which is not in this repository and not on the machine that builds the
+  published file, so no `http` or `https` address of any kind is compiled into it.
+- **It is debuggable.** Anybody who can plug your phone into a computer can read the app's files,
+  including your runs, without unlocking anything further. That is a wider exposure than the
+  permission, and it is the reason to prefer a build you made yourself if you care.
+
+You do not have to take our word for any of it. On the file you downloaded:
+
+```sh
+aapt2 dump permissions running-coach-app-v0.5.0-debug.apk
+unzip -p running-coach-app-v0.5.0-debug.apk 'classes*.dex' | strings | grep -E 'https?://'
+```
+
+The first prints what the app may do. The second prints nothing at all.
+
+The build that carries no network permission is the *release* build, which is what
+[`QR-08`](docs/quality-requirements/qr/QR-08.md) and `./scripts/scan.sh` describe. This project does
+not publish one yet;
+[#248](https://github.com/Running-Coach-App/running-coach-app/issues/248) is where that is being
+settled.
+
 If you would rather build it yourself than install a release, [docs/setup.md](docs/setup.md) is the
 whole process from a clean checkout.
 
@@ -78,7 +110,10 @@ It needs `bash`, `curl`, and `python3`, and no Android toolchain. It reports whe
 declares any permission that would let it reach the network, whether any of its code
 references a networking type, whether any dependency it ships has a known vulnerability, and
 whether anything resembling a credential has been committed. It exits non-zero if any of
-those checks fails, and it runs on every pull request.
+those checks fails, and it runs on every pull request. What it inspects is this source tree and the
+release build it would produce, **not** the debug build on the releases page, which the section
+above describes and [#248](https://github.com/Running-Coach-App/running-coach-app/issues/248)
+is about.
 
 The requirement behind it is [`QR-08`](docs/quality-requirements/qr/QR-08.md), and the
 research behind what it checks is [`docs/research/play-store-quality.md`](docs/research/play-store-quality.md).
