@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- A separate usability-test build that tags local session records with a facilitator-entered participant code, so research sessions can be exported and filtered without identifying runners in the regular app.
+
 ### Fixed
 
 - Turning off `Usage data` no longer stops the app opening. The campus upload shim invoked the uploader with no receiver and threw on every debug launch; the crash handler happened to swallow it while usage data was on, and delegated to the system handler — killing the app — as soon as a runner turned it off. The shim now invokes the uploader correctly and can no longer take the app down, and whether a runner keeps usage data no longer decides whether a crash is fatal.

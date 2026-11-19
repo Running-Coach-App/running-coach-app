@@ -12,6 +12,8 @@ import android.animation.PropertyValuesHolder
 import android.animation.ValueAnimator
 import android.os.Build
 import android.os.Bundle
+import android.text.InputFilter
+import android.text.InputType
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -22,8 +24,10 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
     private lateinit var sessionStatus: TextView
@@ -118,8 +122,6 @@ class MainActivity : AppCompatActivity() {
         tabHistory = findViewById(R.id.tabHistory)
         tabProfile = findViewById(R.id.tabProfile)
 
-        askForPermissions()
-        refreshLocationWarning()
         findViewById<Button>(R.id.historyStart).setOnClickListener { showView(R.id.viewRun) }
 
         findViewById<Button>(R.id.startInterval).setOnClickListener {
@@ -190,6 +192,12 @@ class MainActivity : AppCompatActivity() {
             },
         )
         showView(R.id.viewRun)
+        if (BuildConfig.USABILITY_BUILD) {
+            promptForParticipantCode()
+        } else {
+            askForPermissions()
+            refreshLocationWarning()
+        }
     }
 
     override fun onStart() {
@@ -456,5 +464,38 @@ class MainActivity : AppCompatActivity() {
     private fun send(action: String) {
         val intent = Intent(this, CoachService::class.java).setAction(action)
         ContextCompat.startForegroundService(this, intent)
+    }
+
+    private fun promptForParticipantCode() {
+        val input = EditText(this).apply {
+            hint = getString(R.string.usability_code_hint)
+            inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS
+            filters = arrayOf(InputFilter.LengthFilter(12))
+            setText(history.participantCode)
+            contentDescription = getString(R.string.usability_code_hint)
+        }
+        val dialog = AlertDialog.Builder(this)
+            .setTitle(R.string.usability_code_title)
+            .setMessage(R.string.usability_code_instructions)
+            .setView(input)
+            .setCancelable(false)
+            .setPositiveButton(R.string.usability_code_continue, null)
+            .create()
+        dialog.setOnShowListener {
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+                val code = input.text.toString().trim().uppercase(Locale.US)
+                if (ParticipantCodeSink.isValidCode(code)) {
+                    history.participantCode = code
+                    dialog.dismiss()
+                } else {
+                    input.error = getString(R.string.usability_code_invalid)
+                }
+            }
+        }
+        dialog.setOnDismissListener {
+            askForPermissions()
+            refreshLocationWarning()
+        }
+        dialog.show()
     }
 }

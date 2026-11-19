@@ -78,6 +78,65 @@ class TelemetryTest {
     }
 
     @Test
+    fun usabilitySessionEventsCarryTheFacilitatorCodeAndUseTheUsabilitySource() {
+        val recorder = Recorder()
+        val session = SessionEngine(
+            sink = ParticipantCodeSink(recorder) { "P-07" },
+            clock = { 1_000L },
+        ).apply { source = sessionSource(usabilityBuild = true) }
+
+        session.start(SessionKind.STEADY)
+        session.onTick(180_000, 100.0)
+        session.stop()
+        session.recordSummarySpoken()
+
+        assertTrue(recorder.events.isNotEmpty())
+        recorder.events.forEach {
+            assertEquals(Source.USABILITY_TEST, it.source)
+            assertEquals("P-07", it.fields[ParticipantCodeSink.PARTICIPANT_CODE_FIELD])
+        }
+    }
+
+    @Test
+    fun exportedUsabilityEventsCanBeFilteredByParticipantCode() {
+        val directory = temporaryFolder.newFolder("usability-telemetry")
+        val sink = ParticipantCodeSink(FileTelemetrySink(directory)) { "P-03" }
+        val session = SessionEngine(
+            sink = sink,
+            clock = { 1_000L },
+        ).apply { source = sessionSource(usabilityBuild = true) }
+
+        session.start(SessionKind.STEADY)
+        session.onTick(180_000, 100.0)
+        session.stop()
+        session.recordSummarySpoken()
+
+        val records = java.io.File(directory, FileTelemetrySink.EVENTS_FILE).readLines()
+        assertTrue(records.isNotEmpty())
+        assertTrue(records.all { it.contains("\"source\":\"usability-test\"") })
+        assertTrue(records.all { it.contains("\"participant_code\":\"P-03\"") })
+    }
+
+    @Test
+    fun ordinarySessionsNeverCarryAParticipantCodeEvenIfOneIsPresentInInputFields() {
+        val recorder = Recorder()
+        val sink = ParticipantCodeSink(recorder) { "P-07" }
+
+        sink.event("session_started", 1_000, "s-1", sessionSource(usabilityBuild = false), mapOf("participant_code" to "P-08"))
+
+        assertEquals(Source.APP, recorder.events.single().source)
+        assertFalse(recorder.events.single().fields.containsKey(ParticipantCodeSink.PARTICIPANT_CODE_FIELD))
+    }
+
+    @Test
+    fun participantCodesMustUseTheAssignedCodeFormat() {
+        assertTrue(ParticipantCodeSink.isValidCode("P-01"))
+        assertTrue(ParticipantCodeSink.isValidCode("p-123"))
+        assertFalse(ParticipantCodeSink.isValidCode("P-1"))
+        assertFalse(ParticipantCodeSink.isValidCode("runner@example.com"))
+    }
+
+    @Test
     fun eachSessionGetsItsOwnIdentifier() {
         val recorder = Recorder()
         val session = engineWith(recorder)

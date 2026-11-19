@@ -26,6 +26,7 @@ android {
         versionName = "0.5.0"
         buildConfigField("String", "COLLECTOR_URL", "\"$collectorUrl\"")
         buildConfigField("String", "DOWNLOAD_URL", "\"$downloadUrl\"")
+        buildConfigField("boolean", "USABILITY_BUILD", "false")
     }
 
     buildFeatures {
@@ -35,6 +36,14 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
+        }
+        create("usabilityTest") {
+            initWith(getByName("debug"))
+            applicationIdSuffix = ".usability"
+            versionNameSuffix = "-usability"
+            isDebuggable = true
+            buildConfigField("boolean", "USABILITY_BUILD", "true")
+            buildConfigField("String", "COLLECTOR_URL", "\"\"")
         }
     }
 

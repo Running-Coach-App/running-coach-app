@@ -95,6 +95,13 @@ class SessionHistory(context: Context) {
             prefs.edit().putFloat(KEY_RATE, value).apply()
         }
 
+    /** Participant code is used only by the isolated usability-test build. */
+    var participantCode: String
+        get() = prefs.getString(KEY_PARTICIPANT_CODE, "") ?: ""
+        set(value) {
+            prefs.edit().putString(KEY_PARTICIPANT_CODE, value).apply()
+        }
+
     companion object {
         private const val FILE = "coach"
         private const val KEY_SESSIONS = "sessions"
@@ -103,6 +110,7 @@ class SessionHistory(context: Context) {
         private const val KEY_MIC = "mic_enabled"
         private const val KEY_TELEMETRY = "telemetry_enabled"
         private const val KEY_STATS_INTERVAL = "stats_interval_minutes"
+        private const val KEY_PARTICIPANT_CODE = "usability_participant_code"
 
         /** What DEC-013 fixed and FR-002 documents, so changing nothing keeps it. */
         const val DEFAULT_STATS_INTERVAL_MINUTES = 3
