@@ -128,7 +128,6 @@ Plus the two Dependabot bumps, [#246](https://github.com/Running-Coach-App/runni
 3. **[`QR-07 QRT-01`](../../docs/quality-requirements/qr/QR-07.md#qrt-01) did not run**, having already moved from `SPRINT-07` to `SPRINT-08`. It needs a session on a physical phone with `adb shell dumpsys location` read before, during, and after. A phone was attached this sprint and was spent on [#212](https://github.com/Running-Coach-App/running-coach-app/issues/212) and the crash in [#253](https://github.com/Running-Coach-App/running-coach-app/issues/253) instead. It moves to `SPRINT-09`.
 4. **No usability fix lands in `REL-08`**, because no finding exists to fix. The release carries the product fixes the sprint found by other means, which is not the same thing and is not presented as such.
 5. **The five device findings are issues, not `UT-01` findings.** They are not written as `### Finding n` in `results.md`, because they came from the team's own testing rather than from a participant, and numbering them there would claim a test that did not happen.
-6. **`SPRINT-08` carries no `**Planned Velocity:**`.** This is the third sprint in which the planned figure was not a forecast, and it is also a carried retrospective action that is `Not done` — recorded in [the retrospective](sprint-retrospective.md#carried-actions) rather than only here.
 
 ## Privacy
 
