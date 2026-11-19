@@ -14,7 +14,7 @@ A new maintained artifact goes under `docs/`. A new week's evidence goes under `
 
 ## Checks
 
-Run these from the repository root before you push. Gradle 8.11.1 and JDK 17 are prerequisites; `docs/setup.md` has the full setup.
+Run these from the repository root before you push. JDK 17 and Gradle at the version in `gradle/wrapper/gradle-wrapper.properties` are prerequisites; `docs/setup.md` has the full setup.
 
 - `gradle :app:testDebugUnitTest` runs the unit tests. It needs no phone or emulator.
 - `gradle :app:assembleDebug` builds the debug APK.

@@ -6,7 +6,7 @@ A clean checkout of this repository builds the pocket coach: start a session, he
 
 - JDK 17.
 - Android SDK 35, from Android Studio or the command-line tools.
-- Gradle 8.11.1. The version is the one in [`gradle/wrapper/gradle-wrapper.properties`](https://github.com/Running-Coach-App/running-coach-app/blob/main/gradle/wrapper/gradle-wrapper.properties). The wrapper jar is not in the repository, so use a local Gradle of that version.
+- Gradle, at the version named in [`gradle/wrapper/gradle-wrapper.properties`](https://github.com/Running-Coach-App/running-coach-app/blob/main/gradle/wrapper/gradle-wrapper.properties) — **9.9.1** at the time of writing. That file is the one to trust: Dependabot bumps it, and the continuous integration build resolves its Gradle from it, so a number repeated here would go stale without anybody noticing. The wrapper jar is not in the repository, so use a local Gradle of that version.
 - A phone or emulator on API 26 or newer, with an English text-to-speech voice. The app's `minSdk` is 26 and `compileSdk` is 35.
 
 ## Install
@@ -32,7 +32,7 @@ Use the SDK path on your machine. Android Studio writes this file when you open 
 
 ## Run
 
-From the repository root, with Gradle 8.11.1 on your PATH:
+From the repository root, with that Gradle on your PATH:
 
 ```text
 gradle :app:assembleDebug
