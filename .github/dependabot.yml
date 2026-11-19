@@ -11,9 +11,20 @@ updates:
   #
   # Dependency locking is on, so a bump here also needs app/gradle.lockfile
   # regenerated on the same branch with 'gradle :app:dependencies --write-locks'.
-  # Dependabot does not do that, so its pull requests fail the Android build
-  # until someone pushes the new lockfile. See CONTRIBUTING.md.
+  # Dependabot does this itself when it can resolve the new versions: #247
+  # carried the wrapper and 155 lines of lockfile in one commit of its own.
+  # When resolution fails it cannot, and the pull request arrives without a
+  # lockfile and fails the Android build until somebody supplies one — #196 is
+  # that case. See CONTRIBUTING.md.
   - package-ecosystem: gradle
     directory: /
     schedule:
       interval: weekly
+    ignore:
+      # Gradle 9.9.1 failed intermittently while configuring the root project,
+      # unable to find the Kotlin its own distribution embeds. Reverted in #261;
+      # the evidence is on #260. This holds that one version only, so a later
+      # 9.9.x or 10.x is still offered and judged on its own.
+      - dependency-name: gradle-wrapper
+        versions:
+          - "9.9.1"
