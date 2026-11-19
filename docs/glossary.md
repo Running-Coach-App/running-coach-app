@@ -173,3 +173,73 @@ The System Usability Scale: ten standard items in a standard order, each answere
 The Single Ease Question: one standard question asked immediately after each task — "Overall, how difficult or easy was the task to complete?" — on a seven-point scale where 1 is very difficult and 7 is very easy, so a higher answer means an easier task. One SEQ per task, not one per session.
 
 **Defined by:** [`surveys.md`](usability-tests/ut-01/surveys.md#seq-after-each-task).
+
+## Configuration
+
+### Configuration
+
+Everything that decides how this project is built, checked, released, and deployed, and that is not the product's own source code: the workflows, the pins, the repository settings, the deployment scripts, and the instructions an agent reads. The product is what the configuration produces.
+
+**Defined by:** [`docs/configuration-plan.md`](configuration-plan.md).
+
+### Configuration management
+
+Keeping that set known and deliberate: knowing what each item is, who keeps it true, what it connects to, and what breaks without it. It is not the same as changing it — an inventory that matches the repository is the whole job most weeks.
+
+### Configuration item
+
+One thing in the configuration, recorded as `CFG-nn` with its status, type, purpose, owner, location, connections, and what good looks like. A set of files is one item at its index or entry point, so the nine workflow files are one item rather than nine.
+
+**Defined by:** [`docs/configuration-plan.md`](configuration-plan.md).
+
+### Configuration plan
+
+The maintained inventory of the configuration items, carrying its own `**Reviewed:**` date, and updated in the same pull request as any change that alters what it records. It documents the configuration as it is; a plan that describes an older repository is a defect, not merely out of date.
+
+**Defined by:** [`docs/configuration-plan.md`](configuration-plan.md).
+
+### Configuration review
+
+The act of reading the configuration against the repository and judging it. It produces the evaluation; it is not itself a document.
+
+### Configuration evaluation
+
+The written judgement a review produces, organised by local goal rather than by item: what achieves each goal today, a more convenient way, why the goal is still achieved, and what the change gives up. It ends with the one change the team would make first.
+
+**Defined by:** [`reports/week-08/cm-evaluation.md`](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-08/cm-evaluation.md).
+
+### Baseline
+
+The exact commit or tag a judgement was made against, named so the judgement can be repeated or disputed. Without one, a review describes a repository that no longer exists and nobody can tell which.
+
+### Upkeep
+
+Work that keeps an existing artifact true rather than adding anything: correcting a version a document names, bringing a branch up to date, recording a decision already taken. A task issue for upkeep says `None: repository upkeep` in its requirements, because it serves no functional requirement.
+
+### Reproducible build
+
+A build that produces the same artifact from the same source on a different machine and on a later day, because every input that could vary is pinned. This project pins the Gradle version and locks the dependency versions; it does not yet pin the published artifact's identity, which is why the release carries a debug build.
+
+**Defined by:** [`CFG-08`](configuration-plan.md#cfg-08).
+
+### Dependency pinning
+
+Recording the exact version of every dependency rather than a range, so that resolving them again gives the same answer. Here it is the lockfile, and the pin and the tool version move together in one change: reverting one without the other leaves the two disagreeing.
+
+**Defined by:** [`CFG-08`](configuration-plan.md#cfg-08).
+
+### Secret
+
+A value that grants access and must never enter version control: a deployment key, a signing credential, a collector address on a private network. A secret is named in words in public documents and lives in the repository's secret settings or in an untracked file.
+
+**Defined by:** [`CFG-06`](configuration-plan.md#cfg-06) and [`CFG-07`](configuration-plan.md#cfg-07).
+
+### Context window
+
+The amount of text a coding agent can hold at once. It matters to configuration because it is finite: an agent cannot read the whole repository, so what it is pointed at first decides what it knows, and an instruction split across a committed file and an untracked one may reach it only in part.
+
+### Agent instruction
+
+A file written for a coding agent rather than a person, telling it this repository's conventions before it edits anything. Here the committed one is [`AGENTS.md`](https://github.com/Running-Coach-App/running-coach-app/blob/main/AGENTS.md), with per-tool files routing to it.
+
+**Defined by:** [`CFG-10`](configuration-plan.md#cfg-10).

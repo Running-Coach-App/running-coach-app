@@ -5,7 +5,7 @@ Running Coach App, team 4. This file says how this repository works. The course 
 ## Layout
 
 - `app/` is the product, an Android application in Kotlin. `app/src/main/java/app/runningcoach/SessionEngine.kt` decides what the coach says and when and holds no Android types; `CoachService.kt` runs the session and talks to the platform; `MainActivity.kt` is the screen. Unit tests live in `app/src/test/java/app/runningcoach/`.
-- `docs/` holds the maintained artifacts, each kept current for the rest of the course: the vision, the plan, the risks, the threshold of success, the decisions, the assumptions, the glossary, the research, `docs/architecture/` with its records under `adr/`, `docs/functional-requirements/` with its records under `fr/`, and `docs/quality-requirements/` with its records under `qr/`.
+- `docs/` holds the maintained artifacts, each kept current for the rest of the course: the vision, the plan, the risks, the threshold of success, the decisions, the assumptions, the glossary, [`docs/configuration-plan.md`](docs/configuration-plan.md) — the inventory of the workflows, pins, settings, and scripts this repository is built and released by, which is updated in the same pull request as any change that alters what it records — the research, `docs/architecture/` with its records under `adr/`, `docs/functional-requirements/` with its records under `fr/`, and `docs/quality-requirements/` with its records under `qr/`.
 - `reports/week-NN/` holds one week's evidence. A new week gets a new directory; an earlier week's report is the record of that week.
 - `.github/` holds the workflows, the issue forms, and the pull request template.
 - `.claude/skills/itpd` is the course materials, as a git submodule. Read from it; never commit inside it.

@@ -20,6 +20,7 @@ nav:
       - Play Store quality: research/play-store-quality.md
   - Plan:
       - Project plan: project-plan.md
+      - Configuration plan: configuration-plan.md
       - Risks: risks.md
       - Threshold of success: threshold-of-success.md
       - Definition of done: definition-of-done.md
