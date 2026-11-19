@@ -10,9 +10,15 @@ object TelemetryUpload {
         }
         try {
             val target = Class.forName("app.runningcoach.CampusTelemetryUpload")
-            target.getDeclaredMethod("runOnce", Context::class.java).invoke(null, context)
-        } catch (_: ReflectiveOperationException) {
-            // Debug source not on the classpath.
+            // CampusTelemetryUpload is a Kotlin object, so runOnce belongs to its
+            // singleton. Invoking it with a null receiver throws NullPointerException,
+            // which is not a ReflectiveOperationException and so escaped this block.
+            val singleton = target.getField("INSTANCE").get(null)
+            target.getDeclaredMethod("runOnce", Context::class.java).invoke(singleton, context)
+        } catch (_: Throwable) {
+            // Debug source not on the classpath, or the upload failed. Either way this
+            // is an optional extra for the team's own phones: it must never be the
+            // reason a runner's app stops.
         }
     }
 }
