@@ -62,6 +62,43 @@ class TelemetryTest {
     }
 
     @Test
+    fun aWholeCoreTaskCanBeReadFromTheLocalExportWithoutPersonalData() {
+        val directory = temporaryFolder.newFolder("complete-session-export")
+        var tick = 0L
+        val session = SessionEngine(
+            sink = FileTelemetrySink(directory),
+            clock = { tick += 1_000; tick },
+            newSessionId = { "session-test-1" },
+        )
+        session.start(SessionKind.INTERVAL)
+        session.onTick(1_000, null)
+        session.onTick(180_000, 400.0)
+        session.answer("how far have I gone")
+        session.stop()
+        session.recordSummarySpoken()
+
+        val records = java.io.File(directory, FileTelemetrySink.EVENTS_FILE).readLines()
+        assertEquals(
+            listOf(
+                Events.SESSION_STARTED,
+                Events.EFFORT_CUE_SPOKEN,
+                Events.STATS_SPOKEN,
+                Events.QUESTION_ASKED,
+                Events.QUESTION_ANSWERED,
+                Events.SESSION_STOPPED,
+                Events.SESSION_SUMMARY_SPOKEN,
+            ),
+            records.map { Regex("\"event\":\"([^\"]+)\"").find(it)?.groupValues?.get(1) },
+        )
+        records.forEach { record ->
+            assertTrue(record.contains("\"session_id\":\"session-test-1\""))
+            assertTrue(record.contains("\"source\":\"app\""))
+            assertFalse(record.contains("how far have I gone"))
+            assertFalse(record.contains("participant_code"))
+        }
+    }
+
+    @Test
     fun everyRecordCarriesTheSessionTheSourceAndTheMomentItHappened() {
         val recorder = Recorder()
         val session = engineWith(recorder)
