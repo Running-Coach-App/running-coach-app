@@ -34,9 +34,7 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
     private val participantTelemetry = ParticipantCodeSink(telemetry) { history.participantCode }
     private val fileSink by lazy { FileTelemetrySink(filesDir) }
     private val engine = SessionEngine(sink = participantTelemetry, clock = { System.currentTimeMillis() })
-    private var fixLost = false
-    private var fixLostAt = 0L
-    private var lastFixAt = 0L
+    private val fix = FixTracker()
     private val handler = Handler(Looper.getMainLooper())
     private var tts: TextToSpeech? = null
     private var ttsReady = false
@@ -135,21 +133,15 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
             distanceMeters += previous.distanceTo(location)
         }
         lastLocation = location
-        lastFixAt = System.currentTimeMillis()
-        if (fixLost) {
-            fixLost = false
-            recordEvent(Events.LOCATION_FIX_REGAINED, mapOf("lost_s" to (System.currentTimeMillis() - fixLostAt) / 1000))
+        val lostSeconds = fix.onFix(System.currentTimeMillis())
+        if (lostSeconds != null) {
+            recordEvent(Events.LOCATION_FIX_REGAINED, mapOf("lost_s" to lostSeconds))
         }
     }
 
     /** A fix that has gone quiet for longer than the grace period is a lost fix (QR-04). */
     private fun noteFixStaleness() {
-        if (lastFixAt == 0L || fixLost) {
-            return
-        }
-        if (System.currentTimeMillis() - lastFixAt > FIX_STALE_AFTER_MILLIS) {
-            fixLost = true
-            fixLostAt = lastFixAt
+        if (fix.noteStaleness(System.currentTimeMillis())) {
             recordEvent(Events.LOCATION_FIX_LOST, emptyMap())
         }
     }
@@ -160,6 +152,13 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
 
     override fun onDestroy() {
         handler.removeCallbacks(tick)
+        if (engine.running) {
+            // The service is going away under a running session, which is the
+            // product ending it rather than the runner. Recording it as a system
+            // stop is what the enum in docs/analytics.md is for; before #252 the
+            // session simply ended with no session_stopped at all.
+            engine.stop(StopReason.SYSTEM)
+        }
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             getSystemService(LocationManager::class.java).removeUpdates(this)
         }
@@ -182,6 +181,7 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
         distanceMeters = 0.0
         lastLocation = null
         startedAt = System.currentTimeMillis()
+        fix.startSession(startedAt)
         tts?.setSpeechRate(history.speechRate)
         spokenVisible = ""
         speak(engine.start(kind))
@@ -546,7 +546,6 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
         private const val CHANNEL_ID = "coach"
         private const val NOTIFICATION_ID = 1
         private const val TICK_MILLIS = 1_000L
-        private const val FIX_STALE_AFTER_MILLIS = 15_000L
         private const val WORD_MILLIS = 170L
         private val WORD_BREAK = Regex("\\s+")
     }

@@ -80,14 +80,19 @@ class SessionEngine(
         return "Session started."
     }
 
-    fun stop(): String {
+    /**
+     * Ends the session and records it. The reason defaults to the runner, who
+     * ends a session from the screen, a headset control or by asking; the service
+     * passes SYSTEM when the product is ending a session the runner did not stop.
+     */
+    fun stop(reason: StopReason = StopReason.RUNNER): String {
         running = false
         record(
             Events.SESSION_STOPPED,
             mapOf(
                 "duration_s" to elapsedMillis / 1000,
                 "distance_m" to (distanceMeters ?: 0.0).toInt(),
-                "reason" to "runner",
+                "reason" to reason.wire,
             ),
         )
         return "Session stopped."

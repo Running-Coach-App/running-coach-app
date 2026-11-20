@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- The record a session keeps of itself no longer holds values that cannot be true. A session's location-fix tracking carried over from the previous session, so every session after the first recorded a lost fix within milliseconds of starting and then reported more seconds without a fix than the session itself lasted: on one phone a 28-second session claimed 120, which made fix availability read −32.6%. Tracking now starts with the session, so a lost-fix interval always fits inside the session that reports it. A session the product ends is also recorded as such rather than as the runner stopping it, which is the `system` value the analytics document has always described and the product could never produce.
 - Turning off `Usage data` no longer stops the app opening. The campus upload shim invoked the uploader with no receiver and threw on every debug launch; the crash handler happened to swallow it while usage data was on, and delegated to the system handler — killing the app — as soon as a runner turned it off. The shim now invokes the uploader correctly and can no longer take the app down, and whether a runner keeps usage data no longer decides whether a crash is fatal.
 
 ## [0.5.0](https://github.com/Running-Coach-App/running-coach-app/releases/tag/v0.5.0) - 2026-11-14

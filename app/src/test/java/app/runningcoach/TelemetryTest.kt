@@ -250,6 +250,23 @@ class TelemetryTest {
     }
 
     @Test
+    fun aSessionTheProductEndsIsToldApartFromOneTheRunnerEnds() {
+        val recorder = Recorder()
+        val session = engineWith(recorder)
+        session.start(SessionKind.STEADY)
+        session.onTick(65_000, 250.0)
+        session.stop(StopReason.SYSTEM)
+
+        val stopped = recorder.events.single { it.name == Events.SESSION_STOPPED }
+        assertEquals("system", stopped.fields["reason"])
+        assertEquals(
+            "the enum docs/analytics.md documents is the one the product emits",
+            setOf("runner", "system"),
+            StopReason.values().map { it.wire }.toSet(),
+        )
+    }
+
+    @Test
     fun anEventIsOneLineOfJsonWithItsHeadFieldsFirst() {
         val json = Json.event("session_started", 1_700, "s-1", Source.APP, mapOf("kind" to "interval"))
         assertEquals(

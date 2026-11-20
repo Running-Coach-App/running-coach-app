@@ -31,6 +31,16 @@ enum class LineOutcome(val wire: String) {
     DROPPED_UNAVAILABLE("dropped_unavailable"),
 }
 
+/**
+ * Who ended the session, which `session_stopped.reason` carries. SYSTEM is the
+ * product ending a session the runner did not stop, which until #252 the record
+ * could not express: every stop said `runner`.
+ */
+enum class StopReason(val wire: String) {
+    RUNNER("runner"),
+    SYSTEM("system"),
+}
+
 /** What a spoken question was about. Never the words the runner used. */
 enum class QuestionTopic(val wire: String) {
     TIME("time"),
