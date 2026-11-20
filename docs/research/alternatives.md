@@ -67,7 +67,7 @@ Garmin Coach (Run Coach and Expert Running Plans)
 
 - **Status:** Active
 - **Kind:** direct competitor, bound to Garmin hardware.
-- **Link:** <https://support.garmin.com/en-US/?faq=IkvWNeIoSd48GIYCjkhlo7>
+- **Link:** [Garmin Coach FAQ](https://support.garmin.com/en-US/?faq=IkvWNeIoSd48GIYCjkhlo7) ([archived 2026-08-31; read 2026-09-29](https://web.archive.org/web/20260831043348/https://support.garmin.com/en-US/?faq=IkvWNeIoSd48GIYCjkhlo7))
 - **Version looked at:** Garmin support FAQs at the content versions shown on 2026-09-29 (Garmin Coach FAQ v122.0, missed workouts FAQ v63.0, load FAQ v72.0), and the Garmin blog post of 28 April 2025.
 - **Depth of evaluation:** read the official support FAQs, the product blog, and the Connect+ pricing FAQ. Did not use a Garmin device in this pass.
 - **Problem it solves:** gives a Garmin watch owner a free adaptive plan that changes daily from the watch's own performance and health measurements.
