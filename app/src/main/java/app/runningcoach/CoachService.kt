@@ -31,8 +31,9 @@ import java.util.Locale
 
 class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
     private val telemetry = DeferredSink()
+    private val participantTelemetry = ParticipantCodeSink(telemetry) { history.participantCode }
     private val fileSink by lazy { FileTelemetrySink(filesDir) }
-    private val engine = SessionEngine(sink = telemetry, clock = { System.currentTimeMillis() })
+    private val engine = SessionEngine(sink = participantTelemetry, clock = { System.currentTimeMillis() })
     private var fixLost = false
     private var fixLostAt = 0L
     private var lastFixAt = 0L
@@ -154,7 +155,7 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
     }
 
     private fun recordEvent(name: String, fields: Map<String, Any?>) {
-        telemetry.event(name, System.currentTimeMillis(), engine.sessionId, engine.source, fields)
+        participantTelemetry.event(name, System.currentTimeMillis(), engine.sessionId, engine.source, fields)
     }
 
     override fun onDestroy() {
@@ -172,6 +173,10 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
         if (engine.running) {
             return
         }
+        if (BuildConfig.USABILITY_BUILD && !ParticipantCodeSink.isValidCode(history.participantCode)) {
+            return
+        }
+        engine.source = sessionSource(BuildConfig.USABILITY_BUILD)
         applyTelemetrySetting()
         applyStatsInterval()
         distanceMeters = 0.0

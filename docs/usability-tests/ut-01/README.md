@@ -145,6 +145,8 @@ One field, not an event: **`participant_code`** (string, optional, usability-tes
 
 The sessions run on a **usability build** of the app: a debug build whose telemetry source is fixed to `usability-test`, and which carries a start-up control, present only in that build, where the facilitator enters the `P-nn` code before handing the phone over. No release build has either.
 
+Build it with `gradle :app:assembleUsabilityTest`. It installs alongside the regular app and uses a separate application ID. The build type always has an empty collector URL; session event records remain in the app's private `events.jsonl` file for cable export.
+
 ### How one session's records are told from another's
 
 By the `P-nn` participant code, with the session's time window as the cross-check. The code is the documented exception to the opaque-identifier rule: it identifies a session, and only the identity mapping in the private repository turns it into a person. That mapping is never in this repository.

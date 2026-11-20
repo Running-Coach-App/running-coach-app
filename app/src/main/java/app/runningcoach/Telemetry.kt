@@ -86,6 +86,39 @@ object NoTelemetry : TelemetrySink {
     override fun line(occurredAt: Long, sessionId: String, source: Source, lineId: String, kind: LineKind, outcome: LineOutcome, latencyMillis: Long) = Unit
 }
 
+/** Adds the session code only to usability-test event records. */
+class ParticipantCodeSink(
+    private val delegate: TelemetrySink,
+    private val participantCode: () -> String,
+) : TelemetrySink {
+    override fun event(name: String, occurredAt: Long, sessionId: String, source: Source, fields: Map<String, Any?>) {
+        if (source != Source.USABILITY_TEST) {
+            delegate.event(name, occurredAt, sessionId, source, fields - PARTICIPANT_CODE_FIELD)
+            return
+        }
+        val code = participantCode().trim().uppercase()
+        if (!isValidCode(code)) {
+            return
+        }
+        delegate.event(name, occurredAt, sessionId, source, fields + (PARTICIPANT_CODE_FIELD to code))
+    }
+
+    override fun line(occurredAt: Long, sessionId: String, source: Source, lineId: String, kind: LineKind, outcome: LineOutcome, latencyMillis: Long) {
+        delegate.line(occurredAt, sessionId, source, lineId, kind, outcome, latencyMillis)
+    }
+
+    companion object {
+        const val PARTICIPANT_CODE_FIELD = "participant_code"
+        private val CODE_PATTERN = Regex("P-[0-9]{2,}")
+
+        fun isValidCode(code: String): Boolean = CODE_PATTERN.matches(code.trim().uppercase())
+    }
+}
+
+/** Maps the build's purpose to an event source; a release passes `false`. */
+internal fun sessionSource(usabilityBuild: Boolean): Source =
+    if (usabilityBuild) Source.USABILITY_TEST else Source.APP
+
 /**
  * One record as one line of JSON. Written by hand rather than with a library,
  * because the shape is fixed and a dependency here would be the only one the

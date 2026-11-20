@@ -123,17 +123,18 @@ The campus deployment: the scripts under `deploy/`, the workflow that runs them,
 
 ### CFG-08
 
-The build's pinned toolchain: the Gradle wrapper properties, root plugin versions, app build configuration, and dependency lockfile.
+The build's pinned toolchain and variants: the Gradle wrapper properties, root plugin versions, app build configuration, and dependency lockfile.
 
 - **Status:** Active
 - **Type:** Configuration files
 - **Purpose:** Together they decide which Gradle and Android Gradle Plugin build the product and which dependency versions ship in it. Without the pins, two members and the continuous integration build produce different artifacts from the same source.
 - **Owner:** sirjaey
-- **Where:** [`gradle/wrapper/gradle-wrapper.properties`](https://github.com/Running-Coach-App/running-coach-app/blob/main/gradle/wrapper/gradle-wrapper.properties), [`build.gradle.kts`](https://github.com/Running-Coach-App/running-coach-app/blob/main/build.gradle.kts), [`app/build.gradle.kts`](https://github.com/Running-Coach-App/running-coach-app/blob/main/app/build.gradle.kts), and [`app/gradle.lockfile`](https://github.com/Running-Coach-App/running-coach-app/blob/main/app/gradle.lockfile). The wrapper jar is deliberately not in the repository, so each member installs a matching Gradle. Android Gradle Plugin 9.5.1 supplies built-in Kotlin; the app does not apply the separate Kotlin Android plugin, and Kotlin compilation targets the Java 17 compatibility level.
+- **Where:** [`gradle/wrapper/gradle-wrapper.properties`](https://github.com/Running-Coach-App/running-coach-app/blob/main/gradle/wrapper/gradle-wrapper.properties), [`build.gradle.kts`](https://github.com/Running-Coach-App/running-coach-app/blob/main/build.gradle.kts), [`app/build.gradle.kts`](https://github.com/Running-Coach-App/running-coach-app/blob/main/app/build.gradle.kts), and [`app/gradle.lockfile`](https://github.com/Running-Coach-App/running-coach-app/blob/main/app/gradle.lockfile). The wrapper jar is deliberately not in the repository, so each member installs a matching Gradle. Android Gradle Plugin 9.5.1 supplies built-in Kotlin; the app does not apply the separate Kotlin Android plugin, and Kotlin compilation targets the Java 17 compatibility level. The app defines `debug`, `release`, and the isolated `usabilityTest` build type; the latter uses a separate application ID, a fixed usability event source, and an empty collector URL.
 - **Connections:**
   - **Is resolved by** `CFG-03`: `android.yml` and `deploy-campus.yml` both take their Gradle version from the wrapper file, so a bump changes every build at once.
   - **Is bumped by** `CFG-09`, weekly and automatically.
   - **Is read by** `CFG-04`, which checks the locked dependencies against OSV.
+  - **Separates** the usability-test artifact from release builds: only `usabilityTest` prompts for a participant code and tags its local event records `usability-test`; its collector URL is empty.
   - **Compiles Kotlin through** Android Gradle Plugin's built-in Kotlin support. Keeping a separate `org.jetbrains.kotlin.android` application plugin alongside AGP 9 registers the Kotlin extension twice and fails the build.
   - **Is documented by** [`docs/setup.md`](setup.md), which names the wrapper file as the version to trust.
   - **Broke** twice on 2026-11-19 after an automatic bump to 9.9.1, intermittently and not reproducibly, which is recorded at [#260](https://github.com/Running-Coach-App/running-coach-app/issues/260).
