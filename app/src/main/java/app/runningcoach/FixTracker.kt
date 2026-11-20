@@ -17,6 +17,12 @@ class FixTracker(private val staleAfterMillis: Long = STALE_AFTER_MILLIS) {
     var lost = false
         private set
 
+    /**
+     * Whether a session is being measured. A flag rather than a zero `lastFixAt`,
+     * because a session can legitimately start at any timestamp, and a sentinel
+     * would mean a session starting at that value never went stale.
+     */
+    private var measuring = false
     private var lastFixAt = 0L
     private var lostSince = 0L
 
@@ -30,6 +36,7 @@ class FixTracker(private val staleAfterMillis: Long = STALE_AFTER_MILLIS) {
         lost = false
         lostSince = 0L
         lastFixAt = nowMillis
+        measuring = true
     }
 
     /**
@@ -53,7 +60,7 @@ class FixTracker(private val staleAfterMillis: Long = STALE_AFTER_MILLIS) {
      * caller records `location_fix_lost` once rather than on every tick.
      */
     fun noteStaleness(nowMillis: Long): Boolean {
-        if (lost || lastFixAt == 0L || nowMillis - lastFixAt <= staleAfterMillis) {
+        if (!measuring || lost || nowMillis - lastFixAt <= staleAfterMillis) {
             return false
         }
         lost = true

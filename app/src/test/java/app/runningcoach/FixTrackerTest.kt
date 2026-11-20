@@ -75,6 +75,14 @@ class FixTrackerTest {
     }
 
     @Test
+    fun nothingIsMeasuredBeforeASessionStarts() {
+        val fix = FixTracker()
+        assertFalse("no session, nothing to report", fix.noteStaleness(60_000))
+        assertFalse(fix.lost)
+        assertNull(fix.onFix(61_000))
+    }
+
+    @Test
     fun aSessionThatNeverGetsAFixSaysSoRatherThanSayingNothing() {
         val fix = FixTracker()
         fix.startSession(0)
