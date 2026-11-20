@@ -53,6 +53,36 @@ class SessionEngineTest {
     }
 
     @Test
+    fun aPaceNoRunnerCouldHoldIsNotSpokenAsFact() {
+        val session = SessionEngine()
+        session.start(SessionKind.STEADY)
+        // 1800 m in three minutes is 10 m/s, which is the shape of the numbers a
+        // stationary phone produced in #251, and faster than any runner holds.
+        val stats = session.onTick(180_000, 1_800.0).single { it.startsWith("Time") }
+        assertTrue(stats.contains("Time 3 minutes 0 seconds."))
+        assertTrue("FR-006's line, not a second way of saying nothing", stats.contains("Pace is not available yet."))
+        assertFalse(stats.contains("per kilometre"))
+        assertTrue("the distance it does have is still given", stats.contains("Distance 1.8 kilometres."))
+        assertEquals("—", SessionEngine.displayPace(180_000, 1_800.0))
+    }
+
+    @Test
+    fun anImpossiblePaceIsNamedOnceAndReturnsWhenItIsBelievableAgain() {
+        val session = SessionEngine()
+        session.start(SessionKind.STEADY)
+
+        val first = session.onTick(180_000, 1_800.0).single { it.startsWith("Time") }
+        assertTrue(first.contains("Pace is not available yet."))
+
+        val second = session.onTick(360_000, 3_600.0).single { it.startsWith("Time") }
+        assertFalse("FR-006 says it once", second.contains("not available"))
+        assertTrue(second.contains("Distance 3.6 kilometres."))
+
+        val third = session.onTick(540_000, 2_000.0).single { it.startsWith("Time") }
+        assertTrue(third.contains("Pace 4 minutes 30 seconds per kilometre."))
+    }
+
+    @Test
     fun aMissingStatIsNamedOnceAndThenLeftOutUntilItReturns() {
         val session = SessionEngine()
         session.start(SessionKind.STEADY)
