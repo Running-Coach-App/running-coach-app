@@ -41,6 +41,7 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
     private var recognizer: SpeechRecognizer? = null
     private var mediaSession: MediaSessionCompat? = null
     private var lastLocation: Location? = null
+    private var lastFix: Fix? = null
     private var distanceMeters = 0.0
     private var startedAt = 0L
     private val pending = ArrayDeque<String>()
@@ -128,12 +129,29 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
     }
 
     override fun onLocationChanged(location: Location) {
+        val now = System.currentTimeMillis()
+        val sample = Fix(
+            atMillis = now,
+            accuracyMetres = if (location.hasAccuracy()) location.accuracy else null,
+            speedMps = if (location.hasSpeed()) location.speed else null,
+        )
+        if (!DistanceFilter.usable(sample)) {
+            // A fix too inaccurate to measure with is not a fix the coach can speak
+            // from, so it is left to go stale: QR-04's handling then keeps the
+            // session useful and FR-006 says the stat is not available (ADR-007).
+            return
+        }
         val previous = lastLocation
-        if (previous != null) {
-            distanceMeters += previous.distanceTo(location)
+        val previousFix = lastFix
+        if (previous != null && previousFix != null) {
+            val step = previous.distanceTo(location).toDouble()
+            if (DistanceFilter.stepCounts(previousFix, sample, step)) {
+                distanceMeters += step
+            }
         }
         lastLocation = location
-        val lostSeconds = fix.onFix(System.currentTimeMillis())
+        lastFix = sample
+        val lostSeconds = fix.onFix(now)
         if (lostSeconds != null) {
             recordEvent(Events.LOCATION_FIX_REGAINED, mapOf("lost_s" to lostSeconds))
         }
@@ -180,6 +198,7 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
         applyStatsInterval()
         distanceMeters = 0.0
         lastLocation = null
+        lastFix = null
         startedAt = System.currentTimeMillis()
         fix.startSession(startedAt)
         tts?.setSpeechRate(history.speechRate)

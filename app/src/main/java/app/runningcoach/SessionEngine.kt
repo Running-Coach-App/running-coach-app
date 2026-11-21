@@ -146,11 +146,16 @@ class SessionEngine(
         return lines
     }
 
-    /** How many of time, pace, and distance the coach could give on this line. */
+    /**
+     * How many of time, pace, and distance the coach could give on this line. A pace
+     * the product refuses to state is not one it could give, so `stats_present`
+     * counts what was spoken rather than what a field held (#251, #252).
+     */
     private fun statsPresent(): Int {
         val distance = distanceMeters
         val haveDistance = distance != null && distance > 0.0
-        return 1 + (if (haveDistance && elapsedMillis > 0) 1 else 0) + (if (haveDistance) 1 else 0)
+        val havePace = DistanceFilter.paceIsPlausible(elapsedMillis, distance)
+        return 1 + (if (havePace) 1 else 0) + (if (haveDistance) 1 else 0)
     }
 
     /**
@@ -219,7 +224,7 @@ class SessionEngine(
     fun statsPhrase(): String {
         val distance = distanceMeters
         val haveDistance = distance != null && distance > 0.0
-        val havePace = haveDistance && elapsedMillis > 0
+        val havePace = DistanceFilter.paceIsPlausible(elapsedMillis, distance)
 
         val parts = mutableListOf(speakTime(elapsedMillis))
         if (havePace || !paceMissingAnnounced) {
@@ -257,10 +262,11 @@ class SessionEngine(
         }
 
         fun displayPace(elapsedMillis: Long, distanceMeters: Double?): String {
-            if (distanceMeters == null || distanceMeters <= 0.0 || elapsedMillis <= 0) {
+            val distance = distanceMeters
+            if (distance == null || !DistanceFilter.paceIsPlausible(elapsedMillis, distance)) {
                 return "—"
             }
-            val secondsPerKm = (elapsedMillis / 1000.0) / (distanceMeters / 1000.0)
+            val secondsPerKm = (elapsedMillis / 1000.0) / (distance / 1000.0)
             val whole = secondsPerKm.toLong()
             val minutes = whole / 60
             val seconds = whole % 60
@@ -335,11 +341,17 @@ class SessionEngine(
             return "Distance ${formatTenths(kilometres)} kilometres."
         }
 
+        /**
+         * The spoken pace, or FR-006's line for a stat that is not available. A pace
+         * faster than a runner could hold for the whole session is not stated as fact:
+         * #251 found a stationary phone speaking 1:38 per kilometre (ADR-007).
+         */
         fun speakPace(elapsedMillis: Long, distanceMeters: Double?): String {
-            if (distanceMeters == null || distanceMeters <= 0.0 || elapsedMillis <= 0) {
+            val distance = distanceMeters
+            if (distance == null || !DistanceFilter.paceIsPlausible(elapsedMillis, distance)) {
                 return "Pace is not available yet."
             }
-            val secondsPerKm = (elapsedMillis / 1000.0) / (distanceMeters / 1000.0)
+            val secondsPerKm = (elapsedMillis / 1000.0) / (distance / 1000.0)
             val whole = secondsPerKm.toLong()
             val minutes = whole / 60
             val seconds = whole % 60
