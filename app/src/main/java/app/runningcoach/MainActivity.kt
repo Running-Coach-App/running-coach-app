@@ -454,6 +454,9 @@ class MainActivity : AppCompatActivity() {
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION,
         )
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            required += Manifest.permission.BLUETOOTH_CONNECT
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             required += Manifest.permission.POST_NOTIFICATIONS
         }

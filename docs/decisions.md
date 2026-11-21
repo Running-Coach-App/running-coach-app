@@ -396,3 +396,13 @@ Run the usability study with a pre-test questionnaire and a post-test questionna
 - **Made by:** Customer
 - **Source:** [the Week 7 validation meeting](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-07/meeting-report.md#decisions)
 - **Why:** he described the method he expects, unprompted and in the same shape [UT-01](usability-tests/ut-01/README.md) already has, and said plainly what it is for: "the app is not as important as you practicing creating questionnaires... talking to users, processing messy responses". He offered himself as one respondent and immediately added that one is not enough.
+
+## DEC-040
+
+Do not hear a question while the coach is speaking. The runner asks after the line finishes.
+
+- **Status:** Active
+- **Date:** 2026-11-21
+- **Made by:** Team
+- **Source:** [#250](https://github.com/Running-Coach-App/running-coach-app/issues/250)
+- **Why:** the recogniser stayed open while the speaker talked, so the coach transcribed its own stats line as a runner's question. Closing it for the length of a spoken line stops that. A question asked during the line is missed; hearing the coach compete with itself was worse.
