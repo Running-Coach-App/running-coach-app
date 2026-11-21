@@ -1,6 +1,6 @@
 # Configuration plan
 
-**Reviewed:** 2026-11-19
+**Reviewed:** 2026-11-21
 
 The configuration this project actually has, read from the repository rather than from memory of it. This is an inventory, not a change plan: it says what each item is, who keeps it true, what it connects to, and what breaks without it. Proposals for changing any of it live in the week's evaluation, `reports/week-08/cm-evaluation.md`.
 
@@ -31,9 +31,10 @@ The release tags, their GitHub releases, and the APK asset each one carries.
 - **Type:** Repository artifact and setting
 - **Purpose:** It is what the `Customer` and any usability participant installs. Without it there is no build anybody outside the team can get, and `REL-nn` in the plan refers to nothing.
 - **Owner:** sirjaey
-- **Where:** The repository's tags and releases on GitHub, `v0.1.0` to `v0.5.0`, each tag recorded in [`docs/project-plan.md`](project-plan.md) as a `REL-nn` block and in [`CHANGELOG.md`](https://github.com/Running-Coach-App/running-coach-app/blob/main/CHANGELOG.md).
+- **Where:** The repository's tags and releases on GitHub, `v0.1.0` to `v0.5.0`, each tag recorded in [`docs/project-plan.md`](project-plan.md) as a `REL-nn` block and in [`CHANGELOG.md`](https://github.com/Running-Coach-App/running-coach-app/blob/main/CHANGELOG.md). Cutting a later `v*` tag runs `.github/workflows/release.yml`, which signs the release APK from `CFG-12` and attaches it to that tag's GitHub release.
 - **Connections:**
   - **Is published from** `CFG-08`: the APK the release carries is built from the wrapper and the lockfile.
+  - **Is signed by** `CFG-12` when the four release secrets are set. Without them the tag workflow fails rather than attaching an unsigned APK.
   - **Is described by** [`CHANGELOG.md`](https://github.com/Running-Coach-App/running-coach-app/blob/main/CHANGELOG.md) and the `REL-nn` blocks in the plan; a release whose changelog section is missing cannot be read by whoever deploys it.
   - **Contradicts** [`README.md`](https://github.com/Running-Coach-App/running-coach-app/blob/main/README.md) as of this review in one respect recorded at [#248](https://github.com/Running-Coach-App/running-coach-app/issues/248): the published asset is a debug build, and the documentation described a release build.
 - **What good looks like:** Every `REL-nn` in the plan has a tag, the tag is protected from being moved or deleted, the release body says whether an upgrade is required, and the asset is the build the documentation says it is. The course rule is [Releases Requirements](https://github.com/inno-itpd/itpd/blob/main/requirements/releases-requirements.md).
@@ -42,13 +43,13 @@ The release tags, their GitHub releases, and the APK asset each one carries.
 
 ### CFG-03
 
-The continuous integration workflow set: nine workflows that run on every pull request and on `main`.
+The continuous integration workflow set: nine workflows that run on every pull request and on `main`, plus the tag workflow that attaches a signed release APK.
 
 - **Status:** Active
 - **Type:** Configuration files
 - **Purpose:** They are the only automatic statement about whether the repository is in a state worth merging. Without them a broken build, a dead link, or a vulnerable dependency reaches `main` unnoticed.
 - **Owner:** sirjaey
-- **Where:** [`.github/workflows/`](https://github.com/Running-Coach-App/running-coach-app/blob/main/.github/workflows) — `actionlint.yml`, `android.yml`, `deploy-campus.yml`, `docs.yml`, `lychee.yml`, `markdown.yml`, `osv-scanner.yml`, `pages.yml`, and `scan.yml`.
+- **Where:** [`.github/workflows/`](https://github.com/Running-Coach-App/running-coach-app/blob/main/.github/workflows) — `actionlint.yml`, `android.yml`, `deploy-campus.yml`, `docs.yml`, `lychee.yml`, `markdown.yml`, `osv-scanner.yml`, `pages.yml`, `release.yml`, and `scan.yml`.
 - **Connections:**
   - **Is required by** `CFG-01`: these checks block a merge only because branch protection makes them required.
   - **Depends on** `CFG-08`: `android.yml` and `deploy-campus.yml` resolve Gradle from the wrapper file, so a wrapper bump changes what they run.
@@ -101,6 +102,7 @@ The untracked build-time configuration file, `local.properties`.
 - **Connections:**
   - **Feeds** `build.gradle.kts`, which reads `collector.url` and `download.url` into `BuildConfig`.
   - **Is checked by** `CFG-04`, which fails if the file becomes tracked.
+  - **Does not hold** the release keystore. That lives in `CFG-12`.
   - **Explains** a property of the published build recorded at [#248](https://github.com/Running-Coach-App/running-coach-app/issues/248): because the build machine has no `local.properties`, the published APK carries no collector address and uploads nothing.
 - **What good looks like:** The file is never committed, the scanner proves it, and no secret value appears in any tracked file. This holds today. The course rule is [Configuration Management Requirements](https://github.com/inno-itpd/itpd/blob/main/requirements/configuration-management-requirements.md).
 
@@ -118,6 +120,21 @@ The campus deployment: the scripts under `deploy/`, the workflow that runs them,
   - **Serves** the collector that the debug build's upload targets, which [`DEC-031`](decisions.md#dec-031) permits.
   - **Failed** on 2026-11-19 on commit `d45aaeb` while `android.yml` passed on the same commit, which is recorded at [#260](https://github.com/Running-Coach-App/running-coach-app/issues/260).
 - **What good looks like:** The deployment runs from the commit that passed its checks rather than from a hand-edited machine, the runbook in [`docs/deployment.md`](deployment.md) matches what the scripts do, and no address or credential appears in a public file. The course rule is [Configuration Management Requirements](https://github.com/inno-itpd/itpd/blob/main/requirements/configuration-management-requirements.md).
+
+### CFG-12
+
+The release-signing secrets and the environment variables `app/build.gradle.kts` reads them as.
+
+- **Status:** Active
+- **Type:** Repository settings
+- **Purpose:** It is what makes `assembleRelease` produce an APK Android will install. Without it a tagged release is notes with no attached build, or an unsigned APK the phone refuses.
+- **Owner:** Ezekiel-Gadzama
+- **Where:** Repository secrets `RELEASE_KEYSTORE_BASE64`, `RELEASE_STORE_PASSWORD`, `RELEASE_KEY_ALIAS`, and `RELEASE_KEY_PASSWORD`. The original keystore is held by that owner, off this repository. The values themselves do not appear in any tracked file. The runbook is [`docs/deployment.md`](deployment.md).
+- **Connections:**
+  - **Is read by** `CFG-08` at `assembleRelease`, as `RELEASE_STORE_FILE`, `RELEASE_STORE_PASSWORD`, `RELEASE_KEY_ALIAS`, and `RELEASE_KEY_PASSWORD`.
+  - **Is used by** `CFG-02` when a `v*` tag is pushed.
+  - **Is asserted empty of secrets by** `CFG-04`, which warns if a signing password is written into the build file rather than read from the environment.
+- **What good looks like:** A contributor without the keystore can still `assembleDebug`. A tag with the secrets set attaches a signed APK that `apksigner verify` accepts. Losing the original keystore means a new one and a warning that upgrades from the old signature will not install over it. The course rule is [Configuration Management Requirements](https://github.com/inno-itpd/itpd/blob/main/requirements/configuration-management-requirements.md).
 
 ## Dependencies and builds
 

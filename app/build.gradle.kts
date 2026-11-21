@@ -13,6 +13,18 @@ val localProperties = Properties().apply {
 val collectorUrl = localProperties.getProperty("collector.url", "")
 val downloadUrl = localProperties.getProperty("download.url", "")
 
+fun envOrNull(name: String): String? = System.getenv(name)?.takeIf { it.isNotBlank() }
+
+val releaseStoreFile = envOrNull("RELEASE_STORE_FILE")?.let { file(it) }?.takeIf { it.isFile }
+val releaseStorePassword = envOrNull("RELEASE_STORE_PASSWORD")
+val releaseKeyAlias = envOrNull("RELEASE_KEY_ALIAS")
+val releaseKeyPassword = envOrNull("RELEASE_KEY_PASSWORD")
+val releaseSigningReady =
+    releaseStoreFile != null &&
+        releaseStorePassword != null &&
+        releaseKeyAlias != null &&
+        releaseKeyPassword != null
+
 android {
     namespace = "app.runningcoach"
     compileSdk = 35
@@ -32,9 +44,27 @@ android {
         buildConfig = true
     }
 
+    signingConfigs {
+        if (releaseSigningReady) {
+            val store = releaseStoreFile!!
+            val password = releaseStorePassword!!
+            val alias = releaseKeyAlias!!
+            val keyPass = releaseKeyPassword!!
+            create("release") {
+                storeFile = store
+                storePassword = password
+                keyAlias = alias
+                keyPassword = keyPass
+            }
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
+            if (releaseSigningReady) {
+                signingConfig = signingConfigs.getByName("release")
+            }
         }
         create("usabilityTest") {
             initWith(getByName("debug"))

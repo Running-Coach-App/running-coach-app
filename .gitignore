@@ -33,6 +33,8 @@ Thumbs.db
 *.cert
 *.secret
 credentials.json
+*.jks
+*.keystore
 
 # ==========================================
 # 4. Build Output, Artifacts, & Dependencies
