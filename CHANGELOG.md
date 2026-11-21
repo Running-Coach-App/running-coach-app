@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.1](https://github.com/Running-Coach-App/running-coach-app/releases/tag/v0.6.1) - 2026-11-21
+
+The release that ships everything listed under 0.6.0. The install note there applies here: uninstall `v0.5.0` or earlier first.
+
+### Fixed
+
+- The signed release build could not be built. The build moved to Kotlin 2.2.10 with the Android Gradle plugin's built-in Kotlin support, and the dependency lock was updated for the debug configurations only, so the release classpaths still pinned the Kotlin standard library to 2.1.20 and failed to resolve. Debug builds never resolve those classpaths, so no check on a pull request could catch it; the first release build since the change, `v0.6.0`'s, did. `v0.6.0` therefore carries no APK, and its tag is protected and cannot be moved. The release classpaths are now locked to the version the build uses.
+
 ## [0.6.0](https://github.com/Running-Coach-App/running-coach-app/releases/tag/v0.6.0) - 2026-11-21
 
 This is the first release published as a signed **release** build rather than a debug build. It is signed with a different key from `v0.5.0`, so Android will not install it over an earlier release: uninstall the earlier one first, which removes the runs saved on the phone.
