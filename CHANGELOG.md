@@ -7,18 +7,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0](https://github.com/Running-Coach-App/running-coach-app/releases/tag/v0.6.0) - 2026-11-21
+
+This is the first release published as a signed **release** build rather than a debug build. It is signed with a different key from `v0.5.0`, so Android will not install it over an earlier release: uninstall the earlier one first, which removes the runs saved on the phone.
+
 ### Added
 
-- Campus VM pull: each `main` build publishes a debug APK to the `main-debug` release, and a ten-minute timer on the VM runs `deploy/vm/update-from-github.sh` to fetch `main` and that APK when GitHub Actions cannot SSH into the campus network.
-- Tagged releases attach a signed release APK from `.github/workflows/release.yml` when the four release signing secrets are set ([#137](https://github.com/Running-Coach-App/running-coach-app/issues/137)).
+- The runner sets how often the coach speaks their time, pace, and distance — every 1, 2, 3, or 5 minutes — on the profile screen. Three minutes stays the default (`DEC-036`, [#223](https://github.com/Running-Coach-App/running-coach-app/issues/223)).
+- The run and a stop control on the lock screen, so a runner can see their pace and end the session without unlocking the phone (`DEC-037`, [#224](https://github.com/Running-Coach-App/running-coach-app/issues/224)).
 - Profile screen export of the on-device `events.jsonl` record through the share sheet, so a bad run can be diagnosed from what the coach logged ([#168](https://github.com/Running-Coach-App/running-coach-app/issues/168)).
+- Tagged releases attach a signed release APK from `.github/workflows/release.yml` when the four release signing secrets are set ([#137](https://github.com/Running-Coach-App/running-coach-app/issues/137)). That build holds no `INTERNET` permission, carries no server address, and is not debuggable.
+- Campus VM pull: each `main` build publishes a debug APK to the `main-debug` pre-release, and a ten-minute timer on the VM runs `deploy/vm/update-from-github.sh` to fetch `main` and that APK when GitHub Actions cannot SSH into the campus network. That APK is built with the campus collector address and is for the team's own test phones, not for runners.
 - A separate usability-test build that tags local session records with a facilitator-entered participant code, so research sessions can be exported and filtered without identifying runners in the regular app.
+- The Week 8 configuration plan, which inventories the workflows, pins, settings, and scripts the repository is built and released by, and its evaluation against four local goals.
+
+### Changed
+
+- The coach understands many more ways of asking for time, pace, and distance. The wordings were generated at authoring time and ship as a word list and a rule; no model runs in the app (`DEC-034`, [#221](https://github.com/Running-Coach-App/running-coach-app/issues/221)).
+- The README says what the app does for a runner and what the build on the releases page can and cannot do, with the commands to check it on the downloaded file (`DEC-038`, [#225](https://github.com/Running-Coach-App/running-coach-app/issues/225), [#248](https://github.com/Running-Coach-App/running-coach-app/issues/248)).
+- The `UT-01` facilitation script confirms a participant is 18 or older before the consent form and the recorder, rather than after them ([#256](https://github.com/Running-Coach-App/running-coach-app/issues/256)).
+- `FR-002` and `FR-012` no longer specify the same behaviour ([#244](https://github.com/Running-Coach-App/running-coach-app/issues/244)).
+- The build uses the Android Gradle plugin 9.5.1 with its built-in Kotlin support, and holds the Gradle wrapper at 9.8.2 ([#260](https://github.com/Running-Coach-App/running-coach-app/issues/260)).
 
 ### Fixed
 
-- The coach no longer hears its own spoken lines as runner questions: the recogniser is cancelled while each line plays and arms again when the line finishes ([#250](https://github.com/Running-Coach-App/running-coach-app/issues/250)).
+- The coach no longer hears its own spoken lines as runner questions: the recogniser is cancelled while each line plays and arms again when the line finishes, so a question asked during a line is missed and the runner asks once it ends (`DEC-040`, [#250](https://github.com/Running-Coach-App/running-coach-app/issues/250)).
 - Capture routes to a connected headset microphone when one is available ([#220](https://github.com/Running-Coach-App/running-coach-app/issues/220)).
-- A phone that is not moving no longer accumulates distance. Every fix the location provider produced was trusted and every difference between two of them was added as distance covered, so a phone lying still on a desk recorded 516 m in four and a half minutes and the lock screen showed a pace of 1:38 per kilometre. A fix is now measured with only when it reports an accuracy good enough to support the claim, a step counts only when the phone's own speed does not contradict it and it implies a speed a runner could reach, and a pace faster than any runner holds is not spoken at all: the coach says the pace is not available, in the words it already uses for a stat it does not have. The thresholds and the reason for each are in `ADR-007`.
+- A phone that is not moving accumulates far less distance, though not yet none ([#251](https://github.com/Running-Coach-App/running-coach-app/issues/251) stays open). Every fix the location provider produced was trusted and every difference between two of them was added as distance covered, so a phone lying still on a desk recorded 516 m in four and a half minutes and the lock screen showed a pace of 1:38 per kilometre. A fix is now measured with only when it reports an accuracy good enough to support the claim, a step counts only when the phone's own speed does not contradict it and it implies a speed a runner could reach, and a pace faster than any runner holds is not spoken at all: the coach says the pace is not available, in the words it already uses for a stat it does not have. The thresholds and the reason for each are in `ADR-007`. On one phone, four of five stationary sessions afterwards recorded no distance at all and the fifth recorded 8 m in 398 s.
 - The record a session keeps of itself no longer holds values that cannot be true. A session's location-fix tracking carried over from the previous session, so every session after the first recorded a lost fix within milliseconds of starting and then reported more seconds without a fix than the session itself lasted: on one phone a 28-second session claimed 120, which made fix availability read −32.6%. Tracking now starts with the session, so a lost-fix interval always fits inside the session that reports it. A session the product ends is also recorded as such rather than as the runner stopping it, which is the `system` value the analytics document has always described and the product could never produce.
 - Turning off `Usage data` no longer stops the app opening. The campus upload shim invoked the uploader with no receiver and threw on every debug launch; the crash handler happened to swallow it while usage data was on, and delegated to the system handler — killing the app — as soon as a runner turned it off. The shim now invokes the uploader correctly and can no longer take the app down, and whether a runner keeps usage data no longer decides whether a crash is fatal.
 

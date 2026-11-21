@@ -38,7 +38,9 @@ Being plain about this is quicker than letting you find out:
 ## Install it
 
 1. Open [the latest release](https://github.com/Running-Coach-App/running-coach-app/releases/latest)
-   and download the `.apk` file under **Assets**.
+   and download the `.apk` file under **Assets**. If you installed `v0.5.0` or earlier, uninstall it
+   first: those were signed with a different key, and Android will not install one over the other.
+   Uninstalling removes the runs saved on the phone.
 2. Open it on an Android phone running Android 8 or newer. Android will ask you to allow installing
    from this source the first time; that is the normal prompt for an app that is not from the Play
    Store.
@@ -52,33 +54,37 @@ Being plain about this is quicker than letting you find out:
 
 ### What the build on the releases page is
 
-It is a **debug** build, and being straight about that is worth more to you than a reassuring
-sentence:
+From `v0.6.0` on, it is a **signed release** build, `app-release.apk`, attached to each tagged
+release by `.github/workflows/release.yml`:
 
-- **It carries the `INTERNET` permission and allows cleartext traffic.** The debug source set adds
-  both, for the campus-collector upload that [`DEC-031`](docs/decisions.md#dec-031) permits on the
-  team's own test phones.
-- **It has nowhere to send anything.** The collector address is read at build time from
-  `local.properties`, which is not in this repository and not on the machine that builds the
-  published file, so no `http` or `https` address of any kind is compiled into it.
-- **It is debuggable.** Anybody who can plug your phone into a computer can read the app's files,
-  including your runs, without unlocking anything further. That is a wider exposure than the
-  permission, and it is the reason to prefer a build you made yourself if you care.
+- **It holds no `INTERNET` permission.** Only the debug source set adds one, and a release build
+  does not include it, so the app cannot open a network connection at all.
+- **It has no address compiled into it.** The collector address is read at build time from
+  `local.properties`, and the release workflow writes nothing there but the SDK path.
+- **It is not debuggable.** Plugging your phone into a computer does not give anyone your runs.
+- **It is signed with the project's release key**, so a later release installs over it and keeps
+  your runs.
 
 You do not have to take our word for any of it. On the file you downloaded:
 
 ```sh
-aapt2 dump permissions running-coach-app-v0.5.0-debug.apk
-unzip -p running-coach-app-v0.5.0-debug.apk 'classes*.dex' | strings | grep -E 'https?://'
+aapt2 dump permissions app-release.apk
+unzip -p app-release.apk 'classes*.dex' | strings | grep -E 'https?://[0-9]'
+apksigner verify --print-certs app-release.apk
 ```
 
-The first prints what the app may do. The second prints nothing at all.
+The first prints what the app may do, and `android.permission.INTERNET` is not among it. The
+second prints no server address. The third prints the certificate the build is signed with.
 
-The build that carries no network permission is the *release* build, which is what
-[`QR-08`](docs/quality-requirements/qr/QR-08.md) and `./scripts/scan.sh` describe. This project does
-not publish one yet;
-[#248](https://github.com/Running-Coach-App/running-coach-app/issues/248) is where that is being
-settled.
+`v0.5.0` and earlier releases carry a **debug** build instead, which holds `INTERNET`, allows
+cleartext traffic and is debuggable;
+[#248](https://github.com/Running-Coach-App/running-coach-app/issues/248) records why.
+
+The releases page also lists **Debug APK from main**, marked as a pre-release. It is the team's
+test build, rebuilt from every change to `main` for the campus VM. **Do not install it to run
+with.** It is a debug build, and it carries the address of the team's campus collector, so with
+**Usage data** on it sends the app's records there, as [`DEC-031`](docs/decisions.md#dec-031)
+permits on the team's own test phones.
 
 If you would rather build it yourself than install a release, [docs/setup.md](docs/setup.md) is the
 whole process from a clean checkout.

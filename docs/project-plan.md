@@ -131,6 +131,11 @@ The usability work remains in the backlog: counted [`UT-01`](usability-tests/ut-
 
 #### REL-08
 
+- **Released:** [v0.6.0](https://github.com/Running-Coach-App/running-coach-app/releases/tag/v0.6.0) on 2026-11-21, the first release published as a signed release build.
+- **Checked QRs:** none. [QR-07](quality-requirements/qr/QR-07.md) and [QR-09](quality-requirements/qr/QR-09.md) were planned for this sprint and neither test ran; both move to `SPRINT-09`.
+
+Each test's result, and the sprint of its last check, is in the [Quality Requirement Testing Plan](#quality-requirement-testing-plan).
+
 ### SPRINT-09
 
 The product the team pitches is the build the `Customer` has retested, and the pitch is grounded in the Week 7 customer feedback and the `UT-01` findings.
