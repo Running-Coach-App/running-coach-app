@@ -38,6 +38,19 @@ class FileTelemetrySink(
         }
     }
 
+    /** Copies the on-device records so they can be shared without exposing private storage. */
+    fun copyEventsTo(into: File): Boolean {
+        if (!events.exists() || events.length() == 0L) {
+            return false
+        }
+        return try {
+            events.copyTo(into, overwrite = true)
+            true
+        } catch (error: Exception) {
+            false
+        }
+    }
+
     /** Keeps the newest records and drops the oldest, so the file cannot grow without end. */
     private fun trim() {
         try {

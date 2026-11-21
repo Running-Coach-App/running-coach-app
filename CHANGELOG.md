@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Profile screen export of the on-device `events.jsonl` record through the share sheet, so a bad run can be diagnosed from what the coach logged ([#168](https://github.com/Running-Coach-App/running-coach-app/issues/168)).
 - A separate usability-test build that tags local session records with a facilitator-entered participant code, so research sessions can be exported and filtered without identifying runners in the regular app.
 
 ### Fixed
