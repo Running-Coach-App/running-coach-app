@@ -37,7 +37,9 @@ The Android SDK path stays in `local.properties` on the machine that builds, as 
 
 ## Automatic deploy on `main`
 
-When repository secrets `CAMPUS_VM_HOST`, `CAMPUS_VM_USER`, and `CAMPUS_VM_SSH_KEY` are set, each push to `main` runs `.github/workflows/deploy-campus.yml`. That workflow builds and tests the debug APK, copies it to `/opt/coaching/apk/` on the VM, pulls `main` under `/opt/coaching/repo/running-coach-app`, reinstalls systemd units from `deploy/vm/install-services.sh`, and restarts the services.
+Each push to `main` runs `.github/workflows/deploy-campus.yml`. That workflow builds and tests the debug APK and publishes it to the `main-debug` GitHub release. The VM pulls that APK and `git pull`s `main` every ten minutes (`deploy/vm/update-from-github.sh`, installed by `deploy/vm/install-services.sh`). GitHub-hosted runners cannot reach the campus address, so the VM is the side that fetches.
+
+When repository secrets `CAMPUS_VM_HOST`, `CAMPUS_VM_USER`, and `CAMPUS_VM_SSH_KEY` are set, the same workflow may also copy the APK over SSH, reinstall systemd units from `deploy/vm/install-services.sh`, and restart the services. When those secrets are not set, the workflow still publishes `main-debug`; only the SSH step is skipped.
 
 | Secret | Purpose |
 | --- | --- |
@@ -51,7 +53,7 @@ First-time VM setup: clone the repository, run `bash deploy/vm/install-services.
 
 **Ingest (port 8080):** posts from the app land as `events-*.jsonl` and `diagnostics-*.jsonl` under `/opt/coaching/data/`. No database: append-only files.
 
-GitHub-hosted runners may not reach a campus-only address. If deploy steps time out, run the same `scp` and `git pull` from a machine on the university network, or ask the TA about runner reachability.
+GitHub-hosted runners may not reach a campus-only address. If SSH deploy steps time out, rely on the VM timer (`coaching-update.timer`) or run `bash deploy/vm/update-from-github.sh` from a machine on the university network.
 
 ## Manual deploy
 

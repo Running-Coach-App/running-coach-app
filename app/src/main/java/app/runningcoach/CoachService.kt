@@ -12,6 +12,8 @@ import android.content.pm.ServiceInfo
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
+import android.media.AudioDeviceInfo
+import android.media.AudioManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -181,6 +183,7 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
             getSystemService(LocationManager::class.java).removeUpdates(this)
         }
         recognizer?.destroy()
+        releaseCapture()
         mediaSession?.release()
         tts?.shutdown()
         super.onDestroy()
@@ -205,6 +208,7 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
         spokenVisible = ""
         speak(engine.start(kind))
         listenForLocation()
+        routeCapture()
         listenForSpeech()
         handler.post(tick)
         refreshPlaybackState()
@@ -215,7 +219,7 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
             return
         }
         handler.removeCallbacks(tick)
-        recognizer?.stopListening()
+        recognizer?.cancel()
         listening = false
         getSystemService(LocationManager::class.java).removeUpdates(this)
         val summary = engine.summaryPhrase()
@@ -270,18 +274,25 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
         if (line == null) {
             revealGeneration++
             speaking = false
-            // Only the microphone being on makes this listening. Without the
-            // check the screen says Listening after every spoken line, including
-            // in a session whose recogniser was never armed, which is the one
-            // thing a runner who just turned the microphone off must not see.
+            // The recogniser was cancelled before this line started. Arm it
+            // again only when the microphone is on, so the screen's Listening
+            // state is the recogniser actually running.
             if (engine.running && history.micEnabled) {
-                listening = true
+                listenForSpeech()
+            } else {
+                listening = false
+            }
+            if (!engine.running) {
+                releaseCapture()
             }
             publishSessionState()
             return
         }
         speaking = true
         listening = false
+        // Cancel rather than stop: stop would deliver whatever the speaker just
+        // said, which is how the coach answers its own stats line.
+        recognizer?.cancel()
         startReveal(line)
         tts?.speak(line, TextToSpeech.QUEUE_ADD, null, line)
     }
@@ -323,7 +334,44 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
         manager.requestLocationUpdates(provider, TICK_MILLIS, 0f, this, Looper.getMainLooper())
     }
 
+    /**
+     * Sends capture to a connected headset microphone when there is one, and
+     * to the phone's own microphone when there is not.
+     */
+    private fun routeCapture() {
+        val manager = getSystemService(AudioManager::class.java)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            val devices = manager.availableCommunicationDevices
+            val allowed = if (ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED) {
+                devices
+            } else {
+                devices.filter { it.type != AudioDeviceInfo.TYPE_BLUETOOTH_SCO && it.type != AudioDeviceInfo.TYPE_BLE_HEADSET }
+            }
+            val want = HeadsetMic.preferredType(allowed.map { it.type }) ?: return
+            val chosen = allowed.firstOrNull { it.type == want } ?: return
+            manager.setCommunicationDevice(chosen)
+            return
+        }
+        manager.mode = AudioManager.MODE_IN_COMMUNICATION
+        if (manager.isBluetoothScoAvailableOffCall) {
+            manager.startBluetoothSco()
+        }
+    }
+
+    private fun releaseCapture() {
+        val manager = getSystemService(AudioManager::class.java)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            manager.clearCommunicationDevice()
+            return
+        }
+        manager.stopBluetoothSco()
+        manager.mode = AudioManager.MODE_NORMAL
+    }
+
     private fun listenForSpeech() {
+        if (speaking) {
+            return
+        }
         if (!history.micEnabled) {
             return
         }
@@ -387,19 +435,22 @@ class CoachService : Service(), TextToSpeech.OnInitListener, LocationListener {
 
     private val listener = object : RecognitionListener {
         override fun onResults(results: Bundle?) {
+            if (speaking) {
+                return
+            }
             val said = results
                 ?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
                 ?.firstOrNull()
             if (said != null) {
                 ask(said)
             }
-            if (engine.running) {
+            if (engine.running && !speaking) {
                 listenForSpeech()
             }
         }
 
         override fun onError(error: Int) {
-            if (engine.running) {
+            if (engine.running && !speaking) {
                 handler.postDelayed({ listenForSpeech() }, TICK_MILLIS)
             }
         }
