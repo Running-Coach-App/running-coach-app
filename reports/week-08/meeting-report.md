@@ -2,15 +2,17 @@
 
 `SPRINT-08`'s Sprint Review.
 
-- **Date:** _to complete — the meeting has not been held._
-- **Present:** _to complete._
-- **Recording:** _to complete: the permission answers from [the script](meeting-script.md#part-1-permission-questions-2-minutes)._
+- **Date:** not held. It was due on 2026-11-21.
+- **Present:** nobody; there was no meeting.
+- **Recording:** none. The permission questions in [the script](meeting-script.md#part-1-permission-questions-2-minutes) were never asked.
 
-> **This file is written ahead of the meeting.** The sections that record what the `Customer` said are marked and empty. `## Previous action points` is filled in, because those outcomes are already known from the sprint's own work and do not depend on the meeting.
+> **The Sprint Review did not take place.** On the morning of 2026-11-21 the `Customer` wrote in the team's chat that he could not meet that day, and asked for updates to be sent to him in writing. The team agreed. This file records that, and nothing he did not say: every section that would have carried his answers says so instead. `## Previous action points` is filled in, because those outcomes come from the sprint's own work and never depended on the meeting.
 
 ## Summary
 
-_To complete after the meeting._
+**No Sprint Review was held.** The `Customer` cancelled on the morning of the meeting and asked for a written update instead. That update goes to him in the team's chat; it carries the script's content in short form and asks six of its questions, listed under [`## Open questions`](#open-questions). His replies will be recorded in the Week 9 report, because this week's record closes before they can arrive.
+
+As a result, no decision was taken with him this sprint, no question carried from Week 7 was answered, and none of the action points below was confirmed with him.
 
 The review's subject is the usability results and the fixes the sprint landed. The two things the team brings that go against it are [#248](https://github.com/Running-Coach-App/running-coach-app/issues/248), the published build not being the build the documentation described, and [#253](https://github.com/Running-Coach-App/running-coach-app/issues/253), the privacy control that stopped the app opening. Both are in [the script](meeting-script.md#part-3-the-two-findings-that-go-against-us-6-minutes) to be said before he finds them.
 
@@ -22,50 +24,58 @@ The six actions in [the Week 7 report](../week-07/meeting-report.md#action-point
 | --- | --- | --- | --- |
 | Retest on the build that carries the three interface changes, and send the run report as JSON | `Customer` | 2026-11-21 | **Outstanding at the time of writing.** No run report has arrived. It is the only evidence that would settle the first half of [#223](https://github.com/Running-Coach-App/running-coach-app/issues/223) — whether the engine scheduled one stats line or three — because `stats_spoken` is recorded when a line is generated rather than when it is heard. To be confirmed with him at the review |
 | Establish why the pocket session failed on a Pixel 8, and fix it or record it as a constraint | sirjaey | 2026-11-21 | **Partly done; [#219](https://github.com/Running-Coach-App/running-coach-app/issues/219) stays open.** Not reproduced on his phone, because the team has no Pixel 8. One half is explained and reproduced on another device: the volume keys cannot start or stop a session from a locked screen, because the only handler is in the activity and needs the app on screen, which is [#220](https://github.com/Running-Coach-App/running-coach-app/issues/220). The pocket failure as a whole is not yet explained |
-| Establish whether the recogniser uses the phone or the headset microphone, and route it to the headset | Ezekiel-Gadzama | 2026-11-21 | **Not done.** [#220](https://github.com/Running-Coach-App/running-coach-app/issues/220) is open and carries no routing work. One related fact was established this week: the service declares no media-button intent filter, so its media-button branch is unreachable |
+| Establish whether the recogniser uses the phone or the headset microphone, and route it to the headset | Ezekiel-Gadzama | 2026-11-21 | **Done, on the due date.** [#220](https://github.com/Running-Coach-App/running-coach-app/issues/220) is closed by [#274](https://github.com/Running-Coach-App/running-coach-app/pull/274), which sends capture to a connected headset's microphone and falls back to the phone's own. Its test plan records a headset check on Android 12 or newer; the team has not repeated it on another phone. One related fact was established earlier in the sprint: the service declares no media-button intent filter, so its media-button branch is unreachable |
 | Widen the question rules per `DEC-034`, with no on-device model | Ezekiel-Gadzama | 2026-11-21 | **Done.** [#221](https://github.com/Running-Coach-App/running-coach-app/issues/221) is closed by [#241](https://github.com/Running-Coach-App/running-coach-app/pull/241). The phrasings were generated by an agent at authoring time and ship as a word list and a rule; no model runs in the product. Verified aloud on a phone through a locked screen: "what is my pace" and "what is my stats" were both transcribed and answered |
 | Sample the location fix against a step detector per `DEC-035`, and measure the battery before and after | sirjaey | 2026-11-21 | **Not done.** [#222](https://github.com/Running-Coach-App/running-coach-app/issues/222) is open and unstarted. It needs a phone, a run, and a before-and-after battery measurement with the cable out, which this sprint did not arrange |
-| Send the `UT-01` pre-test and post-test questionnaires to the `Customer` to fill in, as one respondent among several | ObeTech1 | 2026-11-19 | **Overdue; to confirm at the review.** The questionnaires themselves have existed since 2026-11-13, in [`surveys.md`](../../docs/usability-tests/ut-01/surveys.md) — the evening before he asked for them. Whether they reached him has not been confirmed, and no response has been recorded. [#255](https://github.com/Running-Coach-App/running-coach-app/issues/255) now owns running the sessions and collecting the answers |
+| Send the `UT-01` pre-test and post-test questionnaires to the `Customer` to fill in, as one respondent among several | ObeTech1 | 2026-11-19 | **Not done.** The questionnaires have existed since 2026-11-13, in [`surveys.md`](../../docs/usability-tests/ut-01/surveys.md) — the evening before he asked for them — but they were not sent to him. The written update of 2026-11-21 sends him the link and offers to go through them with him in a session, rather than asking for answers in the chat. [#255](https://github.com/Running-Coach-App/running-coach-app/issues/255) now owns running the sessions and collecting the answers |
 
 ## Previous open questions
 
 The six rows in [the Week 7 report's open questions](../week-07/meeting-report.md#open-questions), each put to the `Customer` at this review or closed with a reason.
 
-_To complete after the meeting._ The questions are carried into [the script](meeting-script.md#part-6-open-questions-carried-from-week-7-4-minutes) as questions 13 to 18. Two have moved since Week 7 and the answers will say so:
+**None was put to him: the meeting did not take place.** All six stay open and carry to Week 9. The questions were carried into [the script](meeting-script.md#part-6-open-questions-carried-from-week-7-4-minutes) as questions 13 to 18. Two have moved since Week 7 and the answers will say so:
 
 - **Whether the product should save the recognised text.** The team built a temporary local-only build this week that did exactly that, used it to settle one question, and deleted it. The question is now whether such a thing should ever ship, rather than whether it is possible.
 - **Whether usage and crash records reach the campus collector.** Partly answered by evidence rather than by discussion: the published build has no collector address compiled into it, so it uploads nothing, which is recorded on [#248](https://github.com/Running-Coach-App/running-coach-app/issues/248).
 
 ## Feedback
 
-_To complete after the meeting._
+None. The `Customer` did not see the build or the findings this sprint.
 
 ## Decisions
 
-_To complete after the meeting._ Each decision gets a `DEC-nnn` entry in [`docs/decisions.md`](../../docs/decisions.md), is listed here, and is cited from whatever it changes. Decisions are never reworded once written; a reversal is a new `DEC-nnn`.
+**None.** No `DEC-nnn` was added this sprint from a meeting with the `Customer`. Any decision that comes from his written replies is recorded in [`docs/decisions.md`](../../docs/decisions.md) when it arrives and reported in Week 9.
 
-The script puts four questions that are likely to produce one: whether to publish a signed release build rather than a debug build (question 7), whether the `Customer`'s own usability session is counted (question 10), whether the recogniser should listen only while the runner is moving (question 15), and whether a wearable stays on the table for the pitch (question 17).
+The script had four questions likely to produce one: whether to publish a signed release build rather than a debug build (question 7), whether the `Customer`'s own usability session is counted (question 10), whether the recogniser should listen only while the runner is moving (question 15), and whether a wearable stays on the table for the pitch (question 17).
 
 ## Disagreements
 
-_To complete after the meeting._
+None recorded; there was no meeting to disagree in.
 
 ## Action points
 
-_To complete after the meeting._ At least two actions fall after Week 8, and at least one is due in Week 9.
+These are the team's own actions. None was agreed with the `Customer`, because there was no meeting.
 
 | Action | Owner | Due |
 | --- | --- | --- |
-| _to complete_ | | |
+| Send the `Customer` the written Sprint 8 update in the team's chat, with the link to the `UT-01` questionnaires and the six questions below | sirjaey | 2026-11-21 |
+| Record his replies, add a `DEC-nnn` for each decision they contain, and report both in Week 9 | sirjaey | 2026-11-28 |
 
 ## Open questions
 
-_To complete after the meeting._
+Put to him in writing on 2026-11-21. None had been answered when this report was written.
 
 | Question | What it would change | Follow-up |
 | --- | --- | --- |
-| _to complete_ | | |
+| Is a signed release build, with no internet permission, the build he wants to install from now on? | [#273](https://github.com/Running-Coach-App/running-coach-app/pull/273) already builds one on every `v*` tag; his answer is the `DEC-nnn` that [#248](https://github.com/Running-Coach-App/running-coach-app/issues/248) AC-03 asks for | Week 9 |
+| Is his own `UT-01` session counted with the bias recorded, or run as a practice round? | Whether `UT-01` can count a session before the pitch; [#255](https://github.com/Running-Coach-App/running-coach-app/issues/255) | Week 9 |
+| Does he know anyone outside the course who runs and could give the team forty minutes? | Whether `UT-01` reaches its three sessions at all | Week 9 |
+| When can his `UT-01` session be held? | Whether any session runs before the pitch; [#255](https://github.com/Running-Coach-App/running-coach-app/issues/255) | Week 9 |
+| Did he retest and export the run report, and will he send the JSON? | The first half of [#223](https://github.com/Running-Coach-App/running-coach-app/issues/223) cannot be settled without it | Week 9 |
+| Is three minutes still the right default stats interval? | The default in the Profile screen | Week 9 |
+
+The six questions carried from Week 7 (script questions 13 to 18) are still open as well; see [`## Previous open questions`](#previous-open-questions).
 
 ## Transcript
 
-_To complete._ [`meeting-transcript.md`](meeting-transcript.md) carries the transcript when the `Customer` allows it to be published. If he refuses, that file says so in one line and the transcript goes to the Moodle wrapper instead; if the meeting is not recorded at all, that file says why.
+None. There was no meeting to record; [`meeting-transcript.md`](meeting-transcript.md) says so.
