@@ -170,6 +170,8 @@ The table covers the core task end to end: a session starts, the coach speaks st
 
 Every event above is recorded today except `spoken_line_dropped`, which needs the per-line outcome [`FR-014`](functional-requirements/fr/FR-014.md) specifies. Until [issue #175](https://github.com/Running-Coach-App/running-coach-app/issues/175) lands, [the spoken line delivery rate](#spoken-line-delivery-rate) has no value. The table says so rather than implying the event exists.
 
+`question_asked` rows already in the team's event files are not a count of questions a runner asked. Until the recogniser was cancelled for the length of a spoken line, the coach could transcribe its own voice. Do not read those files, or any `UT-01` export taken against that build, as runner behaviour. [#250](https://github.com/Running-Coach-App/running-coach-app/issues/250) holds the measurement.
+
 ## The Pipeline
 
 The `coach app` container records every event itself. [`DEC-028`](decisions.md#dec-028) keeps run history on the device. With usage data on ([`DEC-030`](decisions.md#dec-030)), new lines may POST to a campus collector when the build sets `collector.url` ([`DEC-031`](decisions.md#dec-031)).
