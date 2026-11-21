@@ -262,10 +262,11 @@ class SessionEngine(
         }
 
         fun displayPace(elapsedMillis: Long, distanceMeters: Double?): String {
-            if (!DistanceFilter.paceIsPlausible(elapsedMillis, distanceMeters)) {
+            val distance = distanceMeters
+            if (distance == null || !DistanceFilter.paceIsPlausible(elapsedMillis, distance)) {
                 return "—"
             }
-            val secondsPerKm = (elapsedMillis / 1000.0) / (distanceMeters / 1000.0)
+            val secondsPerKm = (elapsedMillis / 1000.0) / (distance / 1000.0)
             val whole = secondsPerKm.toLong()
             val minutes = whole / 60
             val seconds = whole % 60
@@ -346,10 +347,11 @@ class SessionEngine(
          * #251 found a stationary phone speaking 1:38 per kilometre (ADR-007).
          */
         fun speakPace(elapsedMillis: Long, distanceMeters: Double?): String {
-            if (!DistanceFilter.paceIsPlausible(elapsedMillis, distanceMeters)) {
+            val distance = distanceMeters
+            if (distance == null || !DistanceFilter.paceIsPlausible(elapsedMillis, distance)) {
                 return "Pace is not available yet."
             }
-            val secondsPerKm = (elapsedMillis / 1000.0) / (distanceMeters / 1000.0)
+            val secondsPerKm = (elapsedMillis / 1000.0) / (distance / 1000.0)
             val whole = secondsPerKm.toLong()
             val minutes = whole / 60
             val seconds = whole % 60
