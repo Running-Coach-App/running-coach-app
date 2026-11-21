@@ -40,6 +40,9 @@
     <string name="profile_data_body">The app keeps a record of what the coach did on a run: when a session started, when it spoke, when the GPS fix dropped. It records nothing you said and nothing that names you. Turn it off and the app writes no record at all.</string>
     <string name="data_on">Usage data on</string>
     <string name="data_off">Usage data off</string>
+    <string name="profile_export">Export records</string>
+    <string name="profile_export_body">Share the on-device record of what the coach did on a run. It carries no name and nothing you said.</string>
+    <string name="profile_export_empty">No records to export yet.</string>
     <string name="usability_code_title">Usability session</string>
     <string name="usability_code_instructions">Enter the participant code from the session plan before handing over the phone. This code is added to the local session records.</string>
     <string name="usability_code_hint">Participant code, for example P-01</string>
