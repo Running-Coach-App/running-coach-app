@@ -116,6 +116,8 @@ WHERE source = 'app'
 
 **Definition:** The share of session time with a location fix. The numerator is session seconds not inside a lost-fix interval; the denominator is total session seconds. A lost-fix interval runs from a `location_fix_lost` event to the next `location_fix_regained` event in the same session, or to that session's stop.
 
+Every interval is measured inside the session that reports it, so `lost_s` can never exceed that session's `duration_s` and this share stays between 0 and 100. An interval still open when the session stops carries no `lost_s`, because no fix returned to report one: its length is the session's stop less the `location_fix_lost` timestamp, and the query below counts only closed intervals.
+
 This is what [`QR-04`](quality-requirements/qr/QR-04.md) promises the product survives, and the number that says how often it has to.
 
 **Source:** [`location_fix_lost`](#the-events), [`location_fix_regained`](#the-events), [`session_started`](#the-events), and [`session_stopped`](#the-events).
@@ -158,11 +160,13 @@ No event carries a name, an email address, a phone number, an address, free text
 | `question_asked` | The recogniser returns a result for a spoken question | `session_id`, `occurred_at`, `source`, `topic` (enum `time`, `pace`, `distance`, `all`, `off_topic`, required), `participant_code` (string, optional, usability-test traffic only) | `coach app`, on the runner's phone |
 | `question_answered` | The coach finishes speaking an answer to a question | `session_id`, `occurred_at`, `source`, `topic` (enum, required), `answered` (boolean, required), `participant_code` (string, optional, usability-test traffic only) | `coach app`, on the runner's phone |
 | `location_fix_lost` | The product stops receiving a location fix during a session | `session_id`, `occurred_at`, `source`, `participant_code` (string, optional, usability-test traffic only) | `coach app`, on the runner's phone |
-| `location_fix_regained` | A location fix returns after being lost | `session_id`, `occurred_at`, `source`, `lost_s` (integer, required), `participant_code` (string, optional, usability-test traffic only) | `coach app`, on the runner's phone |
+| `location_fix_regained` | A location fix returns after being lost | `session_id`, `occurred_at`, `source`, `lost_s` (integer, required, seconds without a fix inside this session), `participant_code` (string, optional, usability-test traffic only) | `coach app`, on the runner's phone |
 | `session_stopped` | The session ends, from the screen, a headset control, or the product stopping itself | `session_id`, `occurred_at`, `source`, `duration_s` (integer, required), `distance_m` (integer, required), `reason` (enum `runner` or `system`, required), `participant_code` (string, optional, usability-test traffic only) | `coach app`, on the runner's phone |
 | `session_summary_spoken` | The coach finishes speaking the after-run summary | `session_id`, `occurred_at`, `source`, `had_distance` (boolean, required), `participant_code` (string, optional, usability-test traffic only) | `coach app`, on the runner's phone |
 
 The table covers the core task end to end: a session starts, the coach speaks stats and effort cues, a question is asked and answered, a lost fix is survived, the session stops, and the summary is spoken.
+
+`session_stopped.reason` is `runner` when the runner ended the session, from the screen, a headset control or by asking, and `system` when the product ended a session the runner did not stop — the coach service being destroyed under a running session. A session the phone kills outright produces neither: the process stops before any event can be written, which is the case [the session completion rate](#session-completion-rate) counts as a session with no stop.
 
 Every event above is recorded today except `spoken_line_dropped`, which needs the per-line outcome [`FR-014`](functional-requirements/fr/FR-014.md) specifies. Until [issue #175](https://github.com/Running-Coach-App/running-coach-app/issues/175) lands, [the spoken line delivery rate](#spoken-line-delivery-rate) has no value. The table says so rather than implying the event exists.
 
@@ -173,5 +177,16 @@ The `coach app` container records every event itself. [`DEC-028`](decisions.md#d
 Events are appended to a JSON Lines file in the app's private storage, one object per line, in the order they happened. A runner exports that file when they choose to, which is the file export [`DEC-028`](decisions.md#dec-028) asked for. The team reads an exported file by loading it as the `events` table the queries above are written against.
 
 Retention is the last 90 days or the last 500 sessions, whichever is reached first, which covers the longest window any metric on this page defines. Older lines are dropped from the front of the file.
+
+### Reading a file recorded before 2026-11-20
+
+**Every event file the team collected before 2026-11-20 carries two faults, and no metric on this page should be computed from one without saying so.** [Issue #252](https://github.com/Running-Coach-App/running-coach-app/issues/252) found both by reading a file pulled off a team phone on 19 November, and this is the change that fixed them.
+
+- **`lost_s` was measured across sessions, not inside one.** A session's fix tracking inherited the last fix the service had ever seen, so every session after the first in a live service recorded a `location_fix_lost` within milliseconds of starting and then an impossible `lost_s`. On that phone a 28-second session reported 120 seconds without a fix and an 81-second session reported 185, and `fix_available_pct` over its five sessions came out at **−32.6%**. A share below zero is the metric saying it has been fed impossible input.
+- **`reason` was always `runner`.** The field was a literal, so a session the product ended is indistinguishable from one the runner ended, and the `system` value this page documents could not be produced at all.
+
+Treat the lost-fix intervals in those files as unusable rather than as evidence of poor coverage, and treat every `reason` in them as unknown. A session with no `session_stopped` at all — the file above has one — is a session the phone killed, and it is counted that way by [the session completion rate](#session-completion-rate) rather than read as a stop.
+
+The distance in those same files is inflated for a separate reason, which [issue #251](https://github.com/Running-Coach-App/running-coach-app/issues/251) carries: no fix was filtered for accuracy, so a stationary phone accumulated 516 m.
 
 Because there is no backend, there is no environment scope, no client credential, and no dashboard. The `Collected at` column names the build the events come from instead. The week's report declares that deviation and the course confirmation behind it.
