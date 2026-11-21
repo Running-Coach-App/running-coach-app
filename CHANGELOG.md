@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Tagged releases attach a signed release APK from `.github/workflows/release.yml` when the four release signing secrets are set ([#137](https://github.com/Running-Coach-App/running-coach-app/issues/137)).
 - A separate usability-test build that tags local session records with a facilitator-entered participant code, so research sessions can be exported and filtered without identifying runners in the regular app.
 
 ### Fixed
