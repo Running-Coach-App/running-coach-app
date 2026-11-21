@@ -68,6 +68,21 @@ Use when campus secrets are not set, or CI cannot reach the VM.
 
 The `Customer` installs from `$PRODUCTION_URL` on the university network. He does not receive an APK over Telegram, per [`DEC-021`](decisions.md#dec-021).
 
+## Release signing
+
+The production APK is the signed release build attached to a `v*` tag. `.github/workflows/release.yml` reads four repository secrets, writes the keystore to the runner, and runs `gradle :app:assembleRelease`.
+
+| Secret | Purpose |
+| --- | --- |
+| `RELEASE_KEYSTORE_BASE64` | The keystore file, base64-encoded |
+| `RELEASE_STORE_PASSWORD` | Keystore password |
+| `RELEASE_KEY_ALIAS` | Key alias |
+| `RELEASE_KEY_PASSWORD` | Key password |
+
+`app/build.gradle.kts` reads the same values as `RELEASE_STORE_FILE`, `RELEASE_STORE_PASSWORD`, `RELEASE_KEY_ALIAS`, and `RELEASE_KEY_PASSWORD`. None of them is written into the repository. A checkout that does not have them still configures, and `assembleDebug` still succeeds.
+
+The original keystore is held by Ezekiel-Gadzama, off the university VM and off this repository. If it is lost, generate a new keystore, replace the four secrets, and tell installers that an upgrade from an earlier signed build will need the previous app uninstalled first: Android will not replace an app signed with a different key.
+
 ## Verification
 
 After each production deploy, and after staging before promoting, install the APK from that environment's URL onto a phone or emulator on the university network, then run the core task:
