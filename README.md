@@ -54,7 +54,7 @@ Being plain about this is quicker than letting you find out:
 
 ### What the build on the releases page is
 
-From `v0.6.0` on, it is a **signed release** build, `app-release.apk`, attached to each tagged
+From `v0.6.1` on, it is a **signed release** build, `app-release.apk`, attached to each tagged
 release by `.github/workflows/release.yml`:
 
 - **It holds no `INTERNET` permission.** Only the debug source set adds one, and a release build

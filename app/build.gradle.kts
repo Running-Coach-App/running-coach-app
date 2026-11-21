@@ -33,8 +33,8 @@ android {
         applicationId = "app.runningcoach"
         minSdk = 26
         targetSdk = 35
-        versionCode = 6
-        versionName = "0.6.0"
+        versionCode = 7
+        versionName = "0.6.1"
         buildConfigField("String", "COLLECTOR_URL", "\"$collectorUrl\"")
         buildConfigField("String", "DOWNLOAD_URL", "\"$downloadUrl\"")
         buildConfigField("boolean", "USABILITY_BUILD", "false")
