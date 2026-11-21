@@ -118,6 +118,7 @@ The campus deployment: the scripts under `deploy/`, the workflow that runs them,
 - **Connections:**
   - **Deploys** the artifact `CFG-08` builds, on every push to `main` when the secrets are set.
   - **Serves** the collector that the debug build's upload targets, which [`DEC-031`](decisions.md#dec-031) permits.
+  - **Publishes** the debug APK it builds, with the campus collector address compiled in, to the `main-debug` GitHub release. That release is created and kept as a pre-release so that `releases/latest` never resolves to it; on 2026-11-21 it was briefly the latest release, which [#248](https://github.com/Running-Coach-App/running-coach-app/issues/248) records. The address it carries is a private campus one, but it is inside a public artifact, which falls short of what good looks like below.
   - **Failed** on 2026-11-19 on commit `d45aaeb` while `android.yml` passed on the same commit, which is recorded at [#260](https://github.com/Running-Coach-App/running-coach-app/issues/260).
 - **What good looks like:** The deployment runs from the commit that passed its checks rather than from a hand-edited machine, the runbook in [`docs/deployment.md`](deployment.md) matches what the scripts do, and no address or credential appears in a public file. The course rule is [Configuration Management Requirements](https://github.com/inno-itpd/itpd/blob/main/requirements/configuration-management-requirements.md).
 

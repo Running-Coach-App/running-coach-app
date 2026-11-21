@@ -51,7 +51,7 @@ jobs:
           if gh release view main-debug >/dev/null 2>&1; then
             gh release upload main-debug app-debug.apk --clobber
           else
-            gh release create main-debug app-debug.apk --title "Debug APK from main" --notes "Debug APK built from main. The VM download page pulls this file."
+            gh release create main-debug app-debug.apk --prerelease --title "Debug APK from main" --notes "Debug APK built from main. The VM download page pulls this file."
           fi
 
       - name: Upload APK and refresh VM
