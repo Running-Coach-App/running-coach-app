@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Campus VM pull: each `main` build publishes a debug APK to the `main-debug` release, and a ten-minute timer on the VM runs `deploy/vm/update-from-github.sh` to fetch `main` and that APK when GitHub Actions cannot SSH into the campus network.
 - A separate usability-test build that tags local session records with a facilitator-entered participant code, so research sessions can be exported and filtered without identifying runners in the regular app.
 
 ### Fixed
