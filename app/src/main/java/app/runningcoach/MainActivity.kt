@@ -21,12 +21,15 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import java.io.File
 import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
@@ -174,6 +177,7 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.voiceSlower).setOnClickListener { setSpeechRate(0.8f) }
         findViewById<Button>(R.id.voiceNormal).setOnClickListener { setSpeechRate(1.0f) }
         findViewById<Button>(R.id.voiceFaster).setOnClickListener { setSpeechRate(1.2f) }
+        findViewById<Button>(R.id.exportRecords).setOnClickListener { exportRecords() }
 
         onBackPressedDispatcher.addCallback(
             this,
@@ -467,6 +471,20 @@ class MainActivity : AppCompatActivity() {
     private fun send(action: String) {
         val intent = Intent(this, CoachService::class.java).setAction(action)
         ContextCompat.startForegroundService(this, intent)
+    }
+
+    private fun exportRecords() {
+        val share = File(cacheDir, FileTelemetrySink.EVENTS_FILE)
+        if (!FileTelemetrySink(filesDir).copyEventsTo(share)) {
+            Toast.makeText(this, R.string.profile_export_empty, Toast.LENGTH_SHORT).show()
+            return
+        }
+        val uri = FileProvider.getUriForFile(this, "$packageName.files", share)
+        val send = Intent(Intent.ACTION_SEND)
+        send.type = "application/jsonl"
+        send.putExtra(Intent.EXTRA_STREAM, uri)
+        send.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        startActivity(Intent.createChooser(send, getString(R.string.profile_export)))
     }
 
     private fun promptForParticipantCode() {

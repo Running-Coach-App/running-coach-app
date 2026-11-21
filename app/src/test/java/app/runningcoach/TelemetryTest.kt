@@ -62,6 +62,38 @@ class TelemetryTest {
     }
 
     @Test
+    fun aLostLocationFixLeavesARecordOfTheLossAndWhatTheCoachDidNext() {
+        val directory = temporaryFolder.newFolder("lost-fix")
+        val sink = FileTelemetrySink(directory)
+        sink.event(Events.LOCATION_FIX_LOST, 1_800, "session-1", Source.APP, emptyMap())
+        sink.event(
+            Events.STATS_SPOKEN,
+            1_900,
+            "session-1",
+            Source.APP,
+            mapOf("elapsed_s" to 180, "stats_present" to 2),
+        )
+        val records = java.io.File(directory, FileTelemetrySink.EVENTS_FILE).readLines()
+        assertEquals(Events.LOCATION_FIX_LOST, Regex("\"event\":\"([^\"]+)\"").find(records[0])?.groupValues?.get(1))
+        assertEquals(Events.STATS_SPOKEN, Regex("\"event\":\"([^\"]+)\"").find(records[1])?.groupValues?.get(1))
+        records.forEach { record ->
+            assertTrue(record.contains("\"session_id\":\"session-1\""))
+            assertTrue(record.contains("\"occurred_at\""))
+        }
+    }
+
+    @Test
+    fun theOnDeviceFileCanBeCopiedForExport() {
+        val directory = temporaryFolder.newFolder("export-source")
+        val sink = FileTelemetrySink(directory)
+        sink.event(Events.SESSION_STARTED, 1_000, "session-1", Source.APP, mapOf("kind" to "steady"))
+        val share = temporaryFolder.newFile("events-share.jsonl")
+        assertTrue(sink.copyEventsTo(share))
+        assertTrue(share.readText().contains("session_started"))
+        assertFalse(FileTelemetrySink(temporaryFolder.newFolder("empty")).copyEventsTo(share))
+    }
+
+    @Test
     fun aWholeCoreTaskCanBeReadFromTheLocalExportWithoutPersonalData() {
         val directory = temporaryFolder.newFolder("complete-session-export")
         var tick = 0L
