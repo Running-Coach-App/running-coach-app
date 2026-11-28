@@ -138,12 +138,22 @@ Each test's result, and the sprint of its last check, is in the [Quality Require
 
 ### SPRINT-09
 
-The product the team pitches is the build the `Customer` has retested, and the pitch is grounded in the Week 7 customer feedback and the `UT-01` findings.
+The `Customer` sees a runner start, question, and stop a coached session without taking the phone out, on the build deployed to the university VM, and the team knows what he needs to receive at the handoff.
 
-- Due: 2026-11-28
-- Backlog focus: finish any Week 7 customer-feedback work carried from `SPRINT-08`, verify the `Customer`'s retest findings, and use the usability results to choose and support the final product claims. Do not present a repair as complete without the corresponding check or customer evidence.
+- **Due:** 2026-11-29
+- **Sprint Backlog:** [the issues scheduled into SPRINT-09](https://github.com/Running-Coach-App/running-coach-app/milestone/7)
+- **Planned Velocity:** 13, from the `Story Points` of the two stories scheduled into this sprint: [US-01](https://github.com/Running-Coach-App/running-coach-app/issues/37) 5 and [US-04](https://github.com/Running-Coach-App/running-coach-app/issues/40) 8. They are the stories the three acceptance tests exercise: `UAT-01` and `UAT-03` check `US-01`'s hands-off session, and `UAT-02` checks `US-04`'s spoken answer.
+- Backlog order: the acceptance tests and the review first ([#286](https://github.com/Running-Coach-App/running-coach-app/issues/286), [#287](https://github.com/Running-Coach-App/running-coach-app/issues/287), [#288](https://github.com/Running-Coach-App/running-coach-app/issues/288)), because everything the sprint reports depends on them; then the `UT-01` sessions with participants other than the `Customer` ([#255](https://github.com/Running-Coach-App/running-coach-app/issues/255)), which he asked for in writing on 2026-11-28 instead of taking part himself; then the release and the report. The `SPRINT-08` carry-overs stay in the sprint, with [#251](https://github.com/Running-Coach-App/running-coach-app/issues/251)'s stationary-distance criterion and [#219](https://github.com/Running-Coach-App/running-coach-app/issues/219)'s Pixel 8 pocket failure as the two that bear on `UAT-01`.
 
 #### REL-09
+
+### SPRINT-10
+
+Provisional goal: The `Customer` takes over the released product on a tagged build, with the three acceptance tests checked on the deployed release and every open limitation written down.
+
+- **Due:** 2026-12-06
+
+#### REL-10
 
 ## Progress Monitoring
 
