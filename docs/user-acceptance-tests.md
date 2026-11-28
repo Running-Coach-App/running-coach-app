@@ -4,11 +4,11 @@ Each test checks one journey a runner completes end to end on the build deployed
 
 ## The Tests
 
-| Test              | Journey                                                  | Status | SPRINT-09   | SPRINT-10   |
-| ----------------- | -------------------------------------------------------- | ------ | ----------- | ----------- |
-| [UAT-01](#uat-01) | Run a coached session with the phone locked in a pocket  | Active | No result: [the review did not take place](../reports/week-09/README.md#deviations) | Not yet run |
-| [UAT-02](#uat-02) | Ask the coach for time, pace, and distance mid-run       | Active | No result: [the review did not take place](../reports/week-09/README.md#deviations) | Not yet run |
-| [UAT-03](#uat-03) | Turn off usage data and confirm a run is not recorded    | Active | No result: [the review did not take place](../reports/week-09/README.md#deviations) | Not yet run |
+| Test | Journey | Status | SPRINT-09 | SPRINT-10 |
+| --- | --- | --- | --- | --- |
+| [UAT-01](#uat-01) | Run a coached session with the phone locked in a pocket | Active | No result: [the review did not take place](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-09/README.md#deviations) | Not yet run |
+| [UAT-02](#uat-02) | Ask the coach for time, pace, and distance mid-run | Active | No result: [the review did not take place](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-09/README.md#deviations) | Not yet run |
+| [UAT-03](#uat-03) | Turn off usage data and confirm a run is not recorded | Active | No result: [the review did not take place](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-09/README.md#deviations) | Not yet run |
 
 ## UAT-01
 
