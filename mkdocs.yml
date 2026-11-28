@@ -36,6 +36,7 @@ nav:
       - UT-01 recruitment: usability-tests/ut-01/recruitment.md
       - UT-01 sessions: usability-tests/ut-01/sessions/README.md
       - UT-01 results: usability-tests/ut-01/results.md
+  - User acceptance tests: user-acceptance-tests.md
   - Features: features.md
   - Analytics: analytics.md
   - Observability: observability.md
