@@ -4,13 +4,13 @@
 
 ## Metadata
 
-- **Date:**
-- **Duration:**
-- **Present:**
-- **Presented:**
-- **Recording:**
-- **Transcript publication:**
-- **Quoting by role:**
+- **Date:** not held. The review was planned for 2026-11-28; the `Customer` cancelled it that morning because he was travelling, and could not join a call on 2026-11-29.
+- **Duration:** none.
+- **Present:** nobody; there was no meeting.
+- **Presented:** nothing. [The script](meeting-script.md) was written for the review and is unchanged.
+- **Recording:** none.
+- **Transcript publication:** not asked; there was no meeting.
+- **Quoting by role:** not asked, so the `Customer`'s written messages are paraphrased here, not quoted.
 
 ## Previous action points
 
@@ -42,15 +42,13 @@
 
 ## Summary
 
+- The Sprint 9 review did not take place: the `Customer` was travelling on 2026-11-28 and 2026-11-29, so no acceptance test was run with him.
+- In writing on 2026-11-28 he declined to be a usability participant, because he proposed the features and is biased. He asked the team to test the app with other users and to show him that report, which he will use to decide the project's direction.
+- He said he would reinstall the app and use it himself, and send an honest opinion as a user.
+
 ## User acceptance tests
 
-- **Build tested:**
-
-| Test | Runner | Result | Decision |
-| --- | --- | --- | --- |
-| [UAT-01](../../docs/user-acceptance-tests.md#uat-01) | | | |
-| [UAT-02](../../docs/user-acceptance-tests.md#uat-02) | | | |
-| [UAT-03](../../docs/user-acceptance-tests.md#uat-03) | | | |
+None. The review did not take place, so no test was run and no build was tested ([the missing-review record](README.md#deviations)).
 
 ## Decisions
 
