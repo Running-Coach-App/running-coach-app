@@ -24,8 +24,9 @@ By the end of Week 5 a person who is not on the team follows the setup page from
 
 By the end of Week 9 a spoken question about the current run's time, pace, or distance is answered on the phone, with no round trip to a server.
 
-- **Status:** Open
+- **Status:** Achieved
 - **Measure:** one session on a physical Android phone, cited from the Week 9 report, whose answer was produced on the device, by 2026-11-27.
+- **Outcome:** Achieved on 2026-11-19, before the deadline. In a session on a Xiaomi `2409BRN2CA`, six questions were asked aloud through a locked screen and all six were answered on the phone: `pace` twice, `time`, `distance`, and two off-topic questions correctly refused. The build declared no network permission in its main manifest ([the Week 8 report](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-08/README.md#threshold-review)). Evaluated by the team at the `SPRINT-09` close, because the Sprint 9 review did not take place; the [Week 9 report](https://github.com/Running-Coach-App/running-coach-app/blob/main/reports/week-09/README.md#threshold-review) cites it.
 
 ## Failure And Success Statements
 

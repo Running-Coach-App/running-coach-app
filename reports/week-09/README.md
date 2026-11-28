@@ -29,7 +29,7 @@ No check has failed, and none has been dropped. The two `Not verified` rows have
 
 | Goal | Observed result or evidence | Status after the review |
 | --- | --- | --- |
-| [TOS-03](../../docs/threshold-of-success.md#tos-03) | | |
+| [TOS-03](../../docs/threshold-of-success.md#tos-03) | A session on 2026-11-19 on a Xiaomi `2409BRN2CA` answered six spoken questions on the phone, with no network permission in the build ([Week 8 report](../week-08/README.md#threshold-review)) | `Achieved`, evaluated by the team at the sprint close because the review did not take place |
 
 ## Handoff preparation
 
@@ -52,5 +52,7 @@ No check has failed, and none has been dropped. The two `Not verified` rows have
 ## Repository evidence
 
 ## Deviations
+
+1. **The Sprint 9 review did not take place.** The `Customer` cancelled the meeting planned for 2026-11-28 because he was travelling, and could not join a call on 2026-11-29, the sprint's deadline. No other date fell inside the review window. So no acceptance test was run with him: [`UAT-01` to `UAT-03`](../../docs/user-acceptance-tests.md#the-tests) have no `SPRINT-09` result, no `DEC-nnn` records a run, and [`REL-09`](../../docs/project-plan.md#rel-09) lists no checked UAT. The handoff expectations he would have given at the review are asked for in writing instead. The Week 10 report links this record when it declares the slip.
 
 ## Privacy
